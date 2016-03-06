@@ -4,11 +4,14 @@ import java.util.List;
 
 import quickstart.model.Person;
 import quickstart.service.PersonService;
+import quickstart.service.ProjectDataService;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.Preparable;
 
 public class PersonAction implements Preparable {
+    private ProjectDataService projectDataService;
+    
     private PersonService service;
     private List<Person> persons;
     private Person person;
