@@ -63,6 +63,8 @@ Ext.define('dm.view.DMItemView', {
 					var record = operation.getRecords()[0],
 						name = Ext.String.capitalize(operation.action),
 						verb;
+
+					
                     
 					if (name == 'Destroy') {
 						record = operation.records[0];

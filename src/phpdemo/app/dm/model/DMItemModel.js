@@ -14,6 +14,8 @@ Ext.define('dm.model.DMItemModel', {
         {name: 'type', type: 'string'}
     ],
 
+	// 更改当前的 id 属性
+	idProperty: 'item_id',
 	
     validations: [
         {type: 'inclusion', field: 'type',   list: ['字符串', '数值', '序列', '日期'] }

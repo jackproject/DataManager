@@ -24,9 +24,17 @@
 
 <script type="text/javascript">
 
+Ext.Loader.setPath('Ext.ux', 'ux');
+
 Ext.require([
-	'dm.view.DMRecordView',
-	'Ext.container.Container'
+	'dm.view.DMItemView',
+	'Ext.container.Container',
+    'Ext.selection.CellModel',
+    'Ext.grid.*',
+    'Ext.data.*',
+    'Ext.util.*',
+    'Ext.state.*',
+    'Ext.form.*'
 ]);
 
 var pageContainer = null;
@@ -35,53 +43,17 @@ Ext.onReady(function () {
 
 	pageContainer = Ext.create('Ext.container.Container', {
 		id: 'htContainer',
-		width: 1000,
+		width: 800,
 		height: 300,
 		renderTo: 'grid'
 	});
 
 
-	Ext.Ajax.request({
-		url: 'app.php/items',
-		method: 'GET',
-		params: {
-		},
-		success: function(response){
-			var text = response.responseText;
-
-			console.log(text);
-
-			var obj = eval('(' + text + ')');
-
-			var data = obj.data;
-
-			var itemInfo = [];
-			for (var i = 0; i < data.length; i++) {
-				var obj = {};
-
-				obj['name'] = data[i]['name'];
-				obj['item_id'] = data[i]['item_id'];
-				obj['type'] = data[i]['type'];
-
-				itemInfo.push(obj);
-			}
-
-			pageContainer.add({
-				xtype: 'dmRecordView',
-				itemInfo: itemInfo,
-				width: 1000,
-				height: 500
-			});
-
-
-			// console.log(obj.successo);
-
-			
-
-			// process server response here
-		},
+	pageContainer.add({
+		xtype: 'dmItemView',
+		width: 800,
+		height: 300
 	});
-
 
 });
 
@@ -91,10 +63,9 @@ Ext.onReady(function () {
 <body>
 
 	<br>
-    <a href="ItemManager.html"> 字段管理 </a>
+    <a href="ItemManager.html"> 记录查询 </a>
 	<br>
 	<br>
-
 
     <div id="grid"></div>
 </body>

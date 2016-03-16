@@ -1,11 +1,92 @@
 
 
 * nextstep
+** DONE 手动 load 数据列头信息
+   CLOCK: [2016-03-15 周二 20:33]--[2016-03-15 周二 20:51] =>  0:18
+   CLOCK: [2016-03-14 周一 21:03]--[2016-03-14 周一 21:31] =>  0:28
+** DONE 更新每一条记录的 record_id 与 item_id 可以唯一约一条记录
+   SCHEDULED: <2016-03-16 周三>
+   CLOCK: [2016-03-16 周三 19:21]--[2016-03-16 周三 19:26] =>  0:05
+** DONE 实现数据记录的 增、删、改
+   CLOCK: [2016-03-15 周二 21:49]--[2016-03-15 周二 22:18] =>  0:29
+   CLOCK: [2016-03-15 周二 20:51]--[2016-03-15 周二 21:17] =>  0:26
+
+
+   php 设置变量的类型：
+
+        settype($remark, 'string');
+
+** DONE 实现处理表格数据php
+   SCHEDULED: <2016-03-14 周一>
+   CLOCK: [2016-03-15 周二 19:24]--[2016-03-15 周二 19:56] =>  0:32
+   CLOCK: [2016-03-14 周一 22:01]--[2016-03-14 周一 22:05] =>  0:04
+   CLOCK: [2016-03-14 周一 21:43]--[2016-03-14 周一 21:53] =>  0:10
+
+
+
+
+
+
+1. 先获取 record_id
+
+2. 再依据 record_id 从 t_data 中获取 item_id -> content 列表
+
+
+select * 
+from t_record r 
+inner join t_data d
+on d.record_id = r.record_id
+inner join t_item i
+on i.item_id = d.item_id;
+
+
+
+|      66 | 字段1    |    0 |
+|      68 | 字段2    |    2 |
+
+
+insert into t_record(remark) values('备注1');
+
+
++-----------+--------+
+| record_id | remark |
++-----------+--------+
+|         1 | 备注1  |
++-----------+--------+
+
+
+
+insert into t_data(item_id, record_id, content) values(66, 1, '字段1内容');
+insert into t_data(item_id, record_id, content) values(68, 1, '字段2内容');
+
+
+
+
+select * from t_record r inner join t_data don d.record_id = r.record_id inner join t_item i on i.item_id = d.item_id
+
+** DONE 解决新增字段，可能有两条记录的问题
+   SCHEDULED: <2016-03-16 周三>
+   CLOCK: [2016-03-16 周三 19:27]--[2016-03-16 周三 19:31] =>  0:04
+
+因为更新失败导致的两条记录错误
+
+** 处理数据记录模型中的 type 字段
+   SCHEDULED: <2016-03-16 周三>
+
+
+** DONE 检查 start_insert 0,0 会修改第一条数据，导致发送两次请求？
+   CLOCK: [2016-03-14 周一 20:51]--[2016-03-14 周一 21:02] =>  0:11
+检查 id 设置
+
+** 字段名唯一问题
+1. 设置数据库字段唯一？
+2. 设定 数据记录 唯一
+
 ** 整理使用手册
 1. 截图等
-** 检查 start_insert 0,0 会修改第一条数据，导致发送两次请求？
-** 实现excel数据页面
 ** 优化界面
+1. 发布 ExtJS release 版本
+
 * code & tech
 ** datamanage php code
 

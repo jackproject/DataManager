@@ -139,6 +139,7 @@ class ItemDao extends BaseDao {
         $arr = explode($separator, $text);
 
         $len = count($arr);
+
         for ($i = 0; $i < $len; $i++) {
 
             if (empty($arr[$i])) {
@@ -147,6 +148,13 @@ class ItemDao extends BaseDao {
 
             $values_arr[$i] = [$item_id, trim($arr[$i])];
         }
+
+        // 只有一条数据不必要执行插入
+        $len = count($values_arr);
+        if ($len == 0) {
+            return 1;
+        }
+
 
         // insert into t_othername(item_id, name) values(56, '项目编号');
         $sql = "insert into t_othername(item_id, name) values(?,?)";
@@ -177,6 +185,12 @@ class ItemDao extends BaseDao {
             }
 
             $values_arr[$i] = [$item_id, trim($arr[$i])];
+        }
+
+        // 只有一条数据不必要执行插入
+        $len = count($values_arr);
+        if ($len == 0) {
+            return 1;
         }
 
         // insert into t_validate(item_id, validate_item) values(56, '验证项1');

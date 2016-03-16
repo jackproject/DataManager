@@ -16,6 +16,8 @@
     require(dirname(__FILE__).'/database/BaseDao.php');
     require(dirname(__FILE__).'/database/ItemDao.php');
     require(dirname(__FILE__).'/database/ItemService.php');
+    require(dirname(__FILE__).'/database/RecordDao.php');
+    require(dirname(__FILE__).'/database/RecordService.php');
 
     // Fake a database connection using _SESSION
     $dbh = new SessionDB();
