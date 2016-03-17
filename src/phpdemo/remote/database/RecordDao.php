@@ -113,10 +113,34 @@ class RecordDao extends BaseDao {
             $i++;
         }
 
-        $sql = "update t_data set content=? where record_id=? and item_id=?";
+        /* $sql = "update t_data set content=? where record_id=? and item_id=?"; */
 
-        $status = $this->execSql($sql, $data_arr);
+        /* $status = $this->execSql($sql, $data_arr); */
 
+        $len = $i;
+
+        for ($i = 0; $i < $len; $i++) {
+            $record_id = $data_arr[$i][1];
+            $item_id = $data_arr[$i][2];
+
+
+            $param = [];
+            $param[0] = $data_arr[$i];
+
+
+            if ($this->isDataExist($record_id, $item_id)) {
+
+                $sql = "update t_data set content=? where record_id=? and item_id=?";
+
+                $status = $this->execSql($sql, $param);
+
+            } else {
+
+                $sql = "insert into t_data(content, record_id, item_id) values(?,?,?)";
+
+                $status = $this->execSql($sql, $param);
+            }
+        }
 
         if (!$status) {
             return 0;
@@ -125,7 +149,17 @@ class RecordDao extends BaseDao {
         return $status;
     }
 
+    //查找满足记录的内容
+    public function isDataExist($record_id, $item_id){
 
+        $sql = "SELECT data_id FROM t_data where record_id=? and item_id=? ";
+
+        $params = [$record_id, $item_id];
+
+        $records = $this->select($sql, $params);
+
+        return count($records);
+    }
 
 
     //删除记录

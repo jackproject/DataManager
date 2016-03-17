@@ -1,6 +1,13 @@
 
 
 * nextstep
+** DONE 解决双击数据发生改变的问题
+   SCHEDULED: <2016-03-17 周四>
+   CLOCK: [2016-03-17 周四 20:08]--[2016-03-17 周四 20:14] =>  0:06
+   CLOCK: [2016-03-17 周四 19:31]--[2016-03-17 周四 19:58] =>  0:27
+
+datagrid 的列号不能为纯数字
+
 ** DONE 手动 load 数据列头信息
    CLOCK: [2016-03-15 周二 20:33]--[2016-03-15 周二 20:51] =>  0:18
    CLOCK: [2016-03-14 周一 21:03]--[2016-03-14 周一 21:31] =>  0:28
@@ -72,8 +79,6 @@ select * from t_record r inner join t_data don d.record_id = r.record_id inner j
 
 ** 处理数据记录模型中的 type 字段
    SCHEDULED: <2016-03-16 周三>
-
-
 ** DONE 检查 start_insert 0,0 会修改第一条数据，导致发送两次请求？
    CLOCK: [2016-03-14 周一 20:51]--[2016-03-14 周一 21:02] =>  0:11
 检查 id 设置
@@ -84,8 +89,20 @@ select * from t_record r inner join t_data don d.record_id = r.record_id inner j
 
 ** 整理使用手册
 1. 截图等
+
 ** 优化界面
+   CLOCK: [2016-03-17 周四 20:14]--[2016-03-17 周四 20:53] =>  0:39
+   CLOCK: [2016-03-16 周三 21:38]--[2016-03-16 周三 22:41] =>  1:03
 1. 发布 ExtJS release 版本
+2. 改成修改那些改成中文版的提示
+
+
+
+ycompressor
+
+
+java -jar "D:\Program Files (x86)\SenchaSDKTools-2.0.0-beta3\compat\jsbuilder\ycompressor\ycompressor.jar" --type js --charset UTF-8 all-classes.js -o app-all.js
+
 
 * code & tech
 ** datamanage php code
@@ -140,6 +157,8 @@ extension=php_mysqli.dll
 
 
 
+
+(+ 760 710)
 
 * sql 
 create database datamanager character set utf8 COLLATE utf8_chinese_ci;
