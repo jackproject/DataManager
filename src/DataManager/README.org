@@ -1,0 +1,216 @@
+
+
+* nextstep
+** 实现 springMVC 返回 json 功能
+** 修改成 java 项目
+   CLOCK: [2016-03-19 周六 21:36]--[2016-03-19 周六 22:03] =>  0:27
+   CLOCK: [2016-03-19 周六 20:42]--[2016-03-19 周六 21:12] =>  0:30
+   CLOCK: [2016-03-19 周六 17:58]--[2016-03-19 周六 18:25] =>  0:27
+   CLOCK: [2016-03-19 周六 17:02]--[2016-03-19 周六 17:54] =>  0:52
+   CLOCK: [2016-03-19 周六 16:18]--[2016-03-19 周六 16:45] =>  0:27
+
+
+
+实体名，
+
+@Entity(name="t_item")
+public class Item
+
+
+
+
+
+        String hsql = "from t_item";
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery(hsql);
+** 字段的排序功能
+** 修改 MyEclipse 的注释风格
+** 处理数据记录模型中的 type 字段
+   SCHEDULED: <2016-03-16 周三>
+** 字段名唯一问题
+   CLOCK: [2016-03-19 周六 10:40]--[2016-03-19 周六 11:17] =>  0:37
+1. 设置数据库字段唯一？
+2. 设定 数据记录 唯一
+
+** 整理使用手册
+1. 截图等
+
+** 优化界面
+   CLOCK: [2016-03-17 周四 20:14]--[2016-03-17 周四 20:53] =>  0:39
+   CLOCK: [2016-03-16 周三 21:38]--[2016-03-16 周三 22:41] =>  1:03
+1. 发布 ExtJS release 版本
+2. 改成修改那些改成中文版的提示
+
+
+
+ycompressor
+
+
+java -jar "D:\Program Files (x86)\SenchaSDKTools-2.0.0-beta3\compat\jsbuilder\ycompressor\ycompressor.jar" --type js --charset UTF-8 all-classes.js -o app-all.js
+
+* code & tech
+** datamanage php code
+
+
+执行 sql 传入参数格式：
+
+        $values_arr = array();
+
+        $values_arr[0] = ["item test", 1];
+
+
+---------
+
+        $arrlength = count($rec);
+
+        for ($x = 0; $x < $arrlength; $x++) {
+            $t = $rec[$x];
+            $len = count($t);
+
+            for ($i = 0; $i < $len; $i++) {
+                echo $t[$i] . ", ";
+            }
+
+            echo "<br>";
+        }
+
+---------
+
+select max(item_id) as maxid from t_item
+
+
+---------
+
+** mysql
+
+alter database datamanager character set utf8;
+
+alter database datamanager character set utf8 COLLATE utf8_chinese_ci;;
+
+
+create database datamanager character set utf8 COLLATE utf8_chinese_ci;
+
+---------
+不能执行这条语句： $this->conn = new mysqli(self::host, self::user, self::password, self::db, self::port);
+
+【解决办法】
+
+设置 php.ini 中的  mysqli.dll 这一项
+
+extension=php_mysqli.dll
+
+
+
+
+(+ 760 710)
+
+* sql 
+
+drop database datamanager;
+
+create database datamanager character set utf8 COLLATE utf8_general_ci;
+
+use datamanager
+
+/*==============================================================*/
+/* DBMS name:      MySQL 5.0                                    */
+/* Created on:     2016-3-13-星期日 9:18:32                        */
+/*==============================================================*/
+
+
+drop table if exists t_data;
+
+drop table if exists t_item;
+
+drop table if exists t_othername;
+
+drop table if exists t_record;
+
+drop table if exists t_validate;
+
+/*==============================================================*/
+/* Table: t_data                                                */
+/*==============================================================*/
+create table t_data
+(
+   data_id              Integer not null auto_increment,
+   item_id              Integer,
+   record_id            Integer,
+   content              varchar(1024),
+   primary key (data_id)
+);
+
+/*==============================================================*/
+/* Table: t_item                                                */
+/*==============================================================*/
+create table t_item
+(
+   item_id              Integer not null auto_increment,
+   name                 varchar(255),
+   type                 Integer,
+   primary key (item_id)
+);
+
+/*==============================================================*/
+/* Table: t_othername                                           */
+/*==============================================================*/
+create table t_othername
+(
+   othername_id         Integer not null auto_increment,
+   item_id              Integer,
+   name                 varchar(255),
+   primary key (othername_id)
+);
+
+/*==============================================================*/
+/* Table: t_record                                              */
+/*==============================================================*/
+create table t_record
+(
+   record_id            Integer not null auto_increment,
+   remark               varchar(1024),
+   primary key (record_id)
+);
+
+/*==============================================================*/
+/* Table: t_validate                                            */
+/*==============================================================*/
+create table t_validate
+(
+   validate_id          Integer not null auto_increment,
+   item_id              Integer,
+   validate_item        varchar(255),
+   primary key (validate_id)
+);
+
+alter table t_data add constraint FK_Reference_2 foreign key (item_id)
+      references t_item (item_id) on delete restrict on update restrict;
+
+alter table t_data add constraint FK_Reference_3 foreign key (record_id)
+      references t_record (record_id) on delete restrict on update restrict;
+
+alter table t_othername add constraint FK_Reference_1 foreign key (item_id)
+      references t_item (item_id) on delete restrict on update restrict;
+
+alter table t_validate add constraint FK_Reference_4 foreign key (item_id)
+      references t_item (item_id) on delete restrict on update restrict;
+
+
+
+alter table t_item constraint UQ_Item_Name UNIQUE(,stuAddress)
+
+
+
+---------
+
+
+insert into t_item(name, type, order_num) values('字段1', 1, 1);
+insert into t_item(name, type, order_num) values('字段2', 1, 1);
+
+
+select * from t_item;
+
+insert into t_data(data_id, item_id, content) values(1, 1, '内容1');
+insert into t_data(data_id, item_id, content) values(1, 2, '内容1');
+
+select * from t_data;
