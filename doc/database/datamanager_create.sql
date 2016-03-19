@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2016-3-13-ÐÇÆÚÈÕ 9:18:32                        */
+/* Created on:     2016-3-19-ÐÇÆÚÁù 16:05:29                       */
 /*==============================================================*/
 
 
@@ -10,8 +10,6 @@ drop table if exists t_item;
 
 drop table if exists t_othername;
 
-drop table if exists t_record;
-
 drop table if exists t_validate;
 
 /*==============================================================*/
@@ -19,11 +17,10 @@ drop table if exists t_validate;
 /*==============================================================*/
 create table t_data
 (
-   data_id              Integer not null auto_increment,
-   item_id              Integer,
-   record_id            Integer,
+   data_id              Integer not null,
+   item_id              Integer not null,
    content              varchar(1024),
-   primary key (data_id)
+   primary key (data_id, item_id)
 );
 
 /*==============================================================*/
@@ -34,7 +31,9 @@ create table t_item
    item_id              Integer not null auto_increment,
    name                 varchar(255),
    type                 Integer,
-   primary key (item_id)
+   order_num            Integer,
+   primary key (item_id),
+   key AK_UQ_ItemName (name)
 );
 
 /*==============================================================*/
@@ -46,16 +45,6 @@ create table t_othername
    item_id              Integer,
    name                 varchar(255),
    primary key (othername_id)
-);
-
-/*==============================================================*/
-/* Table: t_record                                              */
-/*==============================================================*/
-create table t_record
-(
-   record_id            Integer not null auto_increment,
-   remark               varchar(1024),
-   primary key (record_id)
 );
 
 /*==============================================================*/
@@ -71,9 +60,6 @@ create table t_validate
 
 alter table t_data add constraint FK_Reference_2 foreign key (item_id)
       references t_item (item_id) on delete restrict on update restrict;
-
-alter table t_data add constraint FK_Reference_3 foreign key (record_id)
-      references t_record (record_id) on delete restrict on update restrict;
 
 alter table t_othername add constraint FK_Reference_1 foreign key (item_id)
       references t_item (item_id) on delete restrict on update restrict;
