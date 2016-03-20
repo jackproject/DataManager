@@ -18,6 +18,7 @@
         
     <!-- 启动自动扫描该包下所有的Bean(例如@Controller) -->
     <context:component-scan base-package="com.soho.controller" />
+    	
     
     <!-- 定义视图解析器 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
