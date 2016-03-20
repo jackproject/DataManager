@@ -7,7 +7,7 @@ public class Item {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name="item_id")
-    private Integer id;
+    private Integer item_id;
     
     @Column(name="name")
     private String name;
@@ -17,14 +17,6 @@ public class Item {
 
     @Column(name="order_num")
     private Integer order_num;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;
@@ -48,6 +40,20 @@ public class Item {
 
 	public void setOrder_num(Integer order_num) {
 		this.order_num = order_num;
+	}
+
+	public Integer getItem_id() {
+		return item_id;
+	}
+
+	public void setItem_id(Integer item_id) {
+		this.item_id = item_id;
+	}
+
+	@Override
+	public String toString() {
+		return "Item [item_id=" + item_id + ", name=" + name + ", type=" + type
+				+ ", order_num=" + order_num + "]";
 	}
 
     

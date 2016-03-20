@@ -1,7 +1,53 @@
 
 
 * nextstep
+** JSON 中文乱码问题
+** 插入、修改在测试用例中失败
+** 添加extjs视图代码
+** 实现单元测试用例
+   CLOCK: [2016-03-20 周日 21:07]--[2016-03-20 周日 21:52] =>  0:45
+
+
+org.hibernate.TransactionException: nested transactions not supported
+
+
+        Transaction transaction = session.getTransaction();
+        transaction.begin();
+        
+        Item item =  (Item) session.save(entity);
+
+        transaction.commit();
+        
+
+
+
 ** 实现 springMVC 返回 json 功能
+   CLOCK: [2016-03-20 周日 18:30]--[2016-03-20 周日 19:08] =>  0:38
+   CLOCK: [2016-03-20 周日 17:11]--[2016-03-20 周日 17:30] =>  0:19
+   CLOCK: [2016-03-20 周日 10:17]--[2016-03-20 周日 10:45] =>  0:28
+   CLOCK: [2016-03-20 周日 09:31]--[2016-03-20 周日 10:01] =>  0:30
+
+
+web.xml
+
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.png</url-pattern>
+		<url-pattern>*.js</url-pattern>
+		<url-pattern>*.css</url-pattern>
+	</servlet-mapping>
+
+
+
+
+2、 consumes，produces；
+
+consumes： 指定处理请求的提交内容类型（Content-Type），例如application/json, text/html;
+
+produces:    指定返回的内容类型，仅当request请求头中的(Accept)类型中包含该指定类型才返回；
+
+** 实现其他数据模型 
+   CLOCK: [2016-03-20 周日 19:39]--[2016-03-20 周日 20:07] =>  0:28
 ** 修改成 java 项目
    CLOCK: [2016-03-19 周六 21:36]--[2016-03-19 周六 22:03] =>  0:27
    CLOCK: [2016-03-19 周六 20:42]--[2016-03-19 周六 21:12] =>  0:30

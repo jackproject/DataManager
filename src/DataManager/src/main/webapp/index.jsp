@@ -1,4 +1,6 @@
-<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -18,6 +20,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+	
+	<link rel="stylesheet" type="text/css" href="resources/extjs/resources/css/ext-all.css">
+	
+<!-- 	<script type="text/javascript" src="resources/extjs/ext-debug.js"></script> -->
+	<script type="text/javascript" src="resources/extjs/ext-all-debug.js"></script>
+	
+	<script type="text/javascript" src="app.js"></script>
+	
+	<script type="text/javascript">
+	Ext.onReady(function () {
+
+		Ext.Ajax.request({
+			url: 'item/list',
+			method: 'POST',
+			params: {
+			},
+			success: function(response){
+				var text = response.responseText;
+				
+				console.log(text);
+	
+				var obj = eval('(' + text + ')');
+	
+				var data = obj.data;
+			}
+		});
+	});
+	
+	
+	</script>
+	
+	
   </head>
   
   <body>
