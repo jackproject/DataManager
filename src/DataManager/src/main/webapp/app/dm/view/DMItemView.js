@@ -59,13 +59,23 @@ Ext.define('dm.view.DMItemView', {
 				}
 			},
 			listeners: {
-				write: function(store, operation){
-					var record = operation.getRecords()[0],
-						name = Ext.String.capitalize(operation.action),
-						verb;
+				// read: function(store, operation){
+				// 	// var record = operation.getRecords()[0];
+				// 	console.log(store);
 
-					
-                    
+				// 	var records = store.data.items;
+
+				// 	for (var i = 0; i < records.length; i++) {
+				// 		records[i].set('other_name', '123');
+				// 	}
+
+				// 	console.log(store);
+				// },
+				write: function(store, operation) {
+					var record = operation.getRecords()[0];
+					var name = Ext.String.capitalize(operation.action);
+					var verb;
+
 					if (name == 'Destroy') {
 						record = operation.records[0];
 						verb = 'Destroyed';
@@ -86,48 +96,6 @@ Ext.define('dm.view.DMItemView', {
 			}
 
 		});
-
-		// me.store.load({
-		// 	scope: this,
-		// 	callback: function(records, operation, success) {
-		// 		// the operation object
-		// 		// contains all of the details of the load operation
-		// 		// console.log(records);
-
-		// 		for (var i in records) {
-					
-		// 			// var type = rec.get('type');
-
-		// 			var type = records[i].get('type')
-
-		// 			// console.log(type);
-		// 			// console.log(records[i]);
-		// 			// console.log(records[i].get('type'));
-
-		// 			var text = '字符串';
-		// 			if (type == 0) {
-		// 				text = '数值';
-		// 			} else if (type == 0) {
-		// 				text = '序列';
-		// 			} else if (type == 0) {
-		// 				text = '日期';
-		// 			}
-
-		// 			records[i].set('type', text);
-		// 		}
-		// 	}
-		// });
-
-		// var states = Ext.create('Ext.data.Store', {
-		// 	fields: ['abbr', 'name'],
-		// 	data : [
-		// 		{"abbr":"AL", "name":"Alabama"},
-		// 		{"abbr":"AK", "name":"Alaska"},
-		// 		{"abbr":"AZ", "name":"Arizona"}
-		// 		//...
-		// 	]
-		// });
-
 
 		me.columns = [{
             id: 'name',
@@ -172,6 +140,13 @@ Ext.define('dm.view.DMItemView', {
                 lazyRender: true,
                 listClass: 'x-combo-list-small'
             })
+        }, {
+            header: '排序值',
+            width: 200,
+            dataIndex: 'order_num',
+            editor: {
+                allowBlank: true
+            }
         }];
 
         me.title = '字段管理';
@@ -187,15 +162,10 @@ Ext.define('dm.view.DMItemView', {
 						type: '字符串'
 					});
 
-					// var r = Ext.create('dm.model.DMItemModel');
-
 					me.store.insert(0, r);
                     rowEditing.startEdit(0, 0);
                 }
 
-                // handler: function(){
-				// 	me.addItem(me);
-                // }
             }, '-', {
                 itemId: 'delete',
                 text: '删除',
@@ -208,30 +178,6 @@ Ext.define('dm.view.DMItemView', {
                 }
             }]
         }];
-
-
-		// me.selModel = {
-        //     selType: 'cellmodel'
-        // };
-		
-        // me.tbar = [{
-        //     text: '添加',
-        //     handler: function() {
-		// 		me.addItem(me);
-		// 	}
-        // }];
-
-		// me.fbar = [{
-        //     text: '刷新',
-        //     handler: function() {
-		// 		me.refreshData(me);
-		// 	}
-        // }, {
-        //     text: '提交',
-        //     handler: function() {
-		// 		me.commitData(me);
-		// 	}
-        // }];
 
         this.callParent(arguments);
     },

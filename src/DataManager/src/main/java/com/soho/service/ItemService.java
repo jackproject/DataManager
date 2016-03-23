@@ -2,6 +2,8 @@ package com.soho.service;
 
 import java.util.List;
 
+import javax.persistence.GenerationType;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -28,12 +30,9 @@ public class ItemService {
     public void update(Object entity){
         Session session = sessionFactory.getCurrentSession();
         
-        Transaction transaction = session.beginTransaction();
-        transaction.begin();
-        
         session.update(entity);
-        
-        transaction.commit();
+
+        session.flush();
     }
 
     public void delete(Object entity){
@@ -47,23 +46,13 @@ public class ItemService {
     public Item insert(Object entity){
         Session session = sessionFactory.getCurrentSession();
 
-
-
-//      Transaction transaction = session.beginTransaction();
-//        Transaction transaction = session.getTransaction();
-//        transaction.begin();
+        session.save(entity);
         
-
-        System.out.println("start save ..");
-        
-        Item item =  (Item) session.save(entity);
-        
-        System.out.println("flush..");
+        // 设置 id 的策略为 strategy=GenerationType.IDENTITY 时
+        // 当插入了数据之后，新的 id 即会出现在 entity 中
+        Item item = (Item) entity;
         
         session.flush();
-
-//        transaction.commit();
-        
         
         return item;
     }

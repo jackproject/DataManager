@@ -2,6 +2,7 @@ package com.soho.controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,18 +38,75 @@ public class ItemController {
 		
 		String response = "";
 		
-		
 		List<Item> listItem = itemService.findAll();
 		
-		System.out.println(listItem);
-		
+		List<ItemParam> listData = new ArrayList();
+		for (int i = 0; i < listItem.size(); i++) {
+			
+			Item item = listItem.get(i);
+			ItemParam itemParam = new ItemParam(item);
+			
+			listData.add(itemParam);
+		}
 
-		response = buildResponse(listItem);
+		response = buildResponse(listData);
 
 		return response;
 	}
 
 
+	@RequestMapping(value = "/item", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String create(@RequestBody ItemParam itemParam) {
+		
+		String response = "";
+
+		Item item = new Item(itemParam);
+		
+		Item newItem = itemService.insert(item);
+		
+		// 返回最新创建的 item id
+		itemParam.setItem_id(newItem.getItem_id());
+		
+		response = buildResponse(itemParam);
+
+		return response;
+	}
+
+
+	@RequestMapping(value = "/item/{itemId}", method = RequestMethod.PUT, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String update(@PathVariable String itemId, @RequestBody ItemParam itemParam) {
+		
+		String response = "";
+
+		Item item = new Item(itemParam);
+		
+		itemService.update(item);
+		
+		response = buildResponse(itemParam);
+		
+		return response;
+	}
+
+
+	@RequestMapping(value = "/item/{itemId}", method = RequestMethod.DELETE, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String destroy(@PathVariable String itemId, @RequestBody ItemParam itemParam) {
+		
+		
+		String response = "";
+		
+		Item item = new Item(itemParam);
+		
+		itemService.delete(item);
+		
+		response = buildResponse(itemParam);
+		
+		return response;
+	}
+
+	
 	private String buildResponse(Object objData) {
 		
 		String response = "";
@@ -56,6 +115,21 @@ public class ItemController {
 		map.put("success", true);
 		map.put("message", "message");
 		map.put("data", objData);
+		
+//		if (objData instanceof List) {
+//			
+//			List data = new ArrayList();
+//			
+//			
+//			 
+//			map.put("data", data);
+//			
+//		} else if (objData instanceof Item) {
+//			
+//			ItemParam data = new ItemParam((Item)objData);
+//			
+//			map.put("data", data);
+//		}
 		
 
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -69,53 +143,6 @@ public class ItemController {
 		return response;
 	}
 
-
-	@RequestMapping(value = "/item", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
-	@ResponseBody
-	public String create(@RequestBody ItemParam itemParam) {
-		
-		String response = "";
-		
-		Item item = new Item();
-		
-		item.setItem_id(itemParam.getItem_id());
-		item.setName(itemParam.getName());
-		item.setType(itemParam.getType());
-		// TODO 排序功能
-		item.setOrder_num(0);
-		
-		Item newItem = itemService.insert(item);
-		
-		response = buildResponse(newItem);
-
-		return response;
-	}
-
-
-	@RequestMapping(value = "/item", method = RequestMethod.PUT, produces = "application/json; charset=utf-8")
-	@ResponseBody
-	public void update(@ModelAttribute("Item") Item item) {
-		
-		String response = "";
-		
-		itemService.update(item);
-		
-		response = buildResponse(null);
-	}
-
-
-	@RequestMapping(value = "/item", method = RequestMethod.DELETE, produces = "application/json; charset=utf-8")
-	@ResponseBody
-	public void destroy(@ModelAttribute("Item") Item item) {
-		
-		String response = "";
-		
-		itemService.delete(item);
-		
-		response = buildResponse(null);
-	}
-    
-	
     @RequestMapping(value="/items",method=RequestMethod.GET)
     public ModelAndView hello2(){
         ModelAndView mv = new ModelAndView();

@@ -1,149 +1,8 @@
 
 
 * nextstep
-** JSON 中文乱码问题
-** 插入、修改在测试用例中失败
-
-
-
-** 添加extjs视图代码
-   CLOCK: [2016-03-21 周一 21:43]--[2016-03-21 周一 22:18] =>  0:35
-   CLOCK: [2016-03-21 周一 20:59]--[2016-03-21 周一 21:35] =>  0:36
-   CLOCK: [2016-03-21 周一 20:31]--[2016-03-21 周一 20:32] =>  0:01
-   CLOCK: [2016-03-21 周一 19:50]--[2016-03-21 周一 20:27] =>  0:37
-   CLOCK: [2016-03-21 周一 19:09]--[2016-03-21 周一 19:42] =>  0:33
-
-
-Connection is read-only. Queries leading to data modification are not allowed  
-
-
-
-            <tx:method name="insert*" propagation="REQUIRED" />
-            <tx:method name="update*" propagation="REQUIRED" />
-            <tx:method name="delete*" propagation="REQUIRED" />
-
-
-
-把contenttype去掉 另外一种方案 param转json对象 用@requestbody接收
-
-
-@RequestBody the request entity is in a format not supported by the requested resource for the requested method ().
-
-The server refused this request because the request entity is in a format not supported by the requested resource for the requested method ().
-
-
-Description	Resource	Path	Location	Type
-The prefix "mvc" for element "mvc:annotation-driven" is not bound.	spring-bean.xml	/DataManager/src/main/resources	line 12	XML Problem
-
-
-
-
-DispatcherServlet 如何匹配 URI 的
-
-
-
-
-@RequestBody
-
-The server refused this request because the request entity is in a format not supported by the requested resource for the requested method ().
-
-
-
-@RequestBody the request entity is in a format not supported by the requested resource
-
-
-
-
-    <!-- 默认的注解映射的支持 -->  
-    <mvc:annotation-driven />  
-
-
----------
-
-
-加上 mvc:annotation-driven The requested resource () is not available.
-
-
-
-<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
-<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" >
-<property name="messageConverters">
-<list>
-<bean class = "org.springframework.http.converter.StringHttpMessageConverter">
-<property name = "supportedMediaTypes">
-<list>
-<value>text/html;charset=UTF-8</value>
-</list>
-</property>
-</bean>
-</list>
-</property>
-</bean>
-
-** 实现单元测试用例
-   CLOCK: [2016-03-20 周日 21:07]--[2016-03-20 周日 21:52] =>  0:45
-
-
-org.hibernate.TransactionException: nested transactions not supported
-
-
-        Transaction transaction = session.getTransaction();
-        transaction.begin();
-        
-        Item item =  (Item) session.save(entity);
-
-        transaction.commit();
-        
-
-
-** 实现 springMVC 返回 json 功能
-   CLOCK: [2016-03-20 周日 18:30]--[2016-03-20 周日 19:08] =>  0:38
-   CLOCK: [2016-03-20 周日 17:11]--[2016-03-20 周日 17:30] =>  0:19
-   CLOCK: [2016-03-20 周日 10:17]--[2016-03-20 周日 10:45] =>  0:28
-   CLOCK: [2016-03-20 周日 09:31]--[2016-03-20 周日 10:01] =>  0:30
-
-
-web.xml
-
-	<servlet-mapping>
-		<servlet-name>default</servlet-name>
-		<url-pattern>*.png</url-pattern>
-		<url-pattern>*.js</url-pattern>
-		<url-pattern>*.css</url-pattern>
-	</servlet-mapping>
-
-
-
-
-2、 consumes，produces；
-
-consumes： 指定处理请求的提交内容类型（Content-Type），例如application/json, text/html;
-
-produces:    指定返回的内容类型，仅当request请求头中的(Accept)类型中包含该指定类型才返回；
-
-** 实现其他数据模型 
-   CLOCK: [2016-03-20 周日 19:39]--[2016-03-20 周日 20:07] =>  0:28
-** 修改成 java 项目
-   CLOCK: [2016-03-19 周六 21:36]--[2016-03-19 周六 22:03] =>  0:27
-   CLOCK: [2016-03-19 周六 20:42]--[2016-03-19 周六 21:12] =>  0:30
-   CLOCK: [2016-03-19 周六 17:58]--[2016-03-19 周六 18:25] =>  0:27
-   CLOCK: [2016-03-19 周六 17:02]--[2016-03-19 周六 17:54] =>  0:52
-   CLOCK: [2016-03-19 周六 16:18]--[2016-03-19 周六 16:45] =>  0:27
-
-
-
-实体名，
-
-@Entity(name="t_item")
-public class Item
-
-
-
-
-
-        String hsql = "from t_item";
-        Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery(hsql);
+** 实现对 别名 等的增删改查
+** 实现数据表
 ** 字段的排序功能
 ** 修改 MyEclipse 的注释风格
 ** 处理数据记录模型中的 type 字段
@@ -324,6 +183,7 @@ alter table t_item constraint UQ_Item_Name UNIQUE(,stuAddress)
 
 ---------
 
+insert into t_item (name, order_num, type) values (?, ?, ?)
 
 insert into t_item(name, type, order_num) values('字段1', 1, 1);
 insert into t_item(name, type, order_num) values('字段2', 1, 1);

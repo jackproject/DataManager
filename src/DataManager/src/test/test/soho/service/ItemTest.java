@@ -25,7 +25,7 @@ public class ItemTest {
     @Resource
     private ItemService itemService;
     
-    @Test
+    //@Test
     public void update() {
 
 		List<Item> listItem = itemService.findAll();    	
@@ -59,7 +59,7 @@ public class ItemTest {
     	findAll();
     }
     
-    //@Test
+    @Test
     public void insert(){
     	
     	Item item = new Item();
@@ -69,11 +69,11 @@ public class ItemTest {
     	item.setOrder_num(1);
     	item.setType(0);
 
-		System.out.println("insert start");
 		
-    	itemService.insert(item);
-    	
+    	Item newItem = itemService.insert(item);
 
+    	System.out.println(newItem.getItem_id());
+    	
 		System.out.println("insert end");
 		
 		findAll();

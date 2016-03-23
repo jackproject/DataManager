@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity(name="t_item")
 public class Item {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="item_id")
     private Integer item_id;
     
@@ -18,6 +18,35 @@ public class Item {
     @Column(name="order_num")
     private Integer order_num;
 
+    public Item() {
+    	
+    }
+
+    public Item(ItemParam itemParam) {
+    	item_id = itemParam.getItem_id();
+    	name = itemParam.getName();
+    	order_num = itemParam.getOrder_num();
+    	type = findTypeValue(itemParam.getType());
+    }
+
+	
+
+	private Integer findTypeValue(String strType) {
+		Integer type = 0;
+
+        if (strType.equals("数值")) {
+            type = 1;
+
+        } else if (strType.equals("序列")) {
+            type = 2;
+
+        } else if (strType.equals("日期")) {
+            type = 3;
+        }
+
+        return type;
+	}
+    
 	public String getName() {
 		return name;
 	}

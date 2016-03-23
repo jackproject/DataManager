@@ -29,5 +29,14 @@
             <value>.jsp</value>
         </property>
     </bean>
-    
+
+    <!-- 完成请求和注解POJO的映射 -->
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+
+    <!-- 默认的注解映射的支持 -->  
+    <mvc:annotation-driven />   
+
+
+<!-- 	<mvc:default-servlet-handler/> -->
+
 </beans>
