@@ -12,9 +12,5 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
  
     <context:component-scan base-package="com.soho.service" />
  
-    <!-- 完成请求和注解POJO的映射 -->
-<!--     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" /> -->
-
-<!-- 	<mvc:default-servlet-handler/> -->
     
 </beans>

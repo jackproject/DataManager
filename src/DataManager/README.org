@@ -1,8 +1,40 @@
 
 
 * nextstep
-** 实现对 别名 等的增删改查
-** 实现数据表
+** DONE 实现对 别名 等的增删改查
+   CLOCK: [2016-03-24 周四 10:02]--[2016-03-24 周四 10:37] =>  0:35
+** DONE 实现别名、验证项的拼接与分割
+   CLOCK: [2016-03-24 周四 11:37]--[2016-03-24 周四 12:03] =>  0:26
+   CLOCK: [2016-03-24 周四 10:49]--[2016-03-24 周四 11:18] =>  0:29
+** 插入和删除数据的批量更新
+** 打包 extjs
+   CLOCK: [2016-03-24 周四 22:04]
+** DONE 弹出更新对话框
+   CLOCK: [2016-03-24 周四 22:02]--[2016-03-24 周四 22:04] =>  0:02
+** DONE 实现数据表
+   CLOCK: [2016-03-24 周四 21:34]--[2016-03-24 周四 21:56] =>  0:22
+   CLOCK: [2016-03-24 周四 20:43]--[2016-03-24 周四 21:07] =>  0:24
+   CLOCK: [2016-03-24 周四 19:17]--[2016-03-24 周四 20:13] =>  0:56
+
+
+联合主键
+
+
+		
+//		if (objData instanceof List) {
+//			
+//			List data = new ArrayList();
+//			
+//			
+//			 
+//			map.put("data", data);
+//			
+//		} else if (objData instanceof Item) {
+//			
+//			ItemParam data = new ItemParam((Item)objData);
+//			
+//			map.put("data", data);
+//		}
 ** 字段的排序功能
 ** 修改 MyEclipse 的注释风格
 ** 处理数据记录模型中的 type 字段
@@ -83,6 +115,16 @@ extension=php_mysqli.dll
 
 
 (+ 760 710)
+
+** extjs
+
+sencha create jsb -a http://localhost:8080/DataManager/temp.jsp -p app.jsb3
+
+sencha build -p app.jsb3 -d .
+
+
+java -jar d:/Program Files (x86)/SenchaSDKTools-2.0.0-beta3/compat/jsbuilder/ycompressor/ycompressor.jar --type js --charset utf-8 -v all-classes.js > app-all.js 
+
 
 * sql 
 
@@ -182,8 +224,15 @@ alter table t_item constraint UQ_Item_Name UNIQUE(,stuAddress)
 
 
 ---------
+** 测试sql
 
-insert into t_item (name, order_num, type) values (?, ?, ?)
+drop database datamanager;
+
+create database datamanager character set utf8 COLLATE utf8_general_ci;
+
+use datamanager
+
+
 
 insert into t_item(name, type, order_num) values('字段1', 1, 1);
 insert into t_item(name, type, order_num) values('字段2', 1, 1);
@@ -191,7 +240,20 @@ insert into t_item(name, type, order_num) values('字段2', 1, 1);
 
 select * from t_item;
 
+delete from t_data;
+
+
 insert into t_data(data_id, item_id, content) values(1, 1, '内容1');
-insert into t_data(data_id, item_id, content) values(1, 2, '内容1');
+insert into t_data(data_id, item_id, content) values(1, 2, '内容2');
 
 select * from t_data;
+
+
+insert into t_othername(item_id, name) values(1, '别名1');
+insert into t_othername(item_id, name) values(1, '别名2');
+
+
+
+insert into t_validate(item_id, validate_item) values(1, '验证1');
+insert into t_validate(item_id, validate_item) values(1, '验证2');
+

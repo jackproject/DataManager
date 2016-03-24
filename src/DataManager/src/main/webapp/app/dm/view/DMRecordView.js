@@ -25,10 +25,6 @@ Ext.define('dm.view.DMRecordView', {
 
 		me.initConfig(config);
 
-		if (me.itemInfo) {
-			me.itemInfo.push({name: '备注', item_id: 'remark', type: 0});
-		}
-
         me.callParent(arguments); 
     },
 
@@ -112,7 +108,7 @@ Ext.define('dm.view.DMRecordView', {
 			autoSync: true,
 			proxy: {
 				type: 'rest',
-				url: 'app.php/records',
+				url: 'record/record',
 				reader: {
 					type: 'json',
 					root: 'data'

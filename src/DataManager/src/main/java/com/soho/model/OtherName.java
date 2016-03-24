@@ -43,5 +43,11 @@ public class OtherName {
 		this.name = name;
 	}
 
+	@Override
+	public String toString() {
+		return "OtherName [othername_id=" + othername_id + ", item_id="
+				+ item_id + ", name=" + name + "]";
+	}
+
 
 }

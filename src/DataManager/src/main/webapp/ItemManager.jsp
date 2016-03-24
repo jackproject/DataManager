@@ -22,26 +22,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet" type="text/css" href="resources/css/style.css" />
 
 
+<!-- 
 <script type="text/javascript" src="resources/extjs/ext-all-debug.js"></script>
-
 <script type="text/javascript" src="app.js"></script>
+ -->
+
+<script type="text/javascript" src="resources/extjs/ext.js"></script>
+<script type="text/javascript" src="app-all.js"></script>
+
 
 <style type="text/css">
 </style>
 
 <script type="text/javascript">
 
-Ext.Loader.setPath('Ext.ux', 'ux');
 
 Ext.require([
 	'dm.view.DMItemView',
-	'Ext.container.Container',
-    'Ext.selection.CellModel',
-    'Ext.grid.*',
-    'Ext.data.*',
-    'Ext.util.*',
-    'Ext.state.*',
-    'Ext.form.*'
+	'Ext.container.Container'
 ]);
 
 var pageContainer = null;
@@ -70,7 +68,7 @@ Ext.onReady(function () {
 <body>
 
 	<br>
-    <a href="index.jsp"> 记录查询 </a>
+    <a href="index.jsp"> 记录查询</a>
 	<br>
 	<br>
 

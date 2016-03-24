@@ -1,5 +1,9 @@
 package com.soho.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 /**
  * @author Administrator
  * 用于接收前端传入的数据
@@ -42,6 +46,93 @@ public class ItemParam {
         }
 
         return strType;
+	}
+
+	// 将 分开的别名列表转换成字符串
+	public void modOtherNameByList(List<OtherName> list) {
+		other_name = "";
+		
+		if (list.size() <= 0) {
+			return ;
+		}
+		
+		String separator = ", ";
+		
+		StringBuilder sb = new StringBuilder();  
+		
+		for (int i = 0; i < list.size(); i++) {
+			
+			OtherName otherName = list.get(i);
+
+		    sb.append(otherName.getName());  
+		    sb.append(separator);  
+		}
+
+		other_name = sb.toString().substring(0,
+				sb.toString().length() - separator.length());  
+	}
+
+	public void modValidateByList(List<ValidateItem> list) {
+		validate = "";
+		
+		if (list.size() <= 0) {
+			return ;
+		}
+		
+		
+		String separator = ", ";
+		
+		StringBuilder sb = new StringBuilder();  
+		
+		for (int i = 0; i < list.size(); i++) {
+			
+			ValidateItem validateItem = list.get(i);
+
+		    sb.append(validateItem.getValidate_item());  
+		    sb.append(separator);  
+		}
+
+		
+		validate = sb.toString().substring(0,
+				sb.toString().length() - separator.length());  
+	}
+
+	// 获取别名列表
+	public List<OtherName> findListOtherName()
+	{
+		List<OtherName> list = new ArrayList();
+
+		String[] arr = other_name.split("[,，]");
+		for (String s : arr) {
+			
+			OtherName item = new OtherName();
+			
+			item.setName(s.trim());
+			item.setItem_id(item_id);
+			
+			list.add(item);
+		}
+		
+		return list;
+	}
+	
+	// 获取验证项列表
+	public List<ValidateItem> findListValidateItem()
+	{
+		List<ValidateItem> list = new ArrayList();
+
+		String[] arr = validate.split("[,，]");
+		for (String s : arr) {
+			
+			ValidateItem item = new ValidateItem();
+			
+			item.setValidate_item(s.trim());
+			item.setItem_id(item_id);
+			
+			list.add(item);
+		}
+		
+		return list;
 	}
 	
 	public Integer getItem_id() {

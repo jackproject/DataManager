@@ -57,43 +57,32 @@ Ext.define('dm.view.DMItemView', {
 				writer: {
 					type: 'json'
 				}
-			},
-			listeners: {
-				// read: function(store, operation){
-				// 	// var record = operation.getRecords()[0];
-				// 	console.log(store);
-
-				// 	var records = store.data.items;
-
-				// 	for (var i = 0; i < records.length; i++) {
-				// 		records[i].set('other_name', '123');
-				// 	}
-
-				// 	console.log(store);
-				// },
-				write: function(store, operation) {
-					var record = operation.getRecords()[0];
-					var name = Ext.String.capitalize(operation.action);
-					var verb;
-
-					if (name == 'Destroy') {
-						record = operation.records[0];
-						verb = 'Destroyed';
-					} else {
-						verb = name + 'd';
-					}
-
-					Ext.example.msg(
-						name,
-						Ext.String.format(
-							"{0} item: {1}",
-							verb,
-							record.get('item_id')
-						)
-					);
-					
-				}
 			}
+            // ,
+			// listeners: {
+			// 	write: function(store, operation) {
+			// 		var record = operation.getRecords()[0];
+			// 		var name = Ext.String.capitalize(operation.action);
+			// 		var verb;
+
+			// 		if (name == 'Destroy') {
+			// 			record = operation.records[0];
+			// 			verb = 'Destroyed';
+			// 		} else {
+			// 			verb = name + 'd';
+			// 		}
+
+			// 		Ext.example.msg(
+			// 			name,
+			// 			Ext.String.format(
+			// 				"{0} item: {1}",
+			// 				verb,
+			// 				record.get('item_id')
+			// 			)
+			// 		);
+					
+			// 	}
+			// }
 
 		});
 
@@ -124,7 +113,7 @@ Ext.define('dm.view.DMItemView', {
             dataIndex: 'type',
             width: 100,
             editor: new Ext.form.field.ComboBox({
-                typeAhead: true,
+                typeAhead: false,
                 triggerAction: 'all',
                 selectOnTab: true,
 				editable: false,

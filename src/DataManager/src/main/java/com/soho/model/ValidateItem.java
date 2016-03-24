@@ -16,7 +16,7 @@ public class ValidateItem {
     @Column(name="item_id")
     private Integer item_id;
 
-    @Column(name="name")
+    @Column(name="validate_item")
     private String validate_item;
 
 	public Integer getValidate_id() {
@@ -41,6 +41,12 @@ public class ValidateItem {
 
 	public void setValidate_item(String validate_item) {
 		this.validate_item = validate_item;
+	}
+
+	@Override
+	public String toString() {
+		return "ValidateItem [validate_id=" + validate_id + ", item_id="
+				+ item_id + ", validate_item=" + validate_item + "]";
 	}
 
 }
