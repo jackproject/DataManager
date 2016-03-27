@@ -7,8 +7,8 @@
    CLOCK: [2016-03-24 周四 11:37]--[2016-03-24 周四 12:03] =>  0:26
    CLOCK: [2016-03-24 周四 10:49]--[2016-03-24 周四 11:18] =>  0:29
 ** 插入和删除数据的批量更新
-** 打包 extjs
-   CLOCK: [2016-03-24 周四 22:04]
+** DONE 打包 extjs
+   CLOCK: [2016-03-24 周四 22:04]--[2016-03-24 周四 22:52] =>  0:48
 ** DONE 弹出更新对话框
    CLOCK: [2016-03-24 周四 22:02]--[2016-03-24 周四 22:04] =>  0:02
 ** DONE 实现数据表
@@ -123,7 +123,12 @@ sencha create jsb -a http://localhost:8080/DataManager/temp.jsp -p app.jsb3
 sencha build -p app.jsb3 -d .
 
 
-java -jar d:/Program Files (x86)/SenchaSDKTools-2.0.0-beta3/compat/jsbuilder/ycompressor/ycompressor.jar --type js --charset utf-8 -v all-classes.js > app-all.js 
+java -jar "d:/Program Files (x86)/SenchaSDKTools-2.0.0-beta3/compat/jsbuilder/ycompressor/ycompressor.jar" --type js --charset utf-8 -v all-classes.js > app-all.js 
+
+
+** maven
+
+maven 编码GBK的不可映射字符
 
 
 * sql 
@@ -233,20 +238,22 @@ create database datamanager character set utf8 COLLATE utf8_general_ci;
 use datamanager
 
 
-
-insert into t_item(name, type, order_num) values('字段1', 1, 1);
-insert into t_item(name, type, order_num) values('字段2', 1, 1);
-
-
 select * from t_item;
 
 delete from t_data;
+
+select * from t_data;
+
+
+insert into t_item(name, type, order_num) values('字段1', 1, 1);
+insert into t_item(name, type, order_num) values('字段2', 1, 1);
+insert into t_item(name, type, order_num) values('备注', 1, 1);
+
 
 
 insert into t_data(data_id, item_id, content) values(1, 1, '内容1');
 insert into t_data(data_id, item_id, content) values(1, 2, '内容2');
 
-select * from t_data;
 
 
 insert into t_othername(item_id, name) values(1, '别名1');

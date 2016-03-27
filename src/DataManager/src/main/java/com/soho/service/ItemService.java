@@ -20,7 +20,8 @@ public class ItemService {
     private SessionFactory sessionFactory;
 
     public List<Item> findAll(){
-        String hsql = "from t_item";
+    	// 按排序字段排序
+        String hsql = "from t_item as t order by t.order_num";
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery(hsql);
         

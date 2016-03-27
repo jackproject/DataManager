@@ -384,9 +384,6 @@ select * from t_record r inner join t_data don d.record_id = r.record_id inner j
   :END:
 检查 id 设置
 
-
-
-
 * DONE 备注改成字段形式
   CLOCK: [2016-03-19 周六 15:52]--[2016-03-19 周六 16:06] =>  0:14
   :PROPERTIES:

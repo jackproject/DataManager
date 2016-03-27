@@ -8,6 +8,7 @@
   <packaging>war</packaging>
   <version>0.0.1-SNAPSHOT</version>
   <name>DataManager</name>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -248,6 +249,25 @@
     
   </dependencies>
   <build>
+	<plugins>
+	  <plugin>
+		<artifactId>maven-compiler-plugin</artifactId>
+		<configuration>
+		  <source>1.7</source>
+		  <target>1.7</target>
+		  <encoding>utf8</encoding>
+		</configuration>
+	  </plugin>
+	  <plugin>
+		<artifactId>maven-surefire-plugin</artifactId>
+		<configuration>
+		  <includes>
+			<include>**/*Tests.java</include>
+		  </includes>
+		</configuration>
+	  </plugin>
+	</plugins>
+
     <finalName>DataManager</finalName>
   </build>
 </project>
