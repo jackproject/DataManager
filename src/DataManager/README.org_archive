@@ -635,6 +635,79 @@ public class Item
         String hsql = "from t_item";
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery(hsql);
+* DONE 实现对 别名 等的增删改查
+  CLOCK: [2016-03-24 周四 10:02]--[2016-03-24 周四 10:37] =>  0:35
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-03-27 周日 21:01
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+* DONE 实现别名、验证项的拼接与分割
+  CLOCK: [2016-03-24 周四 11:37]--[2016-03-24 周四 12:03] =>  0:26
+  CLOCK: [2016-03-24 周四 10:49]--[2016-03-24 周四 11:18] =>  0:29
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-03-27 周日 21:01
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+* DONE 打包 extjs
+  CLOCK: [2016-03-24 周四 22:04]--[2016-03-24 周四 22:52] =>  0:48
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-03-27 周日 21:01
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+* DONE 弹出更新对话框
+  CLOCK: [2016-03-24 周四 22:02]--[2016-03-24 周四 22:04] =>  0:02
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-03-27 周日 21:01
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+* DONE 实现数据表
+   CLOCK: [2016-03-24 周四 21:34]--[2016-03-24 周四 21:56] =>  0:22
+   CLOCK: [2016-03-24 周四 20:43]--[2016-03-24 周四 21:07] =>  0:24
+   CLOCK: [2016-03-24 周四 19:17]--[2016-03-24 周四 20:13] =>  0:56
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-03-27 周日 21:01
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+
+
+联合主键
+
+
+		
+//		if (objData instanceof List) {
+//			
+//			List data = new ArrayList();
+//			
+//			
+//			 
+//			map.put("data", data);
+//			
+//		} else if (objData instanceof Item) {
+//			
+//			ItemParam data = new ItemParam((Item)objData);
+//			
+//			map.put("data", data);
+//		}
+
+
+
+
+
 
 
 
