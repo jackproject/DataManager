@@ -26,6 +26,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script type="text/javascript" src="resources/extjs/ext.js"></script>
 <script type="text/javascript" src="app-all.js"></script>
+<!-- 
+ -->
 
 <style type="text/css">
 </style>

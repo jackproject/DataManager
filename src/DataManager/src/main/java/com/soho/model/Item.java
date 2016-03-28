@@ -18,6 +18,9 @@ public class Item {
     @Column(name="order_num")
     private Integer order_num;
 
+    @Column(name="maxlength")
+    private Integer maxlength;
+
     public Item() {
     	
     }
@@ -27,6 +30,7 @@ public class Item {
     	name = itemParam.getName();
     	order_num = itemParam.getOrder_num();
     	type = findTypeValue(itemParam.getType());
+    	maxlength = itemParam.getMaxlength();
     }
 
 	
@@ -79,10 +83,18 @@ public class Item {
 		this.item_id = item_id;
 	}
 
+	public Integer getMaxlength() {
+		return maxlength;
+	}
+
+	public void setMaxlength(Integer maxlength) {
+		this.maxlength = maxlength;
+	}
+
 	@Override
 	public String toString() {
 		return "Item [item_id=" + item_id + ", name=" + name + ", type=" + type
-				+ ", order_num=" + order_num + "]";
+				+ ", order_num=" + order_num + ", maxlength=" + maxlength + "]";
 	}
 
     

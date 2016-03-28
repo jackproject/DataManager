@@ -22,6 +22,8 @@ public class ItemParam {
     
     private Integer order_num;
 
+    private Integer maxlength;
+    
     public ItemParam() {
     }
     
@@ -29,6 +31,7 @@ public class ItemParam {
     	item_id = item.getItem_id();
     	name = item.getName();
     	order_num = item.getOrder_num();
+    	maxlength = item.getMaxlength();
     	setType(findTypeText(item.getType()));
     }
 
@@ -182,6 +185,14 @@ public class ItemParam {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public Integer getMaxlength() {
+		return maxlength;
+	}
+
+	public void setMaxlength(Integer maxlength) {
+		this.maxlength = maxlength;
 	}
 
     

@@ -131,8 +131,15 @@ Ext.define('dm.view.DMItemView', {
             })
         }, {
             header: '排序值',
-            width: 200,
+            width: 50,
             dataIndex: 'order_num',
+            editor: {
+                allowBlank: true
+            }
+        }, {
+            header: '长度',
+            width: 50,
+            dataIndex: 'maxlength',
             editor: {
                 allowBlank: true
             }
@@ -147,7 +154,8 @@ Ext.define('dm.view.DMItemView', {
                 text: '添加',
                 handler: function(){
 					var r = Ext.create('dm.model.DMItemModel', {
-						name: 'item 1',
+						name: '字段名',
+						maxlength: 100,
 						type: '字符串'
 					});
 

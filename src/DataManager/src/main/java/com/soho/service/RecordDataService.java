@@ -72,6 +72,10 @@ public class RecordDataService {
         
         Integer maxId = (Integer) query.uniqueResult();
         
+        if (maxId == null) {
+        	maxId = 0;
+        }
+        
         Integer newId = maxId + 1;
         
         return newId;
