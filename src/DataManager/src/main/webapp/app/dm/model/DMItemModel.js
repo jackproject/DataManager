@@ -12,7 +12,8 @@ Ext.define('dm.model.DMItemModel', {
         {name: 'other_name', type: 'string'},
         {name: 'validate', type: 'string'},
         {name: 'type', type: 'string'},
-        {name: 'order_num', type: 'int'}
+        {name: 'order_num', type: 'int'},
+        {name: 'maxlength', type: 'int'}
     ],
 
 	// 更改当前的 id 属性

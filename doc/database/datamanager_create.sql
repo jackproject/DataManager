@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2016-3-24-星期四 10:34:20                       */
+/* Created on:     2016-3-28-星期一 22:12:11                       */
 /*==============================================================*/
 
 
@@ -32,6 +32,7 @@ create table t_item
    name                 varchar(255),
    type                 Integer,
    order_num            Integer,
+   maxlength            integer,
    primary key (item_id),
    key AK_UQ_ItemName (name)
 );
