@@ -705,6 +705,72 @@ public class Item
 //		}
 
 
+* DONE 添加字段内容的长度
+   SCHEDULED: <2016-03-29 周二>
+   - State "DONE"       from ""           [2016-03-28 周一 22:31]
+   CLOCK: [2016-03-28 周一 22:09]--[2016-03-28 周一 22:31] =>  0:22
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-04-04 周一 21:39
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+
+
+ Unsupported major.minor version 51.0
+
+不同的JDK版本使用的major.minor不同，所以会导致这个错误。在项目中要使用当前电脑配置的JDK版本，切忌张冠李戴。
+
+
+采用 1.6编译即可
+
+* DONE web界面任务计划
+   - State "DONE"       from ""           [2016-03-27 周日 21:25]
+   CLOCK: [2016-03-27 周日 21:12]--[2016-03-27 周日 21:25] =>  0:13
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-04-04 周一 21:39
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+
+1. 查找及评估web界面框架等 - 5小时
+
+2. 定义数据库用户表 - 2小时
+
+3. 实现用户登录界面 - 2小时
+
+4. 后台解析excel文件 - 5小时
+   定义错误码，更新数据库等
+
+5. 实现录入数据界面 - 3小时
+
+6. 实现数据查询功能 - 3小时
+
+7. 定义筛选数据库表 - 2小时
+
+8. 实现筛选界面 - 5小时
+
+9. 整合字段管理页面 - 3小时
+
+10. 整体测试与调试  - 5小时
+* DONE 发送V1源码
+  - State "DONE"       from "TODO"       [2016-04-05 周二 19:45]
+  - State "TODO"       from ""           [2016-04-04 周一 21:39]
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-04-08 周五 19:10
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+
+
+
+
+
 
 
 
