@@ -1,0 +1,51 @@
+{
+    "message": "message",
+    "data": [
+        {
+            "item_id": 1,
+            "name": "序号",
+            "other_name": "序列号",
+            "type": "字符串",
+            "validate": "验证1",
+            "order_num": -1,
+            "maxlength": 4
+        },
+        {
+            "item_id": 2,
+            "name": "项目编号",
+            "other_name": "别名1",
+            "type": "数值",
+            "validate": "验证1",
+            "order_num": 1,
+            "maxlength": 20
+        },
+        {
+            "item_id": 4,
+            "name": "公司名称",
+            "other_name": "别名3",
+            "type": "字符串",
+            "validate": "",
+            "order_num": 2,
+            "maxlength": 50
+        },
+        {
+            "item_id": 5,
+            "name": "金额",
+            "other_name": "钱",
+            "type": "数值",
+            "validate": "",
+            "order_num": 4,
+            "maxlength": 15
+        },
+        {
+            "item_id": 3,
+            "name": "日期",
+            "other_name": "别名1, 别名2",
+            "type": "日期",
+            "validate": "验证1, 验证2, 验证3, 验证4",
+            "order_num": 5,
+            "maxlength": 15
+        }
+    ],
+    "success": true
+}

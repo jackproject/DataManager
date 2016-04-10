@@ -2,3 +2,4 @@
 /src/DataManager/target
 /src/DataManager/src/main/webapp/resources/extjs
 /src/DataManager/src/main/webapp/all-classes.js
+*.class

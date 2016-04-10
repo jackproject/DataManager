@@ -1,6 +1,17 @@
 
 
 * nextstep
+** 解析excel，以及整合项目
+   SCHEDULED: <2016-04-10 周日>
+   CLOCK: [2016-04-10 周日 22:03]--[2016-04-10 周日 22:34] =>  0:31
+
+
+Description	Resource	Path	Location	Type
+Unbound classpath container: 'JRE System Library [JavaSE-1.7]' in project 'DataManager'	DataManager		Build path	Build Path Problem
+
+sted exception is java.lang.UnsupportedClassVersionError: com/soho/service/ItemService : Unsupported major.minor version 51.0
+
+
 ** 实现与 angularjs 的集成
    CLOCK: [2016-04-08 周五 20:41]--[2016-04-08 周五 21:08] =>  0:27
 ** Item管理页面

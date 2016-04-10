@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN"  ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>数据处理</title>
+
+    <!-- Bootstrap -->
+    <link href="js/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+    <div class="container">
+
+
+	  <h1 class="text-hide">Custom heading</h1>
+
+      <div class="jumbotron">
+      </div>
+
+      <!-- Static navbar -->
+      <nav class="navbar navbar-default" ng-controller="MenuCtrl">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">数据处理</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li ng-class="{active:isActiveMenu('records')}" ><a href="#/records">数据查询</a></li>
+              <li ng-class="{active:isActiveMenu('items')}"><a href="#/items">字段管理</a></li>
+              <li><a href="#">上传数据</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+
+	  <div ng-view></div>
+
+
+
+    </div> <!-- /container -->
+
+
+
+	
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap/dist/js/bootstrap.min.js"></script>
+
+	<script src="js/angular/angular.min.js"></script>
+	<script src="js/angular/angular-route.min.js"></script>
+	<script src="js/angular/angular-resource.min.js"></script>
+
+	<script src="app/controllers.js"></script>
+	<script src="app/services.js"></script>
+	<script src="app/filters.js"></script>
+	<script src="app/app.js"></script>
+
+  </body>
+</html>
+
+

@@ -1,0 +1,113 @@
+
+
+<table class="table table-striped table-hover table-bordered">
+  <thead>
+    <tr>
+	  <th>字段名</th>
+	  <th>类型</th>
+	  <th>排序</th>
+	  <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in itemList" >
+	  <td>{{item.name}}</td>
+	  <td>{{item.type}}</td>
+	  <td>{{item.order_num}}</td>
+	  <td class="center">
+
+		<!-- <button class="btn" ng-click="editItem('new')"> -->
+		<!--   <span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;创建 -->
+		<!-- </button> -->
+
+		<button class="btn" ng-click="editItem(item.item_id)" data-toggle="modal" data-target="#itemModal">
+		  <span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;编辑
+		</button>
+
+		<!-- <button class="btn btn-danger" ng-click="removeItem(item.item_id)"> -->
+		<button class="btn" ng-click="removeItem(item.item_id)">
+		  <span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;删除
+		</button>
+	  </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<button class="btn btn-success" ng-click="editItem('new')" data-toggle="modal" data-target="#itemModal" >
+  <span class="glyphicon glyphicon-plus"></span> 创建新字段
+</button>
+<hr>
+
+
+<!-- Modal -->
+<div class="modal fade" id="itemModal" tabindex="-1" role="dialog" aria-labelledby="itemModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+<h3 ng-show="edit">创建新字段:</h3>
+<h3 ng-hide="edit">编辑字段:</h3>
+
+	  </div>
+      <div class="modal-body">
+
+
+<form class="form-horizontal">
+  <div class="form-group">
+	<label class="col-sm-2 control-label">字段名:</label>
+	<div class="col-sm-10">
+      <input type="text" class="form-control" ng-model="item.name" placeholder="字段名">
+	</div>
+  </div> 
+
+  <div class="form-group">
+	<label class="col-sm-2 control-label">别名:</label>
+	<div class="col-sm-10">
+      <input type="text" class="form-control" ng-model="item.other_name" placeholder="别名">
+	</div>
+  </div>
+
+  <div class="form-group">
+	<label class="col-sm-2 control-label">类型:</label>
+	<div class="col-sm-10">
+
+	  <select class="form-control"  class="form-control">
+		<option>2</option>
+		<option selected>3</option>
+		<option>4</option>
+		<option>5</option>
+	  </select>	  
+      <!-- <input type="text" ng-model="item.type" placeholder="类型"> -->
+	</div>
+  </div>
+
+  <div class="form-group">
+	<label class="col-sm-2 control-label">排序值:</label>
+	<div class="col-sm-10">
+      <input type="text"  class="form-control" ng-model="item.order_num" placeholder="排序值">
+	</div>
+  </div>
+
+</form>
+		
+
+      </div>
+
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+  <span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;取消		  
+</button>
+<button class="btn btn-success" ng-disabled="error || incomplete">
+  <span class="glyphicon glyphicon-save"></span>&nbsp;&nbsp;保存
+</button>
+
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
