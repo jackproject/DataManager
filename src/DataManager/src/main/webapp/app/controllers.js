@@ -127,3 +127,52 @@ appControllers.controller(
 	}]
 );
 
+
+
+appControllers.controller(
+	'UploadCtrl',
+	['$scope', '$http', 'MenuService', function($scope, $http, MenuService) {
+		$http.get('json/item.json').success(function(res) {
+			$scope.itemList = res.data;
+		});
+
+		MenuService.setCurrentMenu("upload");
+
+
+		$scope.edit = true;
+
+		$scope.item = {};
+
+		// $scope.itemName = '';
+		// $scope.itemType = '';
+		// $scope.itemOrder = '';
+
+		$scope.findItem = function(itemId) {
+			var item = {};
+
+			for (var i = 0; i < $scope.itemList.length; i++) {
+				var t = $scope.itemList[i];
+				
+				if (t.item_id == itemId) {
+					item = t;
+					break;
+				}
+			}
+
+			return item;
+
+		};
+
+		$scope.editItem = function(itemId) {
+			if (itemId == 'new') {
+				$scope.edit = true;
+			} else {
+				$scope.edit = false;
+
+				$scope.item = $scope.findItem(itemId);
+			}
+		};
+		
+
+	}]
+);

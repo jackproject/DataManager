@@ -1,0 +1,28 @@
+
+
+<form class="form-inline col-sm-12">
+  <div class="form-group col-sm-12">
+    <label for="exampleInputFile" class="col-sm-2 control-label">Excel文档</label>
+    <input type="file" id="exampleInputFile" class="col-sm-7">
+	<button type="submit" class="btn btn-primary">上传</button>
+  </div>
+</form>
+
+<hr>
+<br>
+<br>
+
+<table class="table table-striped table-hover table-bordered">
+  <thead>
+    <tr>
+	  <th>位置</th>
+	  <th>错误提示</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in itemList" >
+	  <td>{{item.name}}</td>
+	  <td>{{item.type}}</td>
+    </tr>
+  </tbody>
+</table>

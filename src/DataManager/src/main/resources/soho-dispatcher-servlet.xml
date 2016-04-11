@@ -33,9 +33,13 @@
     <!-- 完成请求和注解POJO的映射 -->
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
 
-    <!-- 默认的注解映射的支持 -->  
-    <mvc:annotation-driven />   
-
+    <!-- 默认的注解映射的支持 -->
+	<mvc:annotation-driven />
+	<mvc:resources location="/partials/" mapping="/partials/**" />
+	<mvc:resources location="/resources/" mapping="/resources/**" />
+	<mvc:resources location="/json/" mapping="/json/**" />
+	<mvc:resources location="/js/" mapping="/js/**" />
+	<mvc:resources location="/" mapping="/**.html" />
 
 <!-- 	<mvc:default-servlet-handler/> -->
 
