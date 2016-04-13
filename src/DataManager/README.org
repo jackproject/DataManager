@@ -1,6 +1,19 @@
 
 
 * nextstep
+** CRUD 查询数据
+   CLOCK: [2016-04-13 周三 20:45]--[2016-04-13 周三 21:08] =>  0:23
+   CLOCK: [2016-04-13 周三 19:42]--[2016-04-13 周三 20:28] =>  0:46
+   CLOCK: [2016-04-13 周三 18:57]--[2016-04-13 周三 19:28] =>  0:31
+
+angular Request Method:DELETE Status Code:415 Unsupported Media Type
+
+改成post形式
+
+		  <th>操作</th>
+
+
+
 ** 解决上传文件问题
 ** excel 解析
 1. 处理不同类型的解析

@@ -119,7 +119,7 @@ public class RecordController {
 		return response;
 	}
 
-	@RequestMapping(value = "/record/{dataId}", method = RequestMethod.DELETE, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "/record/{dataId}", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String destroy(@PathVariable String dataId, @RequestBody Map<String, String> recordParam) {
 

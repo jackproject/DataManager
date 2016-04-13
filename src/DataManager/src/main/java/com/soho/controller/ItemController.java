@@ -118,7 +118,7 @@ public class ItemController {
 	}
 
 
-	@RequestMapping(value = "/item/{itemId}", method = RequestMethod.DELETE, produces = "application/json; charset=utf-8")
+	@RequestMapping(value = "/item/{itemId}", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String destroy(@PathVariable String itemId, @RequestBody ItemParam itemParam) {
 		
