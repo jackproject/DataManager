@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2016-3-28-星期一 22:12:11                       */
+/* Created on:     2016-4-15-星期五 17:42:13                       */
 /*==============================================================*/
 
 
@@ -9,6 +9,12 @@ drop table if exists t_data;
 drop table if exists t_item;
 
 drop table if exists t_othername;
+
+drop table if exists t_pick;
+
+drop table if exists t_pick_item;
+
+drop table if exists t_user;
 
 drop table if exists t_validate;
 
@@ -49,6 +55,40 @@ create table t_othername
 );
 
 /*==============================================================*/
+/* Table: t_pick                                                */
+/*==============================================================*/
+create table t_pick
+(
+   pick_id              integer not null auto_increment,
+   pick_name            varchar(255),
+   primary key (pick_id)
+);
+
+/*==============================================================*/
+/* Table: t_pick_item                                           */
+/*==============================================================*/
+create table t_pick_item
+(
+   pick_item_id         integer not null auto_increment,
+   pick_id              integer,
+   item_id              integer,
+   choice               integer,
+   pick_value           varchar(255),
+   primary key (pick_item_id)
+);
+
+/*==============================================================*/
+/* Table: t_user                                                */
+/*==============================================================*/
+create table t_user
+(
+   user_id              integer not null auto_increment,
+   username             varchar(255),
+   password             varchar(255),
+   primary key (user_id)
+);
+
+/*==============================================================*/
 /* Table: t_validate                                            */
 /*==============================================================*/
 create table t_validate
@@ -64,6 +104,12 @@ alter table t_data add constraint FK_Reference_2 foreign key (item_id)
 
 alter table t_othername add constraint FK_Reference_1 foreign key (item_id)
       references t_item (item_id) on delete restrict on update restrict;
+
+alter table t_pick_item add constraint FK_Reference_5 foreign key (item_id)
+      references t_item (item_id) on delete restrict on update restrict;
+
+alter table t_pick_item add constraint FK_Reference_6 foreign key (pick_id)
+      references t_pick (pick_id) on delete restrict on update restrict;
 
 alter table t_validate add constraint FK_Reference_4 foreign key (item_id)
       references t_item (item_id) on delete restrict on update restrict;

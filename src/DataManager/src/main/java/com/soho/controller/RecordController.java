@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.soho.model.Item;
 import com.soho.model.ItemParam;
 import com.soho.model.OtherName;
+import com.soho.model.PickItem;
 import com.soho.model.RecordData;
 import com.soho.model.ValidateItem;
 import com.soho.service.ItemService;
+import com.soho.service.PickItemService;
 import com.soho.service.RecordDataService;
 
 
@@ -31,6 +33,9 @@ public class RecordController {
     @Resource
     private ItemService itemService;
 
+    @Resource
+    private PickItemService pickItemService;
+    
     @Resource
     private RecordDataService recordDataService;
     
@@ -43,30 +48,27 @@ public class RecordController {
 		
 		List<RecordData> listRecordData = recordDataService.findAll();
 
-		List list = new ArrayList();
-
-		Integer prevDataId = -1;
-		Map obj = null;
+		List list = createClientList(listRecordData);
 		
-		for (RecordData record : listRecordData) {
+		response = buildResponse(list);
 
-			if (record.getData_id() != prevDataId) {
-
-				if (obj != null) {
-					list.add(obj);
-				}
-				
-				obj = new HashMap();
-				prevDataId = record.getData_id();
-				obj.put("record_id", prevDataId);
-			}
-			
-			obj.put("" + record.getItem_id(), record.getContent_item());	
-		}
+		return response;
+	}
+    
+    
+	@RequestMapping(value = "/pickrecord/{pickId}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String viewByPickId(@PathVariable String pickId) {
 		
-		if (obj != null) {
-			list.add(obj);
-		}
+		String response = "";
+
+		Integer nPickId = Integer.parseInt(pickId);
+		
+		List<PickItem> listPickItem = pickItemService.findByPickId(nPickId);
+		
+		List<RecordData> listRecordData = recordDataService.findAllByPick(listPickItem);
+
+		List list = createClientList(listRecordData);
 		
 		response = buildResponse(list);
 
@@ -136,6 +138,35 @@ public class RecordController {
 		response = buildResponse(recordParam);
 		
 		return response;
+	}
+
+
+	private List createClientList(List<RecordData> listRecordData) {
+		List list = new ArrayList();
+
+		Integer prevDataId = -1;
+		Map obj = null;
+		
+		for (RecordData record : listRecordData) {
+
+			if (record.getData_id() != prevDataId) {
+
+				if (obj != null) {
+					list.add(obj);
+				}
+				
+				obj = new HashMap();
+				prevDataId = record.getData_id();
+				obj.put("record_id", prevDataId);
+			}
+			
+			obj.put("" + record.getItem_id(), record.getContent_item());	
+		}
+		
+		if (obj != null) {
+			list.add(obj);
+		}
+		return list;
 	}
 	
 	private List convertToListData(Integer dataId,

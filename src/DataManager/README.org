@@ -1,6 +1,88 @@
 
 
+* learn
+  CLOCK: [2016-04-15 周五 15:20]--[2016-04-15 周五 15:46] =>  0:26
+
+** hsql 中转换字符串 到特定的类型 的数据
+** MyEclipse 找不到测试的类
+   CLOCK: [2016-04-15 周五 19:14]--[2016-04-15 周五 19:21] =>  0:07
+Class not found test.soho.service.ItemTest
+
+
+对maven项目运行测试类的时候要注意输出目录。
+
+
+Default output folder，指向的是项目中的target文件夹中classes目录的test的文件夹。
+
+可能是在该文件夹下的.class文件类加载器找不到，我换了一下输出目录webapp/WEB-INF/classes就可以找到了，解决。
+   
+
+** DONE 编译不通过
+   - State "DONE"       from ""           [2016-04-15 周五 21:29]
+java.lang.UnsupportedClassVersionError: com/soho/model/Item : Unsupported major.minor version 51.0
+
+---------
+
+改成 MyEclipse 自带的 Java 编译即可
+
+** DONE 查找失败
+   - State "DONE"       from ""           [2016-04-15 周五 21:29]
+   CLOCK: [2016-04-15 周五 21:17]--[2016-04-15 周五 21:28] =>  0:11
+
+Expected positional parameter count: 1, actual parameters: [] [
+
+
+修改了？ ，好像又可以了
+
+** DONE bootstrap 如何设定添加按钮，删除按钮
+   - State "DONE"       from ""           [2016-04-15 周五 17:04]
+   新增, 删除
+
+** DONE select readonly
+   - State "DONE"       from ""           [2016-04-15 周五 17:04]
+   record.html
+   <select ng-model="pick.choice" >
+---------
+   disabled
+
 * nextstep
+** DONE 创建筛选数据库
+   - State "DONE"       from ""           [2016-04-15 周五 16:40]
+   CLOCK: [2016-04-15 周五 16:17]--[2016-04-15 周五 16:40] =>  0:23
+
+** 实现通过传递刷选编号查询数据
+   SCHEDULED: <2016-04-15 周五>
+   CLOCK: [2016-04-15 周五 21:30]--[2016-04-15 周五 22:02] =>  0:32
+selet from t_data where (item_id=1 and content>1) or (item_id=1 and content<100)
+
+要通过 HSQL 的字段类型来转变
+
+** DONE 整合页面
+   - State "DONE"       from ""           [2016-04-15 周五 21:17]
+   CLOCK: [2016-04-15 周五 20:42]--[2016-04-15 周五 21:09] =>  0:27
+   CLOCK: [2016-04-15 周五 20:00]--[2016-04-15 周五 20:32] =>  0:32
+
+** 实现筛选服务相关对象
+   CLOCK: [2016-04-15 周五 17:29]--[2016-04-15 周五 17:58] =>  0:29
+   CLOCK: [2016-04-15 周五 16:48]--[2016-04-15 周五 17:23] =>  0:35
+** 实现刷选接口
+** DONE 实现添加筛选对话框
+   - State "DONE"       from ""           [2016-04-15 周五 15:55]
+   CLOCK: [2016-04-15 周五 15:51]--[2016-04-15 周五 15:55] =>  0:04
+** 刷选功能
+   CLOCK: [2016-04-15 周五 14:47]--[2016-04-15 周五 15:15] =>  0:28
+   CLOCK: [2016-04-15 周五 14:16]--[2016-04-15 周五 14:42] =>  0:26
+
+** DONE 去掉 左侧 的“数据处理”标签
+   SCHEDULED: <2016-04-13 周三>
+   - State "DONE"       from ""           [2016-04-15 周五 14:16]
+   CLOCK: [2016-04-15 周五 11:24]--[2016-04-15 周五 11:27] =>  0:03
+** 用户登录的界面
+** 文件上传
+** excel解析
+
+1. 需要考虑字段类型，并解析
+
 ** CRUD 查询数据
    CLOCK: [2016-04-13 周三 20:45]--[2016-04-13 周三 21:08] =>  0:23
    CLOCK: [2016-04-13 周三 19:42]--[2016-04-13 周三 20:28] =>  0:46
@@ -9,12 +91,7 @@
 angular Request Method:DELETE Status Code:415 Unsupported Media Type
 
 改成post形式
-
 		  <th>操作</th>
-
-
-
-** 解决上传文件问题
 ** excel 解析
 1. 处理不同类型的解析
 
@@ -191,104 +268,6 @@ create database datamanager character set utf8 COLLATE utf8_general_ci;
 
 use datamanager
 
-/*==============================================================*/
-/* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2016-3-13-星期日 9:18:32                        */
-/*==============================================================*/
-
-
-drop table if exists t_data;
-
-drop table if exists t_item;
-
-drop table if exists t_othername;
-
-drop table if exists t_record;
-
-drop table if exists t_validate;
-
-/*==============================================================*/
-/* Table: t_data                                                */
-/*==============================================================*/
-create table t_data
-(
-   data_id              Integer not null auto_increment,
-   item_id              Integer,
-   record_id            Integer,
-   content              varchar(1024),
-   primary key (data_id)
-);
-
-/*==============================================================*/
-/* Table: t_item                                                */
-/*==============================================================*/
-create table t_item
-(
-   item_id              Integer not null auto_increment,
-   name                 varchar(255),
-   type                 Integer,
-   primary key (item_id)
-);
-
-/*==============================================================*/
-/* Table: t_othername                                           */
-/*==============================================================*/
-create table t_othername
-(
-   othername_id         Integer not null auto_increment,
-   item_id              Integer,
-   name                 varchar(255),
-   primary key (othername_id)
-);
-
-/*==============================================================*/
-/* Table: t_record                                              */
-/*==============================================================*/
-create table t_record
-(
-   record_id            Integer not null auto_increment,
-   remark               varchar(1024),
-   primary key (record_id)
-);
-
-/*==============================================================*/
-/* Table: t_validate                                            */
-/*==============================================================*/
-create table t_validate
-(
-   validate_id          Integer not null auto_increment,
-   item_id              Integer,
-   validate_item        varchar(255),
-   primary key (validate_id)
-);
-
-alter table t_data add constraint FK_Reference_2 foreign key (item_id)
-      references t_item (item_id) on delete restrict on update restrict;
-
-alter table t_data add constraint FK_Reference_3 foreign key (record_id)
-      references t_record (record_id) on delete restrict on update restrict;
-
-alter table t_othername add constraint FK_Reference_1 foreign key (item_id)
-      references t_item (item_id) on delete restrict on update restrict;
-
-alter table t_validate add constraint FK_Reference_4 foreign key (item_id)
-      references t_item (item_id) on delete restrict on update restrict;
-
-
-
-alter table t_item constraint UQ_Item_Name UNIQUE(,stuAddress)
-
-
-
----------
-** 测试sql
-
-drop database datamanager;
-
-create database datamanager character set utf8 COLLATE utf8_general_ci;
-
-use datamanager
-
 
 select * from t_item;
 
@@ -316,3 +295,57 @@ insert into t_othername(item_id, name) values(1, '别名2');
 insert into t_validate(item_id, validate_item) values(1, '验证1');
 insert into t_validate(item_id, validate_item) values(1, '验证2');
 
+
+---------
+
+INSERT INTO `t_item` (`item_id`, `name`, `type`, `order_num`, `maxlength`) VALUES
+(1, '编号', 0, 1, 1000),
+(2, '名称', 0, 0, 100),
+(3, '字段名', 0, 100, 100),
+(5, '字段2', 1, 2, NULL),
+(6, '备注', 1, 90, NULL);
+
+
+INSERT INTO `t_othername` (`othername_id`, `item_id`, `name`) VALUES
+(7, 2, ''),
+(10, 1, '别名1'),
+(11, 1, '别名1'),
+(12, 1, '别名2'),
+(15, 3, ''),
+(16, 6, ''),
+(17, 5, '');
+
+INSERT INTO `t_validate` (`validate_id`, `item_id`, `validate_item`) VALUES
+(7, 2, ''),
+(10, 1, '验证1'),
+(11, 1, '验证1'),
+(12, 1, '验证2'),
+(15, 3, ''),
+(16, 6, ''),
+(17, 5, '');
+
+
+
+INSERT INTO `t_user` (`username`, `password`) VALUES
+('admin', '123456'),
+('user', '123456'),
+('1', '1');
+
+
+INSERT INTO `t_pick` (`pick_id`, `pick_name`) VALUES
+(1, '筛选1'),
+(2, '筛选2');
+
+
+INSERT INTO `t_pick_item` (`pick_item_id`, `pick_id`, `item_id`, `choice`, `pick_value`) VALUES
+(1, 1, '1', 0, '1'),
+(2, 1, '1', 2, '100');
+
+
+INSERT INTO `t_data` (`data_id`, `item_id`, `content`) VALUES
+(1, 1, '1'),
+(1, 2, '1'),
+(1, 3, '1'),
+(2, 1, '2'),
+(2, 2, '2'),
+(2, 3, '2');

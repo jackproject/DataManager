@@ -8,36 +8,40 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.soho.model.Item;
+import com.soho.model.Pick;
 import com.soho.service.ItemService;
-import com.soho.service.RecordDataService;
+import com.soho.service.PickService;
+
 
 @ContextConfiguration(locations={"classpath:spring-*.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 //如果是true不会改变数据库数据，如果是false会改变数据
-@TransactionConfiguration(transactionManager="transactionManager",defaultRollback=false)
-public class RecordDataTest {
-
+public class PickTest {
     @Resource
-    private RecordDataService recordDataService;
-    
-    // @Test    
-    public void findAll() {    	
-		List list = recordDataService.findAll();    	
-
-		System.out.println(list);
-		
-    }
+    private PickService pickService;
 
     @Test
-    public void findNewRecordId() {
-		Integer newId = recordDataService.findNewRecordId();    	
+    public void findAll(){
+		System.out.println("find All");
+    	
+		List<Pick> listItem = pickService.findAll();  
+		
+		System.out.println(listItem);
 
-		System.out.println(newId);    	
+		int count = listItem.size();
+
+		System.out.println("item count: " + count);
+		
+		for (int i = 0; i < count; i++) {
+			
+			Pick obj = listItem.get(i);
+			
+			System.out.println(obj);			
+		}
     }
 
 }

@@ -20,7 +20,7 @@ import com.soho.service.OtherNameService;
 @ContextConfiguration(locations={"classpath:spring-*.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-//Èç¹ûÊÇtrue²»»á¸Ä±äÊı¾İ¿âÊı¾İ£¬Èç¹ûÊÇfalse»á¸Ä±äÊı¾İ
+//å¦‚æœæ˜¯trueä¸ä¼šæ”¹å˜æ•°æ®åº“æ•°æ®ï¼Œå¦‚æœæ˜¯falseä¼šæ”¹å˜æ•°æ®
 @TransactionConfiguration(transactionManager="transactionManager",defaultRollback=false)
 public class OtherNameTest {
     @Resource

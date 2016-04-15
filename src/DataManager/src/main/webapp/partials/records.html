@@ -1,31 +1,166 @@
 
 <div class="row">
   <div class="col-xs-3">
-	<ul class="nav nav-pills nav-stacked">
-	  <li role="presentation" class="active"><a href="#">全部数据</a></li>
-	  <li role="presentation"><a href="#">筛选1</a></li>
-	  <li role="presentation"><a href="#">筛选2</a></li>
+	<ul class="nav nav-pills nav-stacked" >
+	  <li class="active"><a href="#">全部数据</a></li>
+	  <li ng-repeat="pick in pickList" class="group">
+		<!-- <a class="glyphicon glyphicon-remove" role="button" ng-click="removePick(pick.pick_id)"></a> -->
+		<a role="button" ng-click="openPick(pick)">{{pick.pick_name}}</a>
+	  </li>
+	  <li role="presentation">
+		<a class="glyphicon glyphicon-plus" data-toggle="modal" data-target="#createPickModal"></a>
+
+	  </li>
+
 	</ul>
   </div>
 
+
+
   <div class="col-xs-9">
 
-	<table class="table table-striped table-hover table-bordered">
+	<div class="row" ng-show="pick">
 
-	  <thead>
-		<tr>
-		  <th ng-repeat="item in itemList" >{{item.name}}</th>
-		</tr>
-	  </thead>
-	  <tbody>
-		<tr ng-repeat="record in recordList" >
-		  <td ng-repeat="r in record track by $index">{{r}}</td>
-		</tr>
+	  <div class="header">							
+		<button class="glyphicon glyphicon-remove btn btn-warning" ng-click="removePick(pick.pick_id)">&nbsp;删除此筛选</button>
 
-	  </tbody>
-	</table>
+		<h3>查询条件:</h3>
+	  </div>
+
+	  <div class="content">
+
+		<table class="table table-striped table-hover table-bordered">
+		  <thead>
+			<tr>
+			  <th>字段</th>
+			  <th>查询条件</th>
+			  <th>查询值</th>
+			  <th>操作</th>
+			</tr>
+		  </thead>
+		  <tbody>
+			<tr ng-repeat="pick in pick.pick_item" >
+			  <td >{{findItemNameByItemId(pick.item_id)}}</td>
+			  <td >
+				<select class="dropdown" ng-model="pick.choice" disabled>
+				  <option value="0">大于</option>
+				  <option value="1">匹配</option>
+				  <option value="2">小于</option>
+				</select> 						   
+			  </td>
+			  <td >{{pick.pick_value}}</td>
+			  <td>
+				
+				<button class="glyphicon glyphicon-remove btn btn-xs btn-danger"  ng-click="removePickItem(pick.pick_item_id)"></button>
+				<!-- <button class="btn btn-success btn-flat" data-toggle="modal" data-target="#createPickModal">+</button> -->
+
+				<!-- 新增, 删除 -->
+			  </td>
+
+			</tr>
+		  </tbody>
+		</table>
+
+		
+		<button class="glyphicon glyphicon-plus btn btn-sm btn-success" data-toggle="modal" data-target="#createPickItemModal"> 创建条件</button>
+
+	  </div>
+	</div>
 
 
+
+	<br>
+
+	<div class="row">
+
+	  <div class="header">							
+		<h3>查询结果:</h3>
+	  </div>
+	  <div class="content">
+
+		<table class="table table-striped table-hover table-bordered">
+		  <thead>
+			<tr>
+			  <th ng-repeat="item in itemList" >{{item.name}}</th>
+			</tr>
+		  </thead>
+		  <tbody>
+			<tr ng-repeat="record in recordList" >
+			  <td ng-repeat="r in record track by $index">{{r}}</td>
+			</tr>
+
+		  </tbody>
+		</table>
+
+		<button class="btn btn-success btn-flat" ng-click="viewByPick(pick.pick_id)"  ng-show="pick">查询</button>
+
+
+	  </div>
+	</div>
   </div>
 </div>
 
+<!-- Modal-->
+<div class="modal fade" id="createPickModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+	<div class="modal-content">
+	  <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>创建筛选</h3>
+	  </div>
+
+	  <div class="modal-body form">
+        <div class="form-group">
+          <label>筛选名：</label>
+		  <input type="text" class="form-control" placeholder="" ng-model="currentPick.pick_name">
+		</div>
+
+	  </div>
+	  <div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+		<button type="button" class="btn btn-success" data-dismiss="modal" ng-click="savePick(currentPick)" >确认</button>
+	  </div>
+	</div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<!-- Modal-->
+<div class="modal fade" id="createPickItemModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+	<div class="modal-content">
+	  <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>创建查询条件</h3>
+	  </div>
+
+	  <div class="modal-body form">
+
+		<div class="form-group">
+          <label>字段：</label>
+		  <select class="form-control dropdown" ng-model="currentPickItem.item_id">
+            <option ng-repeat="item in itemList" value="{{item.item_id}}">{{item.name}}</option>
+          </select>									
+        </div>
+        <div class="form-group">
+          <label>查询条件：</label> 
+		  <select class="form-control" ng-model="currentPickItem.choice">
+			<option value="0">大于</option>
+			<option value="1">匹配</option>
+			<option value="2">小于</option>
+          </select>									
+		</div>
+        <div class="form-group">
+          <label>查询值：</label>
+		  <input type="text" class="form-control" placeholder="" ng-model="currentPickItem.pick_value">
+		</div>
+
+	  </div>
+	  <div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+		<button type="button" class="btn btn-success" data-dismiss="modal" ng-click="savePickItem(currentPickItem)" >确认</button>
+	  </div>
+	</div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

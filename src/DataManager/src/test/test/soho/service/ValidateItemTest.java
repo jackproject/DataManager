@@ -20,7 +20,7 @@ import com.soho.service.ValidateItemService;
 @ContextConfiguration(locations={"classpath:spring-*.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-//Èç¹ûÊÇtrue²»»á¸Ä±äÊı¾İ¿âÊı¾İ£¬Èç¹ûÊÇfalse»á¸Ä±äÊı¾İ
+//å¦‚æœæ˜¯trueä¸ä¼šæ”¹å˜æ•°æ®åº“æ•°æ®ï¼Œå¦‚æœæ˜¯falseä¼šæ”¹å˜æ•°æ®
 @TransactionConfiguration(transactionManager="transactionManager",defaultRollback=false)
 public class ValidateItemTest {
     @Resource
@@ -29,9 +29,9 @@ public class ValidateItemTest {
     @Test
     public void findByItemId() {
     	
-//    	String validate = "ÑéÖ¤1, ÑéÖ¤2£¬ ÑéÖ¤3";
+//    	String validate = "éªŒè¯1, éªŒè¯2ï¼Œ éªŒè¯3";
 //
-//    	String[] arr = validate.split("[,£¬]");
+//    	String[] arr = validate.split("[,ï¼Œ]");
 //        for(String s : arr){
 //            System.out.println(s.trim());
 //        }

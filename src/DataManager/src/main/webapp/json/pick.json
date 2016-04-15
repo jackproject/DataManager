@@ -1,0 +1,22 @@
+[
+	{
+	    "pick_id": 1,
+		"pick_name": "筛选1",
+		"pick_item": [{
+			"pick_item_id": 1,
+			"item_name": "公司名称",
+			"choice": 2,
+			"pick_value": "100"
+		}]
+	},
+	{
+	    "pick_id": 2,
+		"pick_name": "筛选2 XXX",
+		"pick_item": [{
+			"pick_item_id": 2,
+			"item_name": "公司名称",
+			"choice": 0,
+			"pick_value": "100"
+		}]
+	}
+]

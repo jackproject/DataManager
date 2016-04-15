@@ -159,33 +159,141 @@ appControllers.controller(
 			}
 
 			return recordIndex;
-		};
+		}
+
+		$scope.assembleRecordList = function(data) {
+
+			var recordList = [];
+
+
+			if (!data || !data.length ) {
+				return recordList;
+			}
+
+			for (var i = 0; i < data.length; i++) {
+
+				var r = [];
+
+				for (var j = 0; j < $scope.itemList.length; j++) {
+					var itemId = $scope.itemList[j].item_id + ""; 
+
+					r.push(data[i][itemId]);
+				}
+
+				recordList.push(r);
+			}
+
+			return recordList;
+		}
 
 		$http.get('item/item').success(function(res) {
 			
 			$scope.itemList = res.data;
 
-			$http.get('record/record').success(function(res) {
-				// $scope.recordList = res.data;
-				var recordList = [];
+			var url = '';
 
-				var data = res.data;
-				for (var i = 0; i < data.length; i++) {
+			// url = 'json/record.json';
+			url = 'record/record'
 
-					var r = [];
 
-					for (var j = 0; j < $scope.itemList.length; j++) {
-						var itemId = $scope.itemList[j].item_id + ""; 
-
-						r.push(data[i][itemId]);
-					}
-
-					recordList.push(r);
-				}
-
-				$scope.recordList = recordList;
+			$http.get(url).success(function(res) {
+				$scope.recordList = $scope.assembleRecordList(res.data);
 			});
+
+				
+			// 加载筛选信息
+			// url = 'json/pick.json';
+			url = 'pick/pick';
+			$http.get(url).success(function(res) {
+				$scope.pickList = res;				
+			});
+
+
 		});
+
+		$scope.viewByPick = function(pickId) {
+			var url = '';
+			url = 'record/pickrecord/' + pickId;
+			$http.get(url).success(function(res) {
+				$scope.recordList = $scope.assembleRecordList(res.data);
+			});
+
+		}
+
+
+		// ---------
+
+		$scope.findItemNameByItemId = function(itemId) {
+			var name = '';
+			for (var i = 0; i < $scope.itemList.length; i++) {
+				var item = $scope.itemList[i];
+				if (item.item_id == itemId) {
+					name = item.name;
+					break;
+				}
+			}
+
+			return name;
+		}
+
+
+		$scope.openPick = function(pick) {
+			$scope.pick = pick;
+		}
+
+		$scope.currentPick = {
+		};
+
+		$scope.savePick = function(pick) {
+
+			var url = '';
+			url = 'pick/pick';
+			$http.post(url, pick).success(function(res) {
+				$scope.pickList = res;				
+			});
+		}
+
+		$scope.removePick = function(pickId) {
+
+			var url = '';
+			url = 'pick/pick/' + pickId;
+			$http.post(url).success(function(res) {
+				$scope.pickList = res;				
+			});
+
+
+			console.log($scope.pickItem);
+		}
+
+
+		// ---------
+
+
+		$scope.currentPickItem = {
+		};
+
+		$scope.savePickItem = function(pickItem) {
+
+			var url = '';
+			url = 'pick/pickitem/' + $scope.pick.pick_id;
+			$http.post(url, pickItem).success(function(res) {
+				$scope.pick.pick_item = res;				
+			});
+		}
+
+
+		$scope.removePickItem = function(pickItemId) {
+
+			var url = '';
+			url = 'pick/pickitem/' + $scope.pick.pick_id + "/" + pickItemId;
+			$http.post(url).success(function(res) {
+				$scope.pick.pick_item = res;				
+			});
+		}
+
+		// ---------
+
+
 
 		$scope.removeRecord = function(recordId) {
 			var record = {};
