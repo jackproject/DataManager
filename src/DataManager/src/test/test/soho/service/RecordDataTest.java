@@ -12,7 +12,9 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.soho.model.Item;
+import com.soho.model.PickItem;
 import com.soho.service.ItemService;
+import com.soho.service.PickItemService;
 import com.soho.service.RecordDataService;
 
 @ContextConfiguration(locations={"classpath:spring-*.xml"})
@@ -24,16 +26,33 @@ public class RecordDataTest {
 
     @Resource
     private RecordDataService recordDataService;
+
+    @Resource
+    private PickItemService pickItemService;
+
+    @Test
+    public void findAllByPick() {
+
+		List<PickItem> listPickItem = pickItemService.findByPickId(1);
+		
+		System.out.println(listPickItem);
+		
+		
+		List list = recordDataService.findAllByPick(listPickItem);
+		
+
+		System.out.println(list);		
+		
+    }
     
     // @Test    
     public void findAll() {    	
 		List list = recordDataService.findAll();    	
 
-		System.out.println(list);
-		
+		System.out.println(list);		
     }
 
-    @Test
+ // @Test
     public void findNewRecordId() {
 		Integer newId = recordDataService.findNewRecordId();    	
 

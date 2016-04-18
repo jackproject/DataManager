@@ -766,6 +766,185 @@ public class Item
   :ARCHIVE_CATEGORY: README
   :ARCHIVE_TODO: DONE
   :END:
+* DONE 实现添加筛选对话框
+  - State "DONE"       from ""           [2016-04-15 周五 15:55]
+  CLOCK: [2016-04-15 周五 15:51]--[2016-04-15 周五 15:55] =>  0:04
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-04-18 周一 19:18
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE 去掉 左侧 的“数据处理”标签
+  SCHEDULED: <2016-04-13 周三>
+  - State "DONE"       from ""           [2016-04-15 周五 14:16]
+  CLOCK: [2016-04-15 周五 11:24]--[2016-04-15 周五 11:27] =>  0:03
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-04-18 周一 19:18
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE 解决静态文件访问的配置
+  SCHEDULED: <2016-04-11 周一>
+  - State "DONE"       from ""           [2016-04-11 周一 22:29]
+  CLOCK: [2016-04-11 周一 22:01]--[2016-04-11 周一 22:29] =>  0:28
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-04-18 周一 19:18
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+
+
+   <mvc:annotation-driven />
+   <mvc:resources location="/partials/" mapping="/partials/**" />
+   <mvc:resources location="/resources/" mapping="/resources/**" />
+   <mvc:resources location="/json/" mapping="/json/**" />
+   <mvc:resources location="/js/" mapping="/js/**" />
+   <mvc:resources location="/" mapping="/**.html" />
+
+
+
+* DONE 整合页面
+  - State "DONE"       from ""           [2016-04-15 周五 21:17]
+  CLOCK: [2016-04-15 周五 20:42]--[2016-04-15 周五 21:09] =>  0:27
+  CLOCK: [2016-04-15 周五 20:00]--[2016-04-15 周五 20:32] =>  0:32
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-04-18 周一 19:18
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+* DONE 创建筛选数据库
+  - State "DONE"       from ""           [2016-04-15 周五 16:40]
+  CLOCK: [2016-04-15 周五 16:17]--[2016-04-15 周五 16:40] =>  0:23
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-04-18 周一 19:18
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+
+
+
+
+* DONE MyEclipse 找不到测试的类
+   - State "DONE"       from ""           [2016-04-17 周日 20:02]
+   CLOCK: [2016-04-17 周日 19:55]--[2016-04-17 周日 20:01] =>  0:06
+   CLOCK: [2016-04-15 周五 19:14]--[2016-04-15 周五 19:21] =>  0:07
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-04-18 周一 19:18
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: learn
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+
+【解决办法】
+
+选中pom.xml文件中，Run As —> maven test，会发现target/test-classes编译的类。
+console中可以看到运行maven test的相关信息或错误，
+在surefire-reports文件夹也可以找到编译的信息。这样再运行就可以了。
+
+
+---------
+
+Class not found test.soho.service.ItemTest
+
+
+对maven项目运行测试类的时候要注意输出目录。
+
+
+Default output folder，指向的是项目中的target文件夹中classes目录的test的文件夹。
+
+可能是在该文件夹下的.class文件类加载器找不到，我换了一下输出目录webapp/WEB-INF/classes就可以找到了，解决。
+   
+
+---------
+
+Description	Resource	Path	Location	Type
+The type java.lang.CharSequence cannot be resolved. It is indirectly referenced from required .class files	ValidateItem.java	/DataManager/src/main/java/com/soho/model	line 1	Java Problem
+
+---------
+
+Description	Resource	Path	Location	Type
+Java compiler level does not match the version of the installed Java project facet.	DataManager		Unknown	Faceted Project Problem (Java Version Mismatch)
+
+
+
+* DONE 编译不通过
+   - State "DONE"       from ""           [2016-04-15 周五 21:29]
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-04-18 周一 19:18
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: learn
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+java.lang.UnsupportedClassVersionError: com/soho/model/Item : Unsupported major.minor version 51.0
+
+---------
+
+改成 MyEclipse 自带的 Java 编译即可
+
+* DONE 查找失败
+   - State "DONE"       from ""           [2016-04-15 周五 21:29]
+   CLOCK: [2016-04-15 周五 21:17]--[2016-04-15 周五 21:28] =>  0:11
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-04-18 周一 19:18
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: learn
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+
+Expected positional parameter count: 1, actual parameters: [] [
+
+
+修改了？ ，好像又可以了
+
+* DONE bootstrap 如何设定添加按钮，删除按钮
+  - State "DONE"       from ""           [2016-04-15 周五 17:04]
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-04-18 周一 19:18
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: learn
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+  新增, 删除
+
+* DONE select readonly
+   - State "DONE"       from ""           [2016-04-15 周五 17:04]
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-04-18 周一 19:18
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: learn
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+   record.html
+   <select ng-model="pick.choice" >
+---------
+   disabled
+
+
+
+
+
+
+
+
+
+
 
 
 

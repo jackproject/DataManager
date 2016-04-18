@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.soho.model.Item;
 import com.soho.model.Pick;
 import com.soho.service.ItemService;
+import com.soho.service.PickItemService;
 import com.soho.service.PickService;
 
 
@@ -23,7 +24,7 @@ import com.soho.service.PickService;
 public class PickTest {
     @Resource
     private PickService pickService;
-
+    
     @Test
     public void findAll(){
 		System.out.println("find All");

@@ -2,12 +2,15 @@ package com.soho.service;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.soho.model.Item;
 import com.soho.model.PickItem;
 import com.soho.model.RecordData;
 
@@ -16,7 +19,11 @@ public class RecordDataService {
 	
 	@Autowired
     private SessionFactory sessionFactory;
+	
+    @Resource
+    private ItemService itemService;
 
+	
 	public List<RecordData> findAll(){
         String hsql = "from t_data";
         Session session = sessionFactory.getCurrentSession();
@@ -26,44 +33,97 @@ public class RecordDataService {
     }
 
 
-	public List<RecordData> findAllByPick(List<PickItem> listPickItem){
-        String hsql = "from t_data";
-        Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery(hsql);
-        
-        hsql += " where ";
+	public List<RecordData> findAllByPick(List<PickItem> listPickItem) {
+		
+		
+		StringBuilder sb = new StringBuilder();
+		
+        sb.append("from t_data where ");
         
         for (int i = 0; i < listPickItem.size(); i++) {
         	PickItem pickItem = listPickItem.get(i);
 
-        	hsql += "(";        	
-        	hsql += "item_id=";
-        	hsql += pickItem.getItem_id();
+        	Integer itemId = pickItem.getItem_id();
+        	
+        	sb.append("(");        	
+        	sb.append("item_id=");
+        	sb.append(itemId);
 
-        	hsql += " and ";
-        	hsql += "content";
-        	switch (pickItem.getChoice()) {
-				case 0:
-		        	hsql += ">";
-					break;
+        	sb.append(" and ");
+
+        	Integer choice = pickItem.getChoice();
+        	
+        	
+        	Item item = itemService.findItemByItemId(itemId);
+        	
+        	switch (item.getType()) {
 				case 1:
-		        	hsql += "=";
+		        	sb.append("CAST(content AS DECIMAL)");
 					break;
-				case 2:
-		        	hsql += "<";
+				case 3:
+		        	sb.append("CAST(content AS DateTime)");
 					break;
 				default:
+					
+					// 【注】对于字符串等类型不需要考虑 >, < 的情况
+					choice = -1;
+					
+		        	sb.append("content");
+					break;
+        	}
+        	
+        	
+        	switch (choice) {
+				case 0:
+		        	sb.append(">");
+					break;
+				case 1:
+		        	sb.append("=");
+					break;
+				case 2:
+		        	sb.append("<");
+					break;
+				default:
+		        	sb.append("=");
 					break;
 			}
-        	hsql += pickItem.getPick_value();
 
-        	hsql += ")";
+        	String strValue = pickItem.getPick_value();
+        	
+        	switch (item.getType()) {
+				case 0:
+		        	sb.append("'%");
+		        	sb.append(strValue);		        	
+		        	sb.append("%'");
+					break;
+				case 1:
+		        	sb.append("CAST('");
+		        	sb.append(strValue);		        	
+		        	sb.append("' AS DECIMAL)");
+					break;
+				case 3:
+		        	sb.append("CAST('");
+		        	sb.append(strValue);
+		        	sb.append("' AS DateTime)");
+					break;
+				default:
+		        	sb.append(strValue);
+					break;
+        	}
+
+        	sb.append(")");
         	
         	if (i < listPickItem.size()-1) {
-            	hsql += " or ";
+            	sb.append(" or ");
         	}
         }
-        System.out.println(hsql);
+        System.out.println(sb);
+//
+//        String hsql = "from t_data";
+
+        String hsql = new String(sb);
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery(hsql);
         
         return query.list();
     }

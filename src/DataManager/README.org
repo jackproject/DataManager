@@ -1,7 +1,11 @@
 
 
 * communication
+
+嘉明，现在完成的代码，我已经上传到服务器了。部署方式及现在的进度大致如下：
+
 ** 部署
+   CLOCK: [2016-04-17 周日 17:40]--[2016-04-17 周日 18:11] =>  0:31
 1. 更新MySQL库 (见文件末尾)
 2. 插入数据
 3. 访问 index.html
@@ -20,79 +24,85 @@
   CLOCK: [2016-04-15 周五 15:20]--[2016-04-15 周五 15:46] =>  0:26
 
 ** hsql 中转换字符串 到特定的类型 的数据
-** MyEclipse 找不到测试的类
-   CLOCK: [2016-04-15 周五 19:14]--[2016-04-15 周五 19:21] =>  0:07
-Class not found test.soho.service.ItemTest
+   CLOCK: [2016-04-17 周日 19:43]--[2016-04-17 周日 19:55] =>  0:12
+   CLOCK: [2016-04-17 周日 18:15]--[2016-04-17 周日 18:18] =>  0:03
 
 
-对maven项目运行测试类的时候要注意输出目录。
+StringBuffer sb;
 
 
-Default output folder，指向的是项目中的target文件夹中classes目录的test的文件夹。
+String hsql = new String(sb);
 
-可能是在该文件夹下的.class文件类加载器找不到，我换了一下输出目录webapp/WEB-INF/classes就可以找到了，解决。
-   
-
-** DONE 编译不通过
-   - State "DONE"       from ""           [2016-04-15 周五 21:29]
-java.lang.UnsupportedClassVersionError: com/soho/model/Item : Unsupported major.minor version 51.0
 
 ---------
 
-改成 MyEclipse 自带的 Java 编译即可
-
-** DONE 查找失败
-   - State "DONE"       from ""           [2016-04-15 周五 21:29]
-   CLOCK: [2016-04-15 周五 21:17]--[2016-04-15 周五 21:28] =>  0:11
-
-Expected positional parameter count: 1, actual parameters: [] [
+cast转换类型后比较 
 
 
-修改了？ ，好像又可以了
+CAST (expression AS data_type)
 
-** DONE bootstrap 如何设定添加按钮，删除按钮
-   - State "DONE"       from ""           [2016-04-15 周五 17:04]
-   新增, 删除
+SELECT CAST('12' AS int)
 
-** DONE select readonly
-   - State "DONE"       from ""           [2016-04-15 周五 17:04]
-   record.html
-   <select ng-model="pick.choice" >
+
+
 ---------
-   disabled
+
+CAST、CONVERT都可以执行数据类型转换。在大部分情况下，两者执行同样的功能，不同的是CONVERT还提供一些特别的日期格式转换，而CAST没有这个功能。
+http://www.cnblogs.com/kissdodog/p/3165944.html
+
+
+---------
+SELECT {fn CONCAT(CONVERT(user_id,CHAR),USER_NAME)} AS str FROM t_sys_user
 
 * nextstep
-** DONE 创建筛选数据库
-   - State "DONE"       from ""           [2016-04-15 周五 16:40]
-   CLOCK: [2016-04-15 周五 16:17]--[2016-04-15 周五 16:40] =>  0:23
 
 ** 实现通过传递刷选编号查询数据
    SCHEDULED: <2016-04-15 周五>
+   CLOCK: [2016-04-18 周一 20:04]
+   CLOCK: [2016-04-17 周日 20:02]--[2016-04-17 周日 20:49] =>  0:47
    CLOCK: [2016-04-15 周五 21:30]--[2016-04-15 周五 22:02] =>  0:32
+
+like 
+
+
+
+
 selet from t_data where (item_id=1 and content>1) or (item_id=1 and content<100)
 
 要通过 HSQL 的字段类型来转变
 
-** DONE 整合页面
-   - State "DONE"       from ""           [2016-04-15 周五 21:17]
-   CLOCK: [2016-04-15 周五 20:42]--[2016-04-15 周五 21:09] =>  0:27
-   CLOCK: [2016-04-15 周五 20:00]--[2016-04-15 周五 20:32] =>  0:32
+
+
+
+
+select * from t_data where (item_id=1 and CAST(content AS FLOAT)>CAST('1' AS FLOAT)) or (item_id=1 and CAST(content AS FLOAT)<CAST('100' AS FLOAT));
+
+select * from t_data where (item_id=1 and CAST(content AS FLOAT)>CAST('1' AS FLOAT));
+
+
+select * from t_data where CAST(content AS int)>CAST('1' AS int);
+
+
+select * from t_data where CAST(content AS int)=1;
+
+
+
+mysql 中的值必须这样
+
+DECIMAL
+
+select * from t_data where (item_id=1 and CAST(content AS DECIMAL)>CAST('1' AS DECIMAL));
+
+select * from t_data where (item_id=1 and CAST(content AS DECIMAL)>CAST('1' AS DECIMAL)) or (item_id=1 and CAST(content AS DECIMAL)<CAST('100' AS DECIMAL));
 
 ** 实现筛选服务相关对象
    CLOCK: [2016-04-15 周五 17:29]--[2016-04-15 周五 17:58] =>  0:29
    CLOCK: [2016-04-15 周五 16:48]--[2016-04-15 周五 17:23] =>  0:35
 ** 实现刷选接口
-** DONE 实现添加筛选对话框
-   - State "DONE"       from ""           [2016-04-15 周五 15:55]
-   CLOCK: [2016-04-15 周五 15:51]--[2016-04-15 周五 15:55] =>  0:04
 ** 刷选功能
    CLOCK: [2016-04-15 周五 14:47]--[2016-04-15 周五 15:15] =>  0:28
    CLOCK: [2016-04-15 周五 14:16]--[2016-04-15 周五 14:42] =>  0:26
-
-** DONE 去掉 左侧 的“数据处理”标签
-   SCHEDULED: <2016-04-13 周三>
-   - State "DONE"       from ""           [2016-04-15 周五 14:16]
-   CLOCK: [2016-04-15 周五 11:24]--[2016-04-15 周五 11:27] =>  0:03
+** 用户刷选时，能够根据item项目进行调整
 ** 用户登录的界面
 ** 文件上传
 ** excel解析
@@ -110,19 +120,6 @@ angular Request Method:DELETE Status Code:415 Unsupported Media Type
 		  <th>操作</th>
 ** excel 解析
 1. 处理不同类型的解析
-
-** DONE 解决静态文件访问的配置
-   SCHEDULED: <2016-04-11 周一>
-   - State "DONE"       from ""           [2016-04-11 周一 22:29]
-   CLOCK: [2016-04-11 周一 22:01]--[2016-04-11 周一 22:29] =>  0:28
-
-
-	<mvc:annotation-driven />
-	<mvc:resources location="/partials/" mapping="/partials/**" />
-	<mvc:resources location="/resources/" mapping="/resources/**" />
-	<mvc:resources location="/json/" mapping="/json/**" />
-	<mvc:resources location="/js/" mapping="/js/**" />
-	<mvc:resources location="/" mapping="/**.html" />
 
 
 ** 解析excel，以及整合项目
@@ -365,3 +362,8 @@ INSERT INTO `t_data` (`data_id`, `item_id`, `content`) VALUES
 (2, 1, '2'),
 (2, 2, '2'),
 (2, 3, '2');
+
+
+update t_item set type=1 where item_id=1;
+
+

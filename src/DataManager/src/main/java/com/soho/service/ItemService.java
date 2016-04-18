@@ -33,6 +33,8 @@ public class ItemService {
         String hsql = "from t_item as t where t.item_id=?";
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery(hsql);
+
+        query.setInteger(0, itemId);
         
         return (Item) query.uniqueResult();
     }
