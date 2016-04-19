@@ -23,9 +23,17 @@
 * learn
   CLOCK: [2016-04-15 周五 15:20]--[2016-04-15 周五 15:46] =>  0:26
 
+** hsql 中多表查询形式
+   SCHEDULED: <2016-04-19 周二>
+   CLOCK: [2016-04-19 周二 21:11]--[2016-04-19 周二 21:15] =>  0:04
+   CLOCK: [2016-04-19 周二 21:10]--[2016-04-19 周二 21:11] =>  0:01
+
 ** hsql 中转换字符串 到特定的类型 的数据
    CLOCK: [2016-04-17 周日 19:43]--[2016-04-17 周日 19:55] =>  0:12
    CLOCK: [2016-04-17 周日 18:15]--[2016-04-17 周日 18:18] =>  0:03
+
+
+【注意】 case 必须是不能封装的数据类型
 
 
 StringBuffer sb;
@@ -55,12 +63,32 @@ http://www.cnblogs.com/kissdodog/p/3165944.html
 SELECT {fn CONCAT(CONVERT(user_id,CHAR),USER_NAME)} AS str FROM t_sys_user
 
 * nextstep
-
 ** 实现通过传递刷选编号查询数据
    SCHEDULED: <2016-04-15 周五>
-   CLOCK: [2016-04-18 周一 20:04]
+   CLOCK: [2016-04-19 周二 20:01]--[2016-04-19 周二 20:28] =>  0:27
+   CLOCK: [2016-04-19 周二 19:45]--[2016-04-19 周二 20:00] =>  0:15
+   CLOCK: [2016-04-18 周一 20:04]--[2016-04-18 周一 20:05] =>  0:01
    CLOCK: [2016-04-17 周日 20:02]--[2016-04-17 周日 20:49] =>  0:47
    CLOCK: [2016-04-15 周五 21:30]--[2016-04-15 周五 22:02] =>  0:32
+
+
+【把所有 item 相同的都拼接在一起】
+
+
+
+
+
+
+select recorddata0_.item_id as item_id1_0_, recorddata0_.data_id as data_id2_0_, recorddata0_.content as content3_0_ from t_data recorddata0_ where 
+recorddata0_.item_id=1 and cast(content as decimal)>cast('1' as decimal) or 
+recorddata0_.item_id=1 and cast(content as decimal)<cast('100' as decimal) or 
+recorddata0_.item_id=7 and cast(content as date)>cast('2016-04-19' as date) 
+
+
+【用这种算法来写，没错】
+select recorddata0_.item_id as item_id1_0_, recorddata0_.data_id as data_id2_0_, recorddata0_.content as content3_0_ from t_data recorddata0_ where (recorddata0_.item_id<>1 or cast(content as decimal)>cast('1' as decimal)) and (recorddata0_.item_id<>1 or cast(content as decimal)<cast('100' as decimal)) and (recorddata0_.item_id<>7 or cast(content as date)>cast('2016-04-19' as date))
+
+---------
 
 like 
 
@@ -94,6 +122,32 @@ DECIMAL
 select * from t_data where (item_id=1 and CAST(content AS DECIMAL)>CAST('1' AS DECIMAL));
 
 select * from t_data where (item_id=1 and CAST(content AS DECIMAL)>CAST('1' AS DECIMAL)) or (item_id=1 and CAST(content AS DECIMAL)<CAST('100' AS DECIMAL));
+
+
+
+---------
+herbnate 中 case 必须是 int ， float 这些基础数据类型
+
+以前都是连接的ORACLE，MYSQL数据库，写程序一直也没出现过什么问题，就在近期用SQL SERVER出了点问题。
+
+用hibernate操作sqlserver数据库，数据库表中有个日期字段是字符型，当查询一定时间范围内的数据时需要转换日期，这里需要注意了hibernate CAST函数支持转换类型在SQL SERVER中不一定行。
+如：and cast(a.enterdate as date) >= cast('2009-01-01' as date) 
+
+
+---------
+
+String formatbgString = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(begintime);
+String formatendString = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(begintime);
+
+"and t.begintime > to_date('" + formatbgString + "', 'yyyy-MM-dd HH24:mi:ss') and t.endtime < to_date('" + formatendString + "', 'yyyy-MM-dd HH24:mi:ss')" 
+
+
+
+
+** 验证项体现在输入时，只能选择这些项
+
+比如说业务类型是系统项，那么它的系统选项是：估算，概算，预算 ，决算
+
 
 ** 实现筛选服务相关对象
    CLOCK: [2016-04-15 周五 17:29]--[2016-04-15 周五 17:58] =>  0:29
@@ -315,8 +369,9 @@ INSERT INTO `t_item` (`item_id`, `name`, `type`, `order_num`, `maxlength`) VALUE
 (1, '编号', 0, 1, 1000),
 (2, '名称', 0, 0, 100),
 (3, '字段名', 0, 100, 100),
-(5, '字段2', 1, 2, NULL),
-(6, '备注', 1, 90, NULL);
+(5, '字段2', 1, 2, 10),
+(6, '备注', 1, 90, 1000),
+(7, '日期', 1, 90, 50);
 
 
 INSERT INTO `t_othername` (`othername_id`, `item_id`, `name`) VALUES
@@ -365,5 +420,24 @@ INSERT INTO `t_data` (`data_id`, `item_id`, `content`) VALUES
 
 
 update t_item set type=1 where item_id=1;
+
+
+
+
+INSERT INTO `t_data` (`data_id`, `item_id`, `content`) VALUES
+(1, 7, '2016-04-10'),
+(2, 7, '2016-04-20');
+
+
+select * from t_pick_item;
+
+
+update t_pick_item set pick_value=100 where pick_item_id=2;
+
+
+
+INSERT INTO `t_pick_item` (`pick_id`, `item_id`, `choice`, `pick_value`) VALUES
+(1, 7, 0, '2016-04-19');
+
 
 

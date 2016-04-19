@@ -1,5 +1,6 @@
 package com.soho.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -32,6 +33,18 @@ public class RecordDataService {
         return query.list();
     }
 
+	public List<RecordData> findAllByPickTest(List<PickItem> listPickItem) {
+
+		List<RecordData> listRecordData = new ArrayList();
+
+		List<RecordData> list = findAll();
+		
+		
+		
+		
+		
+		return listRecordData;
+	}
 
 	public List<RecordData> findAllByPick(List<PickItem> listPickItem) {
 		
@@ -46,22 +59,23 @@ public class RecordDataService {
         	Integer itemId = pickItem.getItem_id();
         	
         	sb.append("(");        	
-        	sb.append("item_id=");
+        	sb.append("item_id<>");
         	sb.append(itemId);
 
-        	sb.append(" and ");
+        	sb.append(" or ");
 
         	Integer choice = pickItem.getChoice();
         	
         	
         	Item item = itemService.findItemByItemId(itemId);
         	
+        	
         	switch (item.getType()) {
 				case 1:
-		        	sb.append("CAST(content AS DECIMAL)");
+		        	sb.append("CAST(content AS float)");
 					break;
 				case 3:
-		        	sb.append("CAST(content AS DateTime)");
+		        	sb.append("CAST(content AS date)");
 					break;
 				default:
 					
@@ -99,12 +113,12 @@ public class RecordDataService {
 				case 1:
 		        	sb.append("CAST('");
 		        	sb.append(strValue);		        	
-		        	sb.append("' AS DECIMAL)");
+		        	sb.append("' AS float)");
 					break;
 				case 3:
 		        	sb.append("CAST('");
 		        	sb.append(strValue);
-		        	sb.append("' AS DateTime)");
+		        	sb.append("' AS date)");
 					break;
 				default:
 		        	sb.append(strValue);
@@ -114,7 +128,7 @@ public class RecordDataService {
         	sb.append(")");
         	
         	if (i < listPickItem.size()-1) {
-            	sb.append(" or ");
+            	sb.append(" and ");
         	}
         }
         System.out.println(sb);
