@@ -87,6 +87,8 @@ public class PickController {
 
 		Integer nPickId = Integer.parseInt(pickId);
 		
+		pickItem.setPick_id(nPickId);
+		
 		pickItemService.insert(pickItem);
 		
 		response = findPickItemJson(nPickId);

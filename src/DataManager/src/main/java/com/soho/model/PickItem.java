@@ -66,6 +66,64 @@ public class PickItem {
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((choice == null) ? 0 : choice.hashCode());
+		result = prime * result + ((item_id == null) ? 0 : item_id.hashCode());
+		result = prime * result + ((pick_id == null) ? 0 : pick_id.hashCode());
+		result = prime * result
+				+ ((pick_item_id == null) ? 0 : pick_item_id.hashCode());
+		result = prime * result
+				+ ((pick_value == null) ? 0 : pick_value.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof PickItem)) {
+			return false;
+		}
+		PickItem other = (PickItem) obj;
+		if (choice == null) {
+			if (other.choice != null) {
+				return false;
+			}
+		} else if (!choice.equals(other.choice)) {
+			return false;
+		}
+		if (item_id == null) {
+			if (other.item_id != null) {
+				return false;
+			}
+		} else if (!item_id.equals(other.item_id)) {
+			return false;
+		}
+		if (pick_id == null) {
+			if (other.pick_id != null) {
+				return false;
+			}
+		} else if (!pick_id.equals(other.pick_id)) {
+			return false;
+		}
+		if (pick_item_id == null) {
+			if (other.pick_item_id != null) {
+				return false;
+			}
+		} else if (!pick_item_id.equals(other.pick_item_id)) {
+			return false;
+		}
+		
+		return true;
+	}
+
+	@Override
 	public String toString() {
 		return "PickItem [pick_item_id=" + pick_item_id + ", pick_id="
 				+ pick_id + ", item_id=" + item_id + ", choice=" + choice
