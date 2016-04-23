@@ -37,6 +37,17 @@ public class OtherNameService {
     }
 
     
+	public OtherName findByItemName(String itemName){
+        String hsql = "from t_othername as t where t.name=?";
+        
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery(hsql);
+
+        query.setString(0, itemName);
+        
+        return (OtherName)query.uniqueResult();
+    }
+    
 	public OtherName findById(Integer id){
         Session session = sessionFactory.getCurrentSession();
 

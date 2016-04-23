@@ -29,12 +29,22 @@ public class ItemService {
     }
 
     public Item findItemByItemId(Integer itemId){
-    	// 按排序字段排序
         String hsql = "from t_item as t where t.item_id=?";
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery(hsql);
 
         query.setInteger(0, itemId);
+        
+        return (Item) query.uniqueResult();
+    }
+
+
+    public Item findItemByItemName(String itemName){
+        String hsql = "from t_item as t where t.name=?";
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery(hsql);
+
+        query.setString(0, itemName);
         
         return (Item) query.uniqueResult();
     }

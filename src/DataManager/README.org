@@ -65,6 +65,8 @@ http://www.cnblogs.com/kissdodog/p/3165944.html
 SELECT {fn CONCAT(CONVERT(user_id,CHAR),USER_NAME)} AS str FROM t_sys_user
 
 * nextstep
+** 合并表格解析
+   CLOCK: [2016-04-23 周六 21:00]
 ** DONE 更新“系统项”名称
    - State "DONE"       from ""           [2016-04-23 周六 10:20]
 ** DONE 点击筛选时，自动查询筛选后的数据
