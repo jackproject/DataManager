@@ -42,7 +42,7 @@ public class ItemParam {
             strType = "数值";
 
         } else if (param == 2) {
-            strType = "序列";
+            strType = "系统项";
 
         } else if (param == 3) {
             strType = "日期";

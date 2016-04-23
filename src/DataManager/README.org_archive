@@ -895,6 +895,10 @@ java.lang.UnsupportedClassVersionError: com/soho/model/Item : Unsupported major.
 
 改成 MyEclipse 自带的 Java 编译即可
 
+---------
+同时，可以先运行 Web，再回来可能就可以了
+
+
 * DONE 查找失败
    - State "DONE"       from ""           [2016-04-15 周五 21:29]
    CLOCK: [2016-04-15 周五 21:17]--[2016-04-15 周五 21:28] =>  0:11

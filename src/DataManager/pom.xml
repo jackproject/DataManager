@@ -255,6 +255,7 @@
 	  <version>2.6.10</version>
 	</dependency>
   </dependencies>
+
   <build>
 	<plugins>
 	  <plugin>
@@ -268,9 +269,6 @@
 	  <plugin>
 		<artifactId>maven-surefire-plugin</artifactId>
 		<configuration>
-		  <includes>
-			<include>**/*Tests.java</include>
-		  </includes>
 		</configuration>
 	  </plugin>
 	</plugins>

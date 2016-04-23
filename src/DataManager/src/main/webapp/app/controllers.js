@@ -239,6 +239,8 @@ appControllers.controller(
 
 		$scope.openPick = function(pick) {
 			$scope.pick = pick;
+
+			$scope.viewByPick(pick.pick_id);
 		}
 
 		$scope.currentPick = {

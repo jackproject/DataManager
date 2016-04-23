@@ -66,9 +66,7 @@ public class RecordController {
 		
 		List<PickItem> listPickItem = pickItemService.findByPickId(nPickId);
 		
-		List<RecordData> listRecordData = recordDataService.findAllByPick(listPickItem);
-
-		List list = createClientList(listRecordData);
+		List list = recordDataService.findAllByPick(listPickItem);
 		
 		response = buildResponse(list);
 

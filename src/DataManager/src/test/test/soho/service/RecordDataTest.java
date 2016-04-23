@@ -30,6 +30,7 @@ public class RecordDataTest {
     @Resource
     private PickItemService pickItemService;
 
+    
     @Test
     public void findAllByPick() {
 
