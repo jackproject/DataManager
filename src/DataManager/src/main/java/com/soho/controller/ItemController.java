@@ -27,6 +27,8 @@ import com.soho.model.OtherName;
 import com.soho.model.ValidateItem;
 import com.soho.service.ItemService;
 import com.soho.service.OtherNameService;
+import com.soho.service.PickItemService;
+import com.soho.service.RecordDataService;
 import com.soho.service.ValidateItemService;
 
 @Controller
@@ -42,6 +44,12 @@ public class ItemController {
     @Resource
     private ValidateItemService validateItemService;
 
+    @Resource
+    private PickItemService pickItemService;
+
+    @Resource
+    private RecordDataService recordDataService;
+    
 	@RequestMapping(value = "/item", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String view() {
@@ -129,13 +137,15 @@ public class ItemController {
 		Integer deleteItemId = itemParam.getItem_id();
 		otherNameService.deleteAllByItemId(deleteItemId);
 		validateItemService.deleteAllByItemId(deleteItemId);
+		pickItemService.deleteAllByItemId(deleteItemId);
+		recordDataService.deleteAllByItemId(deleteItemId);
 		
 
 		// 2. 删除字段表
 		Item item = new Item(itemParam);
 		
 		itemService.delete(item);
-
+		
 		response = buildResponse(itemParam);
 		
 		return response;

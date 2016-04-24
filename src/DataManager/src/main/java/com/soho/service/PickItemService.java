@@ -64,6 +64,19 @@ public class PickItemService {
         
         query.executeUpdate();
     }
+
+
+    public void deleteAllByItemId(Integer itemId){
+        String hsql = "delete from t_pick_item as t where t.item_id=?";
+        
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery(hsql);
+
+        query.setInteger(0, itemId);
+        
+        query.executeUpdate();
+    }
+    
     
     public PickItem insert(Object entity){
         Session session = sessionFactory.getCurrentSession();
