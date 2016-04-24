@@ -940,6 +940,47 @@ Expected positional parameter count: 1, actual parameters: [] [
 ---------
    disabled
 
+* hsql 中转换字符串 到特定的类型 的数据
+   CLOCK: [2016-04-17 周日 19:43]--[2016-04-17 周日 19:55] =>  0:12
+   CLOCK: [2016-04-17 周日 18:15]--[2016-04-17 周日 18:18] =>  0:03
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-04-24 周日 10:05
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: learn
+  :ARCHIVE_CATEGORY: README
+  :END:
+
+
+【注意】 case 必须是不能封装的数据类型
+
+
+StringBuffer sb;
+
+
+String hsql = new String(sb);
+
+
+---------
+
+cast转换类型后比较 
+
+
+CAST (expression AS data_type)
+
+SELECT CAST('12' AS int)
+
+
+
+---------
+
+CAST、CONVERT都可以执行数据类型转换。在大部分情况下，两者执行同样的功能，不同的是CONVERT还提供一些特别的日期格式转换，而CAST没有这个功能。
+http://www.cnblogs.com/kissdodog/p/3165944.html
+
+
+---------
+SELECT {fn CONCAT(CONVERT(user_id,CHAR),USER_NAME)} AS str FROM t_sys_user
+
+
 
 
 

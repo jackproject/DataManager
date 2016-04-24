@@ -3,6 +3,31 @@
 
 /* Controllers */
 
+
+// ---------
+// Application 
+// ---------
+
+
+var applicationControllers = angular.module('applicationControllers', []);
+
+applicationControllers.controller(
+	'ApplicationCtrl',
+	['$scope', '$http', 'AuthService', function ($scope, $http, AuthService) {
+
+		$scope.currentUser = AuthService.loadUser();
+		$scope.isAuthorized = AuthService.isAuthorized;
+
+		$scope.setCurrentUser = function (user) {
+			$scope.currentUser = user;
+
+			AuthService.setCurrentUser(user);
+		};
+	}]
+);
+
+
+
 // ---------
 // data-manager
 // ---------
@@ -373,3 +398,65 @@ appControllers.controller(
 
 	}]
 );
+
+
+
+// ---------
+// login
+// ---------
+
+appControllers.controller(
+	'LoginCtrl',
+	['$scope', '$rootScope', '$state', 'AUTH_EVENTS', 'AuthService',
+	 function ($scope, $rootScope, $state, AUTH_EVENTS, AuthService) {
+
+		 $scope.setCurrentUser(null);
+
+		 $scope.credentials = {
+			 username: '',
+			 password: ''
+		 };
+
+		 $scope.verifycode = "";
+
+		 $scope.refreshVerifycode = function () {
+
+			 var verifycode="";
+			 verifycode += Math.floor(Math.random()*9) + 1;
+			 for (var i = 1; i < 5; i++) {
+				 verifycode += Math.floor(Math.random()*10);
+			 }
+			 console.log(verifycode);
+
+			 $scope.verifycode = verifycode;
+
+		 }
+
+		 $scope.refreshVerifycode();
+
+		 $scope.login = function (credentials) {
+
+			 AuthService.login(credentials).then(function (user) {
+
+				 if (user) {
+					 $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+					 $scope.setCurrentUser(user);
+
+					 $state.go('records', {}, {reload: true});
+				 } else {
+					 $('#mod-login').modal('show');
+				 }
+
+				 // window.location.href = 'index.html#/general';
+				 // $window.location.href = '/general';
+				 // $location.path('/general');
+
+			 }, function () {
+				 $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+			 });
+
+		 }
+
+	 }]
+);
+

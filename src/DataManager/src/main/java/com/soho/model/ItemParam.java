@@ -38,13 +38,13 @@ public class ItemParam {
 	private String findTypeText(Integer param) {
         String strType = "字符串";
 
-        if (param == 1) {
+        if (param == ItemType.TYPE_NUMBER) {
             strType = "数值";
 
-        } else if (param == 2) {
+        } else if (param == ItemType.TYPE_SYSTEM) {
             strType = "系统项";
 
-        } else if (param == 3) {
+        } else if (param == ItemType.TYPE_DATE) {
             strType = "日期";
         }
 

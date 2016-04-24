@@ -41,7 +41,7 @@ public class Item {
         if (strType.equals("数值")) {
             type = 1;
 
-        } else if (strType.equals("序列")) {
+        } else if (strType.equals("系统项")) {
             type = 2;
 
         } else if (strType.equals("日期")) {

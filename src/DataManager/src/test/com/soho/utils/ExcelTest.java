@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.soho.model.Item;
 import com.soho.model.OtherName;
+import com.soho.model.RecordData;
 import com.soho.service.ItemService;
 import com.soho.service.OtherNameService;
 
@@ -78,6 +79,7 @@ public class ExcelTest {
 		for (int i = 1; i < rows; i++) {
 			// 这里插入一条数据记录
 			
+			
 			for (int j = 0; j < cols; j++) {
 
 				String strItemName = excel.findCellString(j, 0);
@@ -92,18 +94,23 @@ public class ExcelTest {
 				}
 
 				System.out.println(strItemName + ": " + itemId);
+				
+
+				String strContent = excel.findCellString(j, i);
+				
+				RecordData recordData = new RecordData();
+				
+				// TODO: 更新data id
+				recordData.setData_id(i);
+				
+				recordData.setItem_id(itemId);
+				recordData.setContent_item(strContent);
+				
+				System.out.println(recordData);
 			}
 		}
 		
 
-//    	for (int i = 1; i < rows; i++) {
-//    		for (int j = 1; j < cols; j++) {
-//
-//    			String str = excel.findCellString(j, i);
-//    			
-//    			System.out.println(str);
-//    		}
-//    	}
     		
     	
     }
