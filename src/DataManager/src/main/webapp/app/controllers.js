@@ -211,21 +211,28 @@ appControllers.controller(
 			return recordList;
 		}
 
-		$http.get('item/item').success(function(res) {
-			
-			$scope.itemList = res.data;
+		$scope.viewAll = function() {
+			$scope.pick = null;
 
 			var url = '';
 
 			// url = 'json/record.json';
 			url = 'record/record'
 
-
 			$http.get(url).success(function(res) {
 				$scope.recordList = $scope.assembleRecordList(res.data);
 			});
 
-				
+		}
+
+		$http.get('item/item').success(function(res) {
+			
+			$scope.itemList = res.data;
+
+			$scope.viewAll();
+
+			var url = '';
+
 			// 加载筛选信息
 			// url = 'json/pick.json';
 			url = 'pick/pick';

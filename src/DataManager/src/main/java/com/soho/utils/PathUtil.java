@@ -1,5 +1,7 @@
 package com.soho.utils;
 
+import java.io.File;
+
 public class PathUtil {
 
 	public String getWebRoot() {
@@ -34,10 +36,14 @@ public class PathUtil {
 	}
 
 	private String trim(String s) {
-		if (s.startsWith("/") || s.startsWith("\\")) {
-			s = s.substring(1);
-			trim(s);
+
+		if ("\\".equals(File.separator)) {
+			if (s.startsWith("/") || s.startsWith("\\")) {
+				s = s.substring(1);
+				trim(s);
+			}
 		}
+		
 		return s;
 	};
 }
