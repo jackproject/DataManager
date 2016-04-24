@@ -352,50 +352,31 @@ appControllers.controller(
 
 appControllers.controller(
 	'UploadCtrl',
-	['$scope', '$http', 'MenuService', function($scope, $http, MenuService) {
-		$http.get('json/item.json').success(function(res) {
-			$scope.itemList = res.data;
-		});
+	['$scope', '$http', 'FileUploader', 'MenuService', function($scope, $http, FileUploader, MenuService) {
 
 		MenuService.setCurrentMenu("upload");
 
+		var url = "file/upload";
 
-		$scope.edit = true;
+		var uploader = $scope.uploader = new FileUploader({
+            url: url
+        });
 
-		$scope.item = {};
+        uploader.onSuccessItem = function(fileItem, response, status, headers) {
+            // console.info('onSuccessItem', fileItem, response, status, headers);
 
-		// $scope.itemName = '';
-		// $scope.itemType = '';
-		// $scope.itemOrder = '';
+			// console.log(response);
 
-		$scope.findItem = function(itemId) {
-			var item = {};
+			$scope.uploadList = response.data;
 
-			for (var i = 0; i < $scope.itemList.length; i++) {
-				var t = $scope.itemList[i];
-				
-				if (t.item_id == itemId) {
-					item = t;
-					break;
-				}
-			}
-
-			return item;
-
-		};
-
-		$scope.editItem = function(itemId) {
-			if (itemId == 'new') {
-				$scope.edit = true;
+			if (response.success) {
+				alert('上传成功!');
 			} else {
-				$scope.edit = false;
-
-				$scope.item = $scope.findItem(itemId);
+				alert('上传失败!');
 			}
-		};
+        };
 
 		
-
 	}]
 );
 

@@ -8,6 +8,7 @@ var app = angular.module('app', [
 	'ngRoute',
 	'ngCookies',
 	'ui.router',
+	'angularFileUpload',
 	'appServices',
 	'applicationControllers',
 	'appControllers'
@@ -181,8 +182,27 @@ app.config(
 						controller: 'RecordCtrl'
 					}
 				}
+			}).
+			state('items', {
+				url: '/items',
+				views: {
+					"login": {template: ""},
+					"main": {
+						templateUrl: 'partials/items.html',
+						controller: 'ItemCtrl'
+					}
+				}
+			}).
+			state('upload', {
+				url: '/upload',
+				views: {
+					"login": {template: ""},
+					"main": {
+						templateUrl: 'partials/upload.html',
+						controller: 'UploadCtrl'
+					}
+				}
 			});
-
 
 	}]
 );

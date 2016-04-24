@@ -1,10 +1,11 @@
 
 
-<form class="form-inline col-sm-12">
-  <div class="form-group col-sm-12">
-    <label for="exampleInputFile" class="col-sm-2 control-label">Excel文档</label>
-    <input type="file" id="exampleInputFile" class="col-sm-7">
-	<button type="submit" class="btn btn-primary">上传</button>
+<div class="row">
+  <div class="col-sm-2">
+	<button class="btn btn-primary btn-sm"  ng-click="uploader.uploadAll()">上传</button>
+  </div>
+  <div class="col-sm-10">
+	<input type="file" nv-file-select="" accept="application/msexcel" uploader="uploader">
   </div>
 </form>
 
@@ -20,9 +21,9 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="item in itemList" >
-	  <td>{{item.name}}</td>
-	  <td>{{item.type}}</td>
+    <tr ng-repeat="upload in uploadList" >
+	  <td>{{upload.location}}</td>
+	  <td>{{upload.message}}</td>
     </tr>
   </tbody>
 </table>

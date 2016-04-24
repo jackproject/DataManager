@@ -105,6 +105,10 @@ public class ItemParam {
 	{
 		List<OtherName> list = new ArrayList();
 
+		if (other_name.equals("")) {
+			return list;
+		}
+		
 		String[] arr = other_name.split("[,，]");
 		for (String s : arr) {
 			
@@ -123,6 +127,10 @@ public class ItemParam {
 	public List<ValidateItem> findListValidateItem()
 	{
 		List<ValidateItem> list = new ArrayList();
+		
+		if (validate.equals("")) {
+			return list;
+		}
 
 		String[] arr = validate.split("[,，]");
 		for (String s : arr) {
