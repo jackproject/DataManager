@@ -127,9 +127,9 @@ public class RecordDataService {
 		
 		
 		if (strContent == null) {
-			// 没有此 itemId 的数据，直接返回 TRUE，因为不需要过滤
+			// 没有此 itemId 的数据，直接返回 false，过滤掉
 			
-			return true;
+			return false;
 		}
 		
 		Integer choice = pickItem.getChoice();

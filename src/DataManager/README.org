@@ -3,6 +3,7 @@
 * communication
 
 ** web v2 
+
 http://119.29.102.203:22080/DataManager
 
 
@@ -444,22 +445,14 @@ INSERT INTO `t_item` (`item_id`, `name`, `type`, `order_num`, `maxlength`) VALUE
 
 
 INSERT INTO `t_othername` (`othername_id`, `item_id`, `name`) VALUES
-(7, 2, ''),
 (10, 1, '别名1'),
 (11, 1, '别名1'),
 (12, 1, '别名2'),
-(15, 3, ''),
-(16, 6, ''),
-(17, 5, '');
 
 INSERT INTO `t_validate` (`validate_id`, `item_id`, `validate_item`) VALUES
-(7, 2, ''),
 (10, 1, '验证1'),
 (11, 1, '验证1'),
-(12, 1, '验证2'),
-(15, 3, ''),
-(16, 6, ''),
-(17, 5, '');
+(12, 1, '验证2');
 
 
 
