@@ -979,6 +979,162 @@ http://www.cnblogs.com/kissdodog/p/3165944.html
 
 ---------
 SELECT {fn CONCAT(CONVERT(user_id,CHAR),USER_NAME)} AS str FROM t_sys_user
+* DONE 调试类别与内容的问题
+  - State "DONE"       from ""           [2016-05-03 周二 21:14]
+  CLOCK: [2016-05-03 周二 21:03]--[2016-05-03 周二 21:14] =>  0:11
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-05-05 周四 20:10
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE 插入到数据库中
+  - State "DONE"       from ""           [2016-04-24 周日 19:20]
+  CLOCK: [2016-04-24 周日 18:07]--[2016-04-24 周日 18:49] =>  0:42
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-05-05 周四 20:11
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+* DONE 删掉 extjs
+  - State "DONE"       from ""           [2016-04-24 周日 19:43]
+  CLOCK: [2016-04-24 周日 19:20]--[2016-04-24 周日 19:35] =>  0:15
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-05-05 周四 20:11
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+* 部署
+  CLOCK: [2016-04-24 周日 19:43]--[2016-04-24 周日 20:09] =>  0:26
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-05-05 周四 20:11
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :END:
+
+* DONE 实现读取用户信息
+  - State "DONE"       from ""           [2016-04-24 周日 12:10]
+  CLOCK: [2016-04-24 周日 11:45]--[2016-04-24 周日 12:10] =>  0:25
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-05-05 周四 20:11
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE 实现登录验证
+  - State "DONE"       from ""           [2016-04-24 周日 14:47]
+  CLOCK: [2016-04-24 周日 10:58]--[2016-04-24 周日 11:37] =>  0:39
+  CLOCK: [2016-04-24 周日 10:05]--[2016-04-24 周日 10:42] =>  0:37
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-05-05 周四 20:11
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE 更新“系统项”名称
+  - State "DONE"       from ""           [2016-04-23 周六 10:20]
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-05-05 周四 20:11
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+* DONE 点击筛选时，自动查询筛选后的数据
+  - State "DONE"       from ""           [2016-04-23 周六 10:20]
+  CLOCK: [2016-04-23 周六 10:08]--[2016-04-23 周六 10:20] =>  0:12
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-05-05 周四 20:11
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+* DONE 通过判断 ArrayList 中 Map 对象的属性来实现筛选
+  SCHEDULED: <2016-04-23 周六>
+  - State "DONE"       from ""           [2016-04-23 周六 09:55]
+  CLOCK: [2016-04-23 周六 09:20]--[2016-04-23 周六 09:55] =>  0:35
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-05-05 周四 20:11
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE 验证项体现在输入时，只能选择这些项
+   - State "DONE"       from ""           [2016-04-23 周六 10:23]
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-05-05 周四 20:11
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+
+比如说业务类型是系统项，那么它的系统选项是：估算，概算，预算 ，决算
+* DONE 实现筛选服务相关对象
+  - State "DONE"       from ""           [2016-04-23 周六 10:23]
+  CLOCK: [2016-04-15 周五 17:29]--[2016-04-15 周五 17:58] =>  0:29
+  CLOCK: [2016-04-15 周五 16:48]--[2016-04-15 周五 17:23] =>  0:35
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-05-05 周四 20:11
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE 搭建 bootstrap 与 angularjs 的基础框架
+   SCHEDULED: <2016-04-08 周五>
+   - State "DONE"       from ""           [2016-04-08 周五 19:55]
+   CLOCK: [2016-04-08 周五 19:11]--[2016-04-08 周五 19:37] =>  0:26
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-05-05 周四 20:11
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+
+- bootstrap 中文
+  http://www.bootcss.com/
+
+* DONE 查看web需求
+  SCHEDULED: <2016-04-04 周一>
+  - State "DONE"       from ""           [2016-05-05 周四 20:12]
+  CLOCK: [2016-04-04 周一 21:39]--[2016-04-04 周一 21:44] =>  0:05
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-05-05 周四 20:12
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,5 +1,189 @@
 
 
+* nextstep
+** 上传文件进度提示
+   CLOCK: [2016-05-07 周六 15:15]
+   CLOCK: [2016-05-05 周四 21:03]--[2016-05-05 周四 21:21] =>  0:18
+   CLOCK: [2016-05-05 周四 20:14]--[2016-05-05 周四 20:30] =>  0:16
+** 文件上传
+** 调整页面铺满浏览器
+   CLOCK: [2016-05-07 周六 14:55]
+   CLOCK: [2016-05-05 周四 21:53]--[2016-05-05 周四 22:02] =>  0:09
+   CLOCK: [2016-05-05 周四 21:34]--[2016-05-05 周四 21:42] =>  0:08
+
+查询 bootstrap 中，
+
+** 移动对话框是否可以实现
+** 处理字段数据类型改变的后果， 比如 原来是名称（字符串） 变成 序号（数字）
+
+
+1. 上传的 Excel 第一行 必须为 字段名
+
+2. 尽量避免字段数据类型改变， 比如 原来是名称（字符串） 变成 序号（数字），因为这样的改变会使筛选条件可能失效。可以采取新增字段的方式。
+
+
+
+这个Excel读取哪一行可以我们自己控制
+
+
+
+OK，这个确实挺重要的，当时没考虑到，你把问题汇总，我后期一并加上
+** 文件类型修改成枚举
+   SCHEDULED: <2016-04-24 周日>
+   CLOCK: [2016-04-24 周日 09:57]--[2016-04-24 周日 10:04] =>  0:07
+
+最好是能定义成 值+描述的形式
+
+两者都可以用获取得到
+
+** 合并返回的表格数据
+   CLOCK: [2016-04-24 周日 14:47]--[2016-04-24 周日 14:54] =>  0:07
+   CLOCK: [2016-04-24 周日 08:59]--[2016-04-24 周日 09:17] =>  0:18
+   CLOCK: [2016-04-23 周六 21:00]--[2016-04-23 周六 21:32] =>  0:32
+** 实现通过传递刷选编号查询数据
+   SCHEDULED: <2016-04-15 周五>
+   CLOCK: [2016-04-23 周六 08:51]--[2016-04-23 周六 09:13] =>  0:22
+   CLOCK: [2016-04-22 周五 21:14]--[2016-04-22 周五 21:52] =>  0:38
+   CLOCK: [2016-04-19 周二 20:01]--[2016-04-19 周二 20:28] =>  0:27
+   CLOCK: [2016-04-19 周二 19:45]--[2016-04-19 周二 20:00] =>  0:15
+   CLOCK: [2016-04-18 周一 20:04]--[2016-04-18 周一 20:05] =>  0:01
+   CLOCK: [2016-04-17 周日 20:02]--[2016-04-17 周日 20:49] =>  0:47
+   CLOCK: [2016-04-15 周五 21:30]--[2016-04-15 周五 22:02] =>  0:32
+
+【应该是去掉 data_id 】 相关的内容
+
+
+
+
+【把所有 item 相同的都拼接在一起】
+
+
+
+
+
+
+select recorddata0_.item_id as item_id1_0_, recorddata0_.data_id as data_id2_0_, recorddata0_.content as content3_0_ from t_data recorddata0_ where 
+recorddata0_.item_id=1 and cast(content as decimal)>cast('1' as decimal) or 
+recorddata0_.item_id=1 and cast(content as decimal)<cast('100' as decimal) or 
+recorddata0_.item_id=7 and cast(content as date)>cast('2016-04-19' as date) 
+
+
+【用这种算法来写，没错】
+select recorddata0_.item_id as item_id1_0_, recorddata0_.data_id as data_id2_0_, recorddata0_.content as content3_0_ from t_data recorddata0_ where (recorddata0_.item_id<>1 or cast(content as decimal)>cast('1' as decimal)) and (recorddata0_.item_id<>1 or cast(content as decimal)<cast('100' as decimal)) and (recorddata0_.item_id<>7 or cast(content as date)>cast('2016-04-19' as date))
+
+---------
+
+like 
+
+
+
+
+selet from t_data where (item_id=1 and content>1) or (item_id=1 and content<100)
+
+要通过 HSQL 的字段类型来转变
+
+
+
+
+
+select * from t_data where (item_id=1 and CAST(content AS FLOAT)>CAST('1' AS FLOAT)) or (item_id=1 and CAST(content AS FLOAT)<CAST('100' AS FLOAT));
+
+select * from t_data where (item_id=1 and CAST(content AS FLOAT)>CAST('1' AS FLOAT));
+
+
+select * from t_data where CAST(content AS int)>CAST('1' AS int);
+
+
+select * from t_data where CAST(content AS int)=1;
+
+
+
+mysql 中的值必须这样
+
+DECIMAL
+
+select * from t_data where (item_id=1 and CAST(content AS DECIMAL)>CAST('1' AS DECIMAL));
+
+select * from t_data where (item_id=1 and CAST(content AS DECIMAL)>CAST('1' AS DECIMAL)) or (item_id=1 and CAST(content AS DECIMAL)<CAST('100' AS DECIMAL));
+
+
+
+---------
+herbnate 中 case 必须是 int ， float 这些基础数据类型
+
+以前都是连接的ORACLE，MYSQL数据库，写程序一直也没出现过什么问题，就在近期用SQL SERVER出了点问题。
+
+用hibernate操作sqlserver数据库，数据库表中有个日期字段是字符型，当查询一定时间范围内的数据时需要转换日期，这里需要注意了hibernate CAST函数支持转换类型在SQL SERVER中不一定行。
+如：and cast(a.enterdate as date) >= cast('2009-01-01' as date) 
+
+
+---------
+
+String formatbgString = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(begintime);
+String formatendString = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(begintime);
+
+"and t.begintime > to_date('" + formatbgString + "', 'yyyy-MM-dd HH24:mi:ss') and t.endtime < to_date('" + formatendString + "', 'yyyy-MM-dd HH24:mi:ss')" 
+** 用户刷选时，能够根据item项目进行调整
+** 用户登录的界面
+** excel解析
+
+1. 需要考虑字段类型，并解析
+
+** CRUD 查询数据
+   CLOCK: [2016-04-13 周三 20:45]--[2016-04-13 周三 21:08] =>  0:23
+   CLOCK: [2016-04-13 周三 19:42]--[2016-04-13 周三 20:28] =>  0:46
+   CLOCK: [2016-04-13 周三 18:57]--[2016-04-13 周三 19:28] =>  0:31
+
+angular Request Method:DELETE Status Code:415 Unsupported Media Type
+
+改成post形式
+		  <th>操作</th>
+** excel 解析
+1. 处理不同类型的解析
+
+
+** 解析excel，以及整合项目
+   SCHEDULED: <2016-04-10 周日>
+   CLOCK: [2016-04-10 周日 22:03]--[2016-04-10 周日 22:34] =>  0:31
+
+
+Description	Resource	Path	Location	Type
+Unbound classpath container: 'JRE System Library [JavaSE-1.7]' in project 'DataManager'	DataManager		Build path	Build Path Problem
+
+sted exception is java.lang.UnsupportedClassVersionError: com/soho/service/ItemService : Unsupported major.minor version 51.0
+
+** 实现输入文件
+
+http://v3.bootcss.com/css/#forms
+
+表单
+基本实例
+** 插入和删除数据的批量更新
+** 字段的排序功能
+** 修改 MyEclipse 的注释风格
+** 处理数据记录模型中的 type 字段
+   SCHEDULED: <2016-03-16 周三>
+** 字段名唯一问题
+   CLOCK: [2016-03-19 周六 10:40]--[2016-03-19 周六 11:17] =>  0:37
+1. 设置数据库字段唯一？
+2. 设定 数据记录 唯一
+
+** 整理使用手册
+1. 截图等
+
+** 优化界面
+   CLOCK: [2016-03-17 周四 20:14]--[2016-03-17 周四 20:53] =>  0:39
+   CLOCK: [2016-03-16 周三 21:38]--[2016-03-16 周三 22:41] =>  1:03
+1. 发布 ExtJS release 版本
+2. 改成修改那些改成中文版的提示
+
+
+
+ycompressor
+
+
+java -jar "D:\Program Files (x86)\SenchaSDKTools-2.0.0-beta3\compat\jsbuilder\ycompressor\ycompressor.jar" --type js --charset UTF-8 all-classes.js -o app-all.js
+
 * communication
 
 ** web v2 
@@ -88,230 +272,6 @@ settings.setWriteAccess(null);
    SCHEDULED: <2016-04-19 周二>
    CLOCK: [2016-04-19 周二 21:11]--[2016-04-19 周二 21:15] =>  0:04
    CLOCK: [2016-04-19 周二 21:10]--[2016-04-19 周二 21:11] =>  0:01
-
-* nextstep
-** DONE 插入到数据库中
-   - State "DONE"       from ""           [2016-04-24 周日 19:20]
-   CLOCK: [2016-04-24 周日 18:07]--[2016-04-24 周日 18:49] =>  0:42
-** DONE 删掉 extjs
-   - State "DONE"       from ""           [2016-04-24 周日 19:43]
-   CLOCK: [2016-04-24 周日 19:20]--[2016-04-24 周日 19:35] =>  0:15
-** 部署
-   CLOCK: [2016-04-24 周日 19:43]--[2016-04-24 周日 20:09] =>  0:26
-
-** DONE 实现读取用户信息
-   - State "DONE"       from ""           [2016-04-24 周日 12:10]
-   CLOCK: [2016-04-24 周日 11:45]--[2016-04-24 周日 12:10] =>  0:25
-
-** DONE 实现登录验证
-   - State "DONE"       from ""           [2016-04-24 周日 14:47]
-   CLOCK: [2016-04-24 周日 10:58]--[2016-04-24 周日 11:37] =>  0:39
-   CLOCK: [2016-04-24 周日 10:05]--[2016-04-24 周日 10:42] =>  0:37
-
-
-** 文件类型修改成枚举
-   SCHEDULED: <2016-04-24 周日>
-   CLOCK: [2016-04-24 周日 09:57]--[2016-04-24 周日 10:04] =>  0:07
-
-最好是能定义成 值+描述的形式
-
-两者都可以用获取得到
-
-** 合并表格解析
-   CLOCK: [2016-04-24 周日 14:47]--[2016-04-24 周日 14:54] =>  0:07
-   CLOCK: [2016-04-24 周日 08:59]--[2016-04-24 周日 09:17] =>  0:18
-   CLOCK: [2016-04-23 周六 21:00]--[2016-04-23 周六 21:32] =>  0:32
-
-** DONE 更新“系统项”名称
-   - State "DONE"       from ""           [2016-04-23 周六 10:20]
-** DONE 点击筛选时，自动查询筛选后的数据
-   - State "DONE"       from ""           [2016-04-23 周六 10:20]
-   CLOCK: [2016-04-23 周六 10:08]--[2016-04-23 周六 10:20] =>  0:12
-** DONE 通过判断 ArrayList 中 Map 对象的属性来实现筛选
-   SCHEDULED: <2016-04-23 周六>
-   - State "DONE"       from ""           [2016-04-23 周六 09:55]
-   CLOCK: [2016-04-23 周六 09:20]--[2016-04-23 周六 09:55] =>  0:35
-
-
-** 实现通过传递刷选编号查询数据
-   SCHEDULED: <2016-04-15 周五>
-   CLOCK: [2016-04-23 周六 08:51]--[2016-04-23 周六 09:13] =>  0:22
-   CLOCK: [2016-04-22 周五 21:14]--[2016-04-22 周五 21:52] =>  0:38
-   CLOCK: [2016-04-19 周二 20:01]--[2016-04-19 周二 20:28] =>  0:27
-   CLOCK: [2016-04-19 周二 19:45]--[2016-04-19 周二 20:00] =>  0:15
-   CLOCK: [2016-04-18 周一 20:04]--[2016-04-18 周一 20:05] =>  0:01
-   CLOCK: [2016-04-17 周日 20:02]--[2016-04-17 周日 20:49] =>  0:47
-   CLOCK: [2016-04-15 周五 21:30]--[2016-04-15 周五 22:02] =>  0:32
-
-【应该是去掉 data_id 】 相关的内容
-
-
-
-
-【把所有 item 相同的都拼接在一起】
-
-
-
-
-
-
-select recorddata0_.item_id as item_id1_0_, recorddata0_.data_id as data_id2_0_, recorddata0_.content as content3_0_ from t_data recorddata0_ where 
-recorddata0_.item_id=1 and cast(content as decimal)>cast('1' as decimal) or 
-recorddata0_.item_id=1 and cast(content as decimal)<cast('100' as decimal) or 
-recorddata0_.item_id=7 and cast(content as date)>cast('2016-04-19' as date) 
-
-
-【用这种算法来写，没错】
-select recorddata0_.item_id as item_id1_0_, recorddata0_.data_id as data_id2_0_, recorddata0_.content as content3_0_ from t_data recorddata0_ where (recorddata0_.item_id<>1 or cast(content as decimal)>cast('1' as decimal)) and (recorddata0_.item_id<>1 or cast(content as decimal)<cast('100' as decimal)) and (recorddata0_.item_id<>7 or cast(content as date)>cast('2016-04-19' as date))
-
----------
-
-like 
-
-
-
-
-selet from t_data where (item_id=1 and content>1) or (item_id=1 and content<100)
-
-要通过 HSQL 的字段类型来转变
-
-
-
-
-
-select * from t_data where (item_id=1 and CAST(content AS FLOAT)>CAST('1' AS FLOAT)) or (item_id=1 and CAST(content AS FLOAT)<CAST('100' AS FLOAT));
-
-select * from t_data where (item_id=1 and CAST(content AS FLOAT)>CAST('1' AS FLOAT));
-
-
-select * from t_data where CAST(content AS int)>CAST('1' AS int);
-
-
-select * from t_data where CAST(content AS int)=1;
-
-
-
-mysql 中的值必须这样
-
-DECIMAL
-
-select * from t_data where (item_id=1 and CAST(content AS DECIMAL)>CAST('1' AS DECIMAL));
-
-select * from t_data where (item_id=1 and CAST(content AS DECIMAL)>CAST('1' AS DECIMAL)) or (item_id=1 and CAST(content AS DECIMAL)<CAST('100' AS DECIMAL));
-
-
-
----------
-herbnate 中 case 必须是 int ， float 这些基础数据类型
-
-以前都是连接的ORACLE，MYSQL数据库，写程序一直也没出现过什么问题，就在近期用SQL SERVER出了点问题。
-
-用hibernate操作sqlserver数据库，数据库表中有个日期字段是字符型，当查询一定时间范围内的数据时需要转换日期，这里需要注意了hibernate CAST函数支持转换类型在SQL SERVER中不一定行。
-如：and cast(a.enterdate as date) >= cast('2009-01-01' as date) 
-
-
----------
-
-String formatbgString = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(begintime);
-String formatendString = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(begintime);
-
-"and t.begintime > to_date('" + formatbgString + "', 'yyyy-MM-dd HH24:mi:ss') and t.endtime < to_date('" + formatendString + "', 'yyyy-MM-dd HH24:mi:ss')" 
-
-
-** DONE 验证项体现在输入时，只能选择这些项
-   - State "DONE"       from ""           [2016-04-23 周六 10:23]
-
-比如说业务类型是系统项，那么它的系统选项是：估算，概算，预算 ，决算
-** DONE 实现筛选服务相关对象
-   - State "DONE"       from ""           [2016-04-23 周六 10:23]
-   CLOCK: [2016-04-15 周五 17:29]--[2016-04-15 周五 17:58] =>  0:29
-   CLOCK: [2016-04-15 周五 16:48]--[2016-04-15 周五 17:23] =>  0:35
-** 用户刷选时，能够根据item项目进行调整
-** 用户登录的界面
-** 文件上传
-** excel解析
-
-1. 需要考虑字段类型，并解析
-
-** CRUD 查询数据
-   CLOCK: [2016-04-13 周三 20:45]--[2016-04-13 周三 21:08] =>  0:23
-   CLOCK: [2016-04-13 周三 19:42]--[2016-04-13 周三 20:28] =>  0:46
-   CLOCK: [2016-04-13 周三 18:57]--[2016-04-13 周三 19:28] =>  0:31
-
-angular Request Method:DELETE Status Code:415 Unsupported Media Type
-
-改成post形式
-		  <th>操作</th>
-** excel 解析
-1. 处理不同类型的解析
-
-
-** 解析excel，以及整合项目
-   SCHEDULED: <2016-04-10 周日>
-   CLOCK: [2016-04-10 周日 22:03]--[2016-04-10 周日 22:34] =>  0:31
-
-
-Description	Resource	Path	Location	Type
-Unbound classpath container: 'JRE System Library [JavaSE-1.7]' in project 'DataManager'	DataManager		Build path	Build Path Problem
-
-sted exception is java.lang.UnsupportedClassVersionError: com/soho/service/ItemService : Unsupported major.minor version 51.0
-
-
-** 实现与 angularjs 的集成
-   CLOCK: [2016-04-08 周五 20:41]--[2016-04-08 周五 21:08] =>  0:27
-** Item管理页面
-   CLOCK: [2016-04-08 周五 21:35]--[2016-04-08 周五 21:41] =>  0:06
-   CLOCK: [2016-04-08 周五 19:55]--[2016-04-08 周五 20:21] =>  0:26
-
-** DONE 搭建 bootstrap 与 angularjs 的基础框架
-   SCHEDULED: <2016-04-08 周五>
-   - State "DONE"       from ""           [2016-04-08 周五 19:55]
-   CLOCK: [2016-04-08 周五 19:11]--[2016-04-08 周五 19:37] =>  0:26
-
-- bootstrap 中文
-  http://www.bootcss.com/
-
-
-
-** 实现输入文件
-
-http://v3.bootcss.com/css/#forms
-
-表单
-基本实例
-
-** 查看web需求
-   SCHEDULED: <2016-04-04 周一>
-   CLOCK: [2016-04-04 周一 21:39]--[2016-04-04 周一 21:44] =>  0:05
-** 更新到服务器
-   SCHEDULED: <2016-03-28 周一>
-   CLOCK: [2016-03-29 周二 20:16]--[2016-03-29 周二 20:26] =>  0:10
-   CLOCK: [2016-03-29 周二 19:37]--[2016-03-29 周二 20:02] =>  0:25
-** 插入和删除数据的批量更新
-** 字段的排序功能
-** 修改 MyEclipse 的注释风格
-** 处理数据记录模型中的 type 字段
-   SCHEDULED: <2016-03-16 周三>
-** 字段名唯一问题
-   CLOCK: [2016-03-19 周六 10:40]--[2016-03-19 周六 11:17] =>  0:37
-1. 设置数据库字段唯一？
-2. 设定 数据记录 唯一
-
-** 整理使用手册
-1. 截图等
-
-** 优化界面
-   CLOCK: [2016-03-17 周四 20:14]--[2016-03-17 周四 20:53] =>  0:39
-   CLOCK: [2016-03-16 周三 21:38]--[2016-03-16 周三 22:41] =>  1:03
-1. 发布 ExtJS release 版本
-2. 改成修改那些改成中文版的提示
-
-
-
-ycompressor
-
-
-java -jar "D:\Program Files (x86)\SenchaSDKTools-2.0.0-beta3\compat\jsbuilder\ycompressor\ycompressor.jar" --type js --charset UTF-8 all-classes.js -o app-all.js
 
 * need
 
@@ -504,3 +464,4 @@ INSERT INTO `t_pick_item` (`pick_id`, `item_id`, `choice`, `pick_value`) VALUES
 
 
 
+delete from t_data;

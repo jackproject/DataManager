@@ -83,11 +83,11 @@ public class UploadController {
 			e1.printStackTrace();
 		}		
 		
-		List listResult = new ArrayList();
-		
-		boolean status = saveExcelToDb(newFilePath, listResult);
-		
-		response = buildResponse(status, listResult);
+//		List listResult = new ArrayList();
+//		
+//		boolean status = saveExcelToDb(newFilePath, listResult);
+//		
+//		response = buildResponse(status, listResult);
 
 		return response;
 	}
@@ -106,7 +106,7 @@ public class UploadController {
 			return false;
 		}
 
-		int rows = excel.findExcelCols();
+		int rows = excel.findExcelRows();
 		int cols = excel.findExcelCols();
 
 		for (int i = 1; i < rows; i++) {

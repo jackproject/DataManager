@@ -5,14 +5,44 @@
 	<input type="file" nv-file-select="" accept="application/msexcel" uploader="uploader">
   </div>
   <div class="col-sm-2">
-	<button class="btn btn-primary btn-sm"  ng-click="uploader.uploadAll()">上传</button>
+	<button class="btn btn-primary btn-sm" ng-disabled="uploader.isUploading" ng-click="onUpload()">上传</button>
+	<button class="btn btn-primary btn-sm" ng-disabled="!uploader.isUploading" ng-click="uploader.cancelAll()">取消</button>
   </div>
+
+</div>
+
+
+<br>
+
+<div class="row">
+  <div class="progress" style="">
+    <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+  </div>
+</div>
+
+
+<br>
+
+<form class="form-horizontal">
+  <div class="form-group">
+	<label class="col-sm-2 control-label">字段名行号:</label>
+	<div class="col-sm-10">
+      <input type="text" class="form-control" ng-model="param.itemRow" placeholder="字段名行号">
+	</div>
+  </div> 
+
+  <div class="form-group">
+	<label class="col-sm-2 control-label">上传清空数据库？:</label>
+	<div class="col-sm-10">
+	</div>
+  </div> 
 </form>
 
-<hr>
+
 <br>
 <br>
 
+<div class="col-xs-12">
 <table class="table table-striped table-hover table-bordered">
   <thead>
     <tr>
@@ -27,3 +57,4 @@
     </tr>
   </tbody>
 </table>
+</div>
