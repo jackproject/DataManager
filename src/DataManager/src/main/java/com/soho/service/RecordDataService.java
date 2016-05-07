@@ -33,7 +33,7 @@ public class RecordDataService {
 	private ItemService itemService;
 
 	public List<RecordData> findAll() {
-		String hsql = "from t_data";
+		String hsql = "from t_data as t order by t.data_id";
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery(hsql);
 
@@ -347,6 +347,16 @@ public class RecordDataService {
 		query.executeUpdate();
 	}
 
+
+	public void deleteAll() {
+		String hsql = "delete from t_data";
+
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery(hsql);
+
+		query.executeUpdate();
+	}
+	
 	public void delete(Object entity) {
 		Session session = sessionFactory.getCurrentSession();
 
@@ -365,6 +375,25 @@ public class RecordDataService {
 		session.flush();
 
 		return objNew;
+	}
+
+	public void insertBatch(List listRecord) {
+		Session session = sessionFactory.getCurrentSession();
+
+		for (int i = 0; i < listRecord.size(); i++) {
+			
+//			insert(listRecord.get(i));
+			
+			session.save(listRecord.get(i));
+			
+			if (i % 50 == 0) {
+				session.flush();
+				session.clear();
+			}
+		}
+
+		session.flush();
+		session.clear();
 	}
 
 	public Integer findNewRecordId() {

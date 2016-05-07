@@ -363,37 +363,25 @@ appControllers.controller(
 
 		MenuService.setCurrentMenu("upload");
 
+		var url = "file/upload";
 
-		$scope.createUploader = function() {
-			var url = "file/upload";
+		$scope.uploader = new FileUploader({
+			url: url
+		});
 
-			$scope.uploader = new FileUploader({
-				url: url
-			});
+		$scope.uploader.onSuccessItem = function(fileItem, response, status, headers) {
+			$scope.uploadList = response.data;
 
-			$scope.uploader.onSuccessItem = function(fileItem, response, status, headers) {
-				// console.info('onSuccessItem', fileItem, response, status, headers);
+			if (response.success) {
+				alert('上传成功!');
+			} else {
+				alert('上传失败!');
+			}
+		};
 
-				// console.log(response);
-
-				$scope.uploadList = response.data;
-
-				if (response.success) {
-					alert('上传成功!');
-				} else {
-					alert('上传失败!');
-				}
-			};
-		}
-
-		$scope.createUploader();
-
-		$scope.onUpload = function() {
-
-			$scope.createUploader();
-
-			$scope.uploader.uploadAll();
-		}
+		$scope.param = {
+			itemNameRow: 2
+		};
 	}]
 );
 

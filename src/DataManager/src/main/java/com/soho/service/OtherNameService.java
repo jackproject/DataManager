@@ -36,7 +36,7 @@ public class OtherNameService {
         return query.list();
     }
 
-    
+    // 返回第一个匹配的别名值
 	public OtherName findByItemName(String itemName){
         String hsql = "from t_othername as t where t.name=?";
         
@@ -45,7 +45,18 @@ public class OtherNameService {
 
         query.setString(0, itemName);
         
-        return (OtherName)query.uniqueResult();
+        System.out.println("itemName:" + itemName);
+        
+        
+        List<OtherName> list = query.list();
+        
+        OtherName oth = null;
+        
+        if (list.size() > 0) {
+        	oth = list.get(0);
+        }
+        
+        return oth;
     }
     
 	public OtherName findById(Integer id){
@@ -66,17 +77,15 @@ public class OtherNameService {
     }
 
 
-    public void updateAllByItemId(List<OtherName> list){
+    public void updateAllByItemId(Integer itemId, List<OtherName> list){
     	
+    	// 1. 清空所有数据
+    	deleteAllByItemId(itemId);
+
     	if (list.size() <= 0) {
     		return ;
     	}
     	
-    	Integer itemId = list.get(0).getItem_id();
-    	
-    	// 1. 清空所有数据
-    	deleteAllByItemId(itemId);
-        
         // 2. 插入所有新的数据
         for (OtherName item : list) {
         	insert(item);

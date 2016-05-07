@@ -42,7 +42,9 @@ public class ExcelAnalyser {
 		{
 			DateCell dc = (DateCell)cur;
 			Date date = dc.getDate();
-			SimpleDateFormat ds = new SimpleDateFormat("yyyy-MM-dd HH:ss:mm");
+			// 日期的格式都格式化成这种形式
+			//  HH:ss:mm
+			SimpleDateFormat ds = new SimpleDateFormat("yyyy-MM-dd");
 			return ds.format(date);
 		}
 		return m_sheet.getCell(col, row).getContents();

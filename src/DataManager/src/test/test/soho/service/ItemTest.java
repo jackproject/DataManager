@@ -24,7 +24,18 @@ public class ItemTest {
     
     @Resource
     private ItemService itemService;
-    
+
+    @Test
+    public void findItemByItemName() {
+    	String itemName = "";
+    	
+    	Item item = itemService.findItemByItemName(itemName);
+    	
+    	
+
+		System.out.println("item: " + item);
+    }
+        
     //@Test
     public void update() {
 
@@ -59,7 +70,7 @@ public class ItemTest {
     	findAll();
     }
     
-    @Test
+    // @Test
     public void insert(){
     	
     	Item item = new Item();

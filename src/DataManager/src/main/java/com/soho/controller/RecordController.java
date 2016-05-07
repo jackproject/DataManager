@@ -145,9 +145,11 @@ public class RecordController {
 		Integer prevDataId = -1;
 		Map obj = null;
 		
-		for (RecordData record : listRecordData) {
+		for (int i = 0; i < listRecordData.size(); i++) {
 
-			if (record.getData_id() != prevDataId) {
+			RecordData record = listRecordData.get(i);
+			
+			if (!prevDataId.equals(record.getData_id())) {
 
 				if (obj != null) {
 					list.add(obj);
@@ -156,9 +158,11 @@ public class RecordController {
 				obj = new HashMap();
 				prevDataId = record.getData_id();
 				obj.put("record_id", prevDataId);
+
+				System.out.println("压入新数据 id prevDataId: " + prevDataId);
 			}
 			
-			obj.put("" + record.getItem_id(), record.getContent_item());	
+			obj.put("" + record.getItem_id(), record.getContent_item());
 		}
 		
 		if (obj != null) {

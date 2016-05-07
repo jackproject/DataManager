@@ -1,42 +1,85 @@
 
 
 <div class="row">
-  <div class="col-sm-10">
-	<input type="file" nv-file-select="" accept="application/msexcel" uploader="uploader">
+
+  <div class="col-md-3">
+
+
+    <h3>上传设置:</h3>
+
+	<form class="form-horizontal">
+	  <div class="form-group">
+		<label class="col-sm-5 control-label">字段名行号:</label>
+		<div class="col-sm-7">
+		  <input type="text" class="form-control" ng-model="param.itemNameRow" placeholder="字段名行号">
+		</div>
+	  </div> 
+
+	  <!-- <div class="form-group"> -->
+	  <!-- 	<label class="col-sm-5 control-label">上传时清空数据库？:</label> -->
+	  <!-- </div>  -->
+	</form>
+
   </div>
-  <div class="col-sm-2">
-	<button class="btn btn-primary btn-sm" ng-disabled="uploader.isUploading" ng-click="onUpload()">上传</button>
-	<button class="btn btn-primary btn-sm" ng-disabled="!uploader.isUploading" ng-click="uploader.cancelAll()">取消</button>
-  </div>
+
+  <div class="col-md-9" style="margin-bottom: 40px">
+
+    <h3>请选择文件</h3>
+    <input type="file" nv-file-select="" uploader="uploader" />
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th width="50%">文件名</th>
+          <th ng-show="uploader.isHTML5">大小</th>
+          <th ng-show="uploader.isHTML5">进度</th>
+          <th>状态</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="item in uploader.queue">
+          <td><strong>{{ item.file.name }}</strong></td>
+          <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+          <td ng-show="uploader.isHTML5">
+            <div class="progress" style="margin-bottom: 0;">
+              <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+            </div>
+          </td>
+          <td class="text-center">
+            <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+            <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+            <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+          </td>
+
+          <td nowrap>
+            <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+              <span class="glyphicon glyphicon-upload"></span> 上传
+            </button>
+            <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+              <span class="glyphicon glyphicon-ban-circle"></span> 取消
+            </button>
+            <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+              <span class="glyphicon glyphicon-trash"></span> 移除
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div>
+      <div>
+        总进度:
+        <div class="progress" style="">
+          <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+        </div>
+      </div>
+    </div>
 
 </div>
 
-
 <br>
 
-<div class="row">
-  <div class="progress" style="">
-    <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
-  </div>
-</div>
-
-
-<br>
-
-<form class="form-horizontal">
-  <div class="form-group">
-	<label class="col-sm-2 control-label">字段名行号:</label>
-	<div class="col-sm-10">
-      <input type="text" class="form-control" ng-model="param.itemRow" placeholder="字段名行号">
-	</div>
-  </div> 
-
-  <div class="form-group">
-	<label class="col-sm-2 control-label">上传清空数据库？:</label>
-	<div class="col-sm-10">
-	</div>
-  </div> 
-</form>
 
 
 <br>
@@ -46,7 +89,7 @@
 <table class="table table-striped table-hover table-bordered">
   <thead>
     <tr>
-	  <th>位置</th>
+	  <th width="25%">位置</th>
 	  <th>错误提示</th>
     </tr>
   </thead>

@@ -25,6 +25,15 @@ import com.soho.service.OtherNameService;
 public class OtherNameTest {
     @Resource
     private OtherNameService otherNameService;
+
+    @Test
+    public void findItemByItemName() {
+    	String itemName = "";
+    	
+    	OtherName otherName = otherNameService.findByItemName(itemName);
+
+		System.out.println(otherName);
+    }
     
     // @Test
     public void findByItemId() {
@@ -41,14 +50,21 @@ public class OtherNameTest {
 		System.out.println(otherName);
     }
 
-    @Test
+    //@Test
     public void updateAllByItemId() {
     	
 		List<OtherName> listItem = otherNameService.findByItemId(1);
 		
 		System.out.println(listItem);
 		
-    	otherNameService.updateAllByItemId(listItem);
+		if (listItem.size() <= 0) {
+			return ;
+		}
+
+		// 2. 更新最新的值
+		Integer nItemId = listItem.get(0).getItem_id();
+		
+    	otherNameService.updateAllByItemId(nItemId, listItem);
     	
     }
     

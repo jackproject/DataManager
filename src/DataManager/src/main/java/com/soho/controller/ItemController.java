@@ -95,10 +95,12 @@ public class ItemController {
 		
 		// 返回最新创建的 item id
 		itemParam.setItem_id(newItem.getItem_id());
-		
+
 		// 2. 更新最新的值
-		otherNameService.updateAllByItemId(itemParam.findListOtherName());
-		validateItemService.updateAllByItemId(itemParam.findListValidateItem());
+		Integer nItemId = item.getItem_id();
+		
+		otherNameService.updateAllByItemId(nItemId, itemParam.findListOtherName());
+		validateItemService.updateAllByItemId(nItemId, itemParam.findListValidateItem());
 		
 		response = buildResponse(itemParam);
 
@@ -117,8 +119,10 @@ public class ItemController {
 		itemService.update(item);
 
 		// 2. 更新最新的值
-		otherNameService.updateAllByItemId(itemParam.findListOtherName());
-		validateItemService.updateAllByItemId(itemParam.findListValidateItem());
+		Integer nItemId = item.getItem_id();
+		
+		otherNameService.updateAllByItemId(nItemId, itemParam.findListOtherName());
+		validateItemService.updateAllByItemId(nItemId, itemParam.findListValidateItem());
 		
 		response = buildResponse(itemParam);
 		

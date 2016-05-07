@@ -49,6 +49,10 @@ public class UploadController {
 	
     @Resource
     private ValidateItemService validateItemService;
+    
+    private Map mapValidate = null;
+    
+    
 
 	@RequestMapping(value = "/upload", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
@@ -81,19 +85,159 @@ public class UploadController {
 	        stream.close();
 		} catch (Exception e1) {
 			e1.printStackTrace();
+
+			response = buildResponse(false, null);
+			
+			// 直接终止
+			return response;
 		}		
 		
-//		List listResult = new ArrayList();
-//		
-//		boolean status = saveExcelToDb(newFilePath, listResult);
-//		
-//		response = buildResponse(status, listResult);
+		List listResult = new ArrayList();
+		
+		
+		// 移除数据库中所有记录
+		recordDataService.deleteAll();
+		
+		
+		// 保存记录到数据库中
+		Integer itemNameRow = 1;
+
+
+		ExcelAnalyser excel = new ExcelAnalyser();
+
+		try {
+			excel.Init(newFilePath);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			response = buildResponse(false, null);
+			return response;
+		}
+
+		
+//		boolean status = saveExcelToDb(newFilePath, itemNameRow, listResult);
+		
+		
+		List listRecord = findRecordList(excel, itemNameRow, listResult);
+		
+		recordDataService.insertBatch(listRecord);
+		
+		response = buildResponse(true, listResult);
 
 		return response;
 	}
-	
 
-	private boolean saveExcelToDb(String path, List listResult) {
+	// 查找所有满足条件的字段列表
+	private Map findItemIdList(ExcelAnalyser excel, Integer itemNameRow, List listResult) {
+
+		Map map = new HashMap();
+
+		int cols = excel.findExcelCols();
+		
+		for (int j = 0; j < cols; j++) {
+
+			String strItemName = excel.findCellString(j, itemNameRow);
+
+			// 查找字段id
+			Integer itemId = findItemId(strItemName);
+
+			if (itemId == -1) {
+				String location = "(0, " + (j+1) + ") "  + strItemName;
+				String message = "找不到此字段名或对应的别名!";
+				
+				appendListResult(listResult, location, message);
+
+				// 别名表中也找不到，跳过下面的操作
+				continue;
+			}
+			
+			map.put(j, itemId);
+		}
+		
+		return map;
+	}
+
+	// 查找所有满足条件的字段列表
+	private List findRecordList(ExcelAnalyser excel, Integer itemNameRow, List listResult) {
+		
+		List listRecord = new ArrayList();
+
+		// 重新加载验证规则
+		mapValidate = new HashMap();
+		
+		
+		// 将用户习惯的1开始计数，规划成0开始计数
+		itemNameRow = itemNameRow - 1;
+		
+		int datRowStart = itemNameRow + 1; 
+		
+		Map mapItemId = findItemIdList(excel, itemNameRow, listResult);
+
+		int rows = excel.findExcelRows();
+		int cols = excel.findExcelCols();
+
+		Integer newRecordId = recordDataService.findNewRecordId();
+		
+		for (int i = datRowStart; i < rows; i++) {
+			// 这里插入一条数据记录
+			
+			boolean isRecordEmpty = true;
+			
+			for (int j = 0; j < cols; j++) {
+
+				Integer itemId = (Integer) mapItemId.get(j);
+
+				if (itemId == null) {
+					continue;
+				}
+
+				String strContent = excel.findCellString(j, i);
+				
+				if (strContent.equals("")) {
+					// 内容为空则跳过
+					continue;
+				}
+
+				// 验证内容
+				boolean isValid = isContentValid(itemId, strContent);
+				
+				if (!isValid) {
+
+					String location = "(" + (i+1) + ", " + (j+1) + ") " + strContent;
+					String message = "此内容不满足字段的验证条件！";
+
+					appendListResult(listResult, location, message);
+
+					// 验证通不过，直接跳过此条记录
+					break;
+				}			
+				
+				RecordData recordData = new RecordData();
+
+				recordData.setData_id(newRecordId);
+				recordData.setItem_id(itemId);
+				recordData.setContent_item(strContent);
+				
+				listRecord.add(recordData);
+				
+				// recordDataService.insert(recordData);
+				
+				isRecordEmpty = false;
+			}
+			
+			if (isRecordEmpty) {
+				// 遇到空行时，终止查找记录
+				break;
+			}
+			
+			newRecordId ++;
+		}
+		
+		return listRecord;
+	}
+	
+	private boolean saveExcelToDb(String path, Integer itemNameRow, List listResult) {
 
 		ExcelAnalyser excel = new ExcelAnalyser();
 
@@ -109,14 +253,19 @@ public class UploadController {
 		int rows = excel.findExcelRows();
 		int cols = excel.findExcelCols();
 
-		for (int i = 1; i < rows; i++) {
+		// 将用户习惯的1开始计数，规划成0开始计数
+		itemNameRow = itemNameRow - 1;
+		
+		int datRowStart = itemNameRow + 1; 
+		
+		for (int i = datRowStart; i < rows; i++) {
 			// 这里插入一条数据记录
 			
 			Integer newRecordId = recordDataService.findNewRecordId();
 			
 			for (int j = 0; j < cols; j++) {
 
-				String strItemName = excel.findCellString(j, 0);
+				String strItemName = excel.findCellString(j, itemNameRow);
 
 				// 查找字段id
 				Integer itemId = findItemId(strItemName);
@@ -168,12 +317,17 @@ public class UploadController {
 		
 		boolean result = true;
 		
-		List<ValidateItem> listValidateItem = validateItemService.findByItemId(itemId);
+		List<ValidateItem> listValidateItem = (List<ValidateItem>) mapValidate.get(itemId);
+		
+		if (listValidateItem == null) {
+			listValidateItem = validateItemService.findByItemId(itemId);
+			
+			// 压入缓冲
+			mapValidate.put(itemId, listValidateItem);
+		}
 		
 		if (listValidateItem.size() > 0) {
 
-			System.out.println(listValidateItem);
-			
 			result = false;
 			for (int k = 0; k <listValidateItem.size(); k++) {
 				

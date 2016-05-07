@@ -46,16 +46,14 @@ public class ValidateItemService {
     }
 
 
-    public void updateAllByItemId(List<ValidateItem> list){
+    public void updateAllByItemId(Integer itemId, List<ValidateItem> list){
+    	
+    	// 1. 清空所有数据
+    	deleteAllByItemId(itemId);
     	
     	if (list.size() <= 0) {
     		return ;
     	}
-    	
-    	Integer itemId = list.get(0).getItem_id();
-    	
-    	// 1. 清空所有数据
-    	deleteAllByItemId(itemId);
         
         // 2. 插入所有新的数据
         for (ValidateItem item : list) {
