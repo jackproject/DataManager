@@ -1,6 +1,8 @@
 package com.soho.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.soho.model.Item;
 import com.soho.model.ItemParam;
 import com.soho.model.OtherName;
+import com.soho.model.PageParam;
 import com.soho.model.PickItem;
 import com.soho.model.RecordData;
 import com.soho.model.ValidateItem;
@@ -38,6 +41,40 @@ public class RecordController {
     
     @Resource
     private RecordDataService recordDataService;
+    
+    private List listRecordData; 
+
+	@RequestMapping(value = "/recordbypage", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String viewByPage(@RequestBody PageParam pageParam) {
+
+		System.out.println("pageParam:" + pageParam);
+		System.out.println("listRecordData:" + listRecordData);
+		
+		String response = "";
+		
+		if (listRecordData == null) {
+			System.out.println("listRecordData is null");
+			
+			listRecordData = createClientList(recordDataService.findAll());
+		}
+		
+		Integer currentPage = pageParam.getCurrentPage();
+		
+		Integer start = (pageParam.getCurrentPage() - 1) * pageParam.getPageAmount();
+		Integer end = start + pageParam.getPageAmount();
+		
+		List listPage = listRecordData.subList(start, end);
+		
+		Map map = new HashMap();
+		
+		map.put("totalCount", listRecordData.size());
+		map.put("data", listPage);
+		
+		response = buildResponse(map);
+
+		return response;
+	}
     
     
 	@RequestMapping(value = "/record", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
@@ -66,7 +103,7 @@ public class RecordController {
 		
 		List<PickItem> listPickItem = pickItemService.findByPickId(nPickId);
 		
-		List list = recordDataService.findAllByPick(listPickItem);
+		List list = recordDataService.findAllByPick(listRecordData, listPickItem);
 		
 		response = buildResponse(list);
 
@@ -140,6 +177,18 @@ public class RecordController {
 
 
 	private List createClientList(List<RecordData> listRecordData) {
+
+		Comparator<RecordData> comparator = new Comparator<RecordData>() {
+
+			@Override
+			public int compare(RecordData o1, RecordData o2) {
+				return o1.getData_id() - o2.getData_id();
+			}
+		};
+
+		// 按照 data_id 来排序，确保相同data_id 都被放在一起
+		Collections.sort(listRecordData, comparator);
+		
 		List list = new ArrayList();
 
 		Integer prevDataId = -1;
@@ -159,7 +208,7 @@ public class RecordController {
 				prevDataId = record.getData_id();
 				obj.put("record_id", prevDataId);
 
-				System.out.println("压入新数据 id prevDataId: " + prevDataId);
+//				System.out.println("压入新数据 id prevDataId: " + prevDataId);
 			}
 			
 			obj.put("" + record.getItem_id(), record.getContent_item());

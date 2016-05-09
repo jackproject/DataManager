@@ -86,7 +86,7 @@ public class UploadController {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 
-			response = buildResponse(false, null);
+			response = buildResponse(false, null, null);
 			
 			// 直接终止
 			return response;
@@ -111,7 +111,7 @@ public class UploadController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			
-			response = buildResponse(false, null);
+			response = buildResponse(false, null, null);
 			return response;
 		}
 
@@ -123,7 +123,7 @@ public class UploadController {
 		
 		recordDataService.insertBatch(listRecord);
 		
-		response = buildResponse(true, listResult);
+		response = buildResponse(true, null, listResult);
 
 		return response;
 	}
@@ -353,7 +353,7 @@ public class UploadController {
 		
 		listResult.add(map);
 	}
-
+	
 	private Integer findItemId(String strItemName) {
 
 		Integer itemId = -1;
@@ -376,14 +376,14 @@ public class UploadController {
 
 		return itemId;
 	}
-
-	private String buildResponse(boolean status, Object objData) {
+	
+	private String buildResponse(boolean status, String message, Object objData) {
 		
 		String response = "";
 		
 		Map map = new HashMap();
 		map.put("success", status);
-		map.put("message", "message");
+		map.put("message", message);
 		map.put("data", objData);
 		
 		ObjectMapper objectMapper = new ObjectMapper();

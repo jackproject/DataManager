@@ -48,6 +48,25 @@ public class RecordDataService {
 
 		return listRecordData;
 	}
+
+	public List findAllByPick(List listRecordData, List<PickItem> listPickItem) {		
+
+		List list = new ArrayList();		
+
+		Integer prevDataId = -1;
+		
+		for (int i = 0; i < listRecordData.size(); i++) {
+			
+			Map map = (Map) listRecordData.get(i);
+
+			if (isMapOK(map, listPickItem)) {
+					list.add(map);
+			}
+		}
+		
+		return list;
+	}
+
 	
 	public List findAllByPick(List<PickItem> listPickItem) {		
 

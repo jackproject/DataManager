@@ -225,12 +225,69 @@ appControllers.controller(
 
 		}
 
+		$scope.page = {};
+
+		$scope.page.pageAmount = 100;
+		$scope.page.currentPage = 1;
+		$scope.page.totalCount = 100;
+
+		$scope.refreshPage = function() {
+			$scope.page.pageList = [];
+			var pageCount =  Math.ceil($scope.page.totalCount/$scope.page.pageAmount);
+			for (var i = 0; i < pageCount; i++) {
+				$scope.page.pageList.push(i+1);
+			}
+		}
+		$scope.refreshPage();
+
+		$scope.viewByPage = function(page) {
+			console.log("1 page: " + page);
+
+			if (page < 1) {
+				page = 1;
+			}
+			console.log("2 page: " + page);
+
+			if (page > $scope.page.pageList.length) {
+				page = $scope.page.pageList.length - 1;
+			}
+
+			console.log("3 page: " + page);
+
+			$scope.pick = null;
+
+			$scope.recordList = [];
+
+			var url = '';
+
+			url = 'record/recordbypage';
+
+			var pageParam = {};
+
+			pageParam.pageAmount = $scope.page.pageAmount;
+			pageParam.currentPage = page;
+			pageParam.totalCount = $scope.page.totalCount;
+
+			$http.post(url, pageParam).success(function(res) {
+
+				$scope.recordList = $scope.assembleRecordList(res.data.data);
+
+				$scope.page.totalCount = res.data.totalCount;
+				$scope.page.currentPage = page;
+
+				$scope.refreshPage();
+			});
+		}
+
+
 		$http.get('item/item').success(function(res) {
 			
 			$scope.itemList = res.data;
 
-			$scope.viewAll();
+			// $scope.viewAll();
 
+			$scope.viewByPage(1);
+			
 			var url = '';
 
 			// 加载筛选信息
@@ -244,6 +301,9 @@ appControllers.controller(
 		});
 
 		$scope.viewByPick = function(pickId) {
+
+			$scope.recordList = [];
+			
 			var url = '';
 			url = 'record/pickrecord/' + pickId;
 			$http.get(url).success(function(res) {

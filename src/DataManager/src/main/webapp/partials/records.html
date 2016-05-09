@@ -2,7 +2,7 @@
 <div class="row">
   <div class="col-xs-3">
 	<ul class="nav nav-pills nav-stacked" >
-	  <li class="active"><a ng-click="viewAll()">全部数据</a></li>
+	  <li class="active"><a ng-click="viewByPage(1)">全部数据</a></li>
 	  <li ng-repeat="pick in pickList" class="group">
 		<!-- <a class="glyphicon glyphicon-remove" role="button" ng-click="removePick(pick.pick_id)"></a> -->
 		<a role="button" ng-click="openPick(pick)">{{pick.pick_name}}</a>
@@ -77,59 +77,62 @@
 		<h3>查询结果:</h3>
 	  </div>
 	  <div class="content">
+		<div class="container-fluid">
 		<div class="row">
 		  <div class="col-sm-12">
 			<div class="pull-right">
-			  <input ng-model="query">
+			  <input ng-model="query" placeholder="输入内容进行筛选" >
 			</div>
 
 			<div class="clearfix"></div>
 		  </div>
 		</div>
+		</div>
 
 		<br>
 
+		<div class="table-responsive col-sm-12">
+		  <table class="table table-striped table-hover table-bordered">
+			<thead>
+			  <tr>
+				<th ng-repeat="item in itemList" >{{item.name}}</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr ng-repeat="record in recordList | filter:query" >
+				<td ng-repeat="r in record track by $index">{{r}}</td>
+			  </tr>
 
-		<table class="table table-striped table-hover table-bordered">
-		  <thead>
-			<tr>
-			  <th ng-repeat="item in itemList" >{{item.name}}</th>
-			</tr>
-		  </thead>
-		  <tbody>
-			<tr ng-repeat="record in recordList | filter:query" >
-			  <td ng-repeat="r in record track by $index">{{r}}</td>
-			</tr>
-
-		  </tbody>
-		</table>
+			</tbody>
+		  </table>
+		</div>
 
 		<!-- 分页 -->
-		
-		<div class="row">
+		<div class="container-fluid">
+		<div class="row" ng-show="pick==null">
 		  <div class="col-sm-12">
 			<div class="pull-left">
 			  <div class="dataTables_info" id="datatable-icons_info">
-				当前显示 1 - 2 总共： 2 记录
+				当前：第 {{100*(page.currentPage-1)}} 到 {{100*(page.currentPage)}} 条，总共:{{page.totalCount}} 条
 			  </div>
 			</div>
 			<div class="pull-right">
 			  <div class="dataTables_paginate paging_bs_normal">
 				<ul class="pagination">
-				  <li class="prev disabled">
-					<a href="#">
+				  <li class="prev">
+					<a ng-click="viewByPage(page.currentPage-1)">
 					  <span class="fa fa-angle-left">
 					  </span>
 					  &nbsp;上一页
 					</a>
 				  </li>
-				  <li class="active">
-					<a href="#">
-					  1
+				  <li ng-repeat="p in page.pageList" ng-class="{active:p==page.currentPage}">
+					<a ng-click="viewByPage(p)">
+					  {{p}}
 					</a>
 				  </li>
-				  <li class="next disabled">
-					<a href="#">
+				  <li class="next">
+					<a ng-click="viewByPage(page.currentPage+1)">
 					  下一页&nbsp;
 					  <span class="fa fa-angle-right">
 					  </span>
@@ -140,6 +143,7 @@
 			</div>
 			<div class="clearfix">
 			</div>
+		  </div>
 		  </div>
 		</div>
 
