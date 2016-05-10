@@ -1,9 +1,11 @@
 package com.soho.controller;
 
 import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,6 +19,7 @@ import jxl.read.biff.BiffException;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,8 +55,25 @@ public class UploadController {
     
     private Map mapValidate = null;
     
+    // 用于保存记录
+    private Integer userItemNameRow = 1;
     
 
+	@RequestMapping(value = "/config", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String config(@RequestBody Map<String, String> configParam) {
+
+		String response = "";
+		
+		System.out.println("itemNameRow: " + configParam.get("itemNameRow"));
+		
+		userItemNameRow = Integer.parseInt(configParam.get("itemNameRow"));
+		
+		response = buildResponse(true, null, null);
+
+		return response;
+	}
+	
 	@RequestMapping(value = "/upload", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String upload(@RequestParam("file") MultipartFile file) {
@@ -62,19 +82,20 @@ public class UploadController {
 		String response = "";
 
 		PathUtil pathUtil = new PathUtil();
-		String newFilePath = pathUtil.getWebRoot(); 
+		String uploadPath = pathUtil.getWebRoot(); 
 		
-		newFilePath += "upload/";
+		uploadPath += "upload/";
 		
-		File testFile = new File(newFilePath);
+		File testFile = new File(uploadPath);
 		if (!testFile.exists()) {
 			testFile.mkdir();
 		}
 		
-		newFilePath += new Date().getTime();
+		String newFileName = "" + new Date().getTime();
+		
+		String newFilePath = uploadPath;
+		newFilePath += newFileName;
 		newFilePath += ".xls";
-
-		System.out.println(newFilePath);
 		
 		File newFile = new File(newFilePath);
 		
@@ -99,10 +120,6 @@ public class UploadController {
 		recordDataService.deleteAll();
 		
 		
-		// 保存记录到数据库中
-		Integer itemNameRow = 1;
-
-
 		ExcelAnalyser excel = new ExcelAnalyser();
 
 		try {
@@ -119,11 +136,21 @@ public class UploadController {
 //		boolean status = saveExcelToDb(newFilePath, itemNameRow, listResult);
 		
 		
-		List listRecord = findRecordList(excel, itemNameRow, listResult);
+		List listRecord = findRecordList(excel, userItemNameRow, listResult);
 		
 		recordDataService.insertBatch(listRecord);
 		
-		response = buildResponse(true, null, listResult);
+		String logPath = uploadPath;
+		
+		String logFile = newFileName;		
+		// 日志文件
+		logFile += "_log.txt";
+
+		logPath += logFile; 
+		
+		saveListResult(logPath, listResult);
+		
+		response = buildResponse(true, logFile, listResult);
 
 		return response;
 	}
@@ -343,13 +370,42 @@ public class UploadController {
 	}
 
 
+	private void saveListResult(String path, List listResult) {
+		
+		FileWriter writer = null;
+		try {
+			writer = new FileWriter(path);
+			
+			for (int i = 0; i < listResult.size(); i++) {
+				Map map = (Map) listResult.get(i);
+
+				writer.write("位置: ");
+				writer.write((String)map.get("location"));
+				writer.write("\r\n");
+
+				writer.write("错误提示: ");
+				writer.write((String)map.get("message"));
+				writer.write("\r\n");
+				
+				writer.write("\r\n");
+			}
+
+			writer.flush();
+	        writer.close();
+	        
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}	
+
+	}
+
 	private void appendListResult(List listResult, String location,
 			String message) {
 		Map map = new HashMap();
 		
 		map.put("location", location);
 		map.put("message", message);
-		
 		
 		listResult.add(map);
 	}

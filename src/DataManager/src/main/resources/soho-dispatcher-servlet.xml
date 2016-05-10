@@ -59,6 +59,7 @@
 	<mvc:resources location="/resources/" mapping="/resources/**" />
 	<mvc:resources location="/json/" mapping="/json/**" />
 	<mvc:resources location="/js/" mapping="/js/**" />
+	<mvc:resources location="/upload/" mapping="/upload/**.txt" />
 	<mvc:resources location="/" mapping="/**.html" />
 
 <!-- 	<mvc:default-servlet-handler/> -->

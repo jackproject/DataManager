@@ -1122,6 +1122,107 @@ SELECT {fn CONCAT(CONVERT(user_id,CHAR),USER_NAME)} AS str FROM t_sys_user
   :ARCHIVE_CATEGORY: README
   :ARCHIVE_TODO: DONE
   :END:
+* DONE 上传文件进度提示
+  - State "DONE"       from ""           [2016-05-07 周六 15:47]
+  CLOCK: [2016-05-07 周六 15:15]--[2016-05-07 周六 15:47] =>  0:32
+  CLOCK: [2016-05-05 周四 21:03]--[2016-05-05 周四 21:21] =>  0:18
+  CLOCK: [2016-05-05 周四 20:14]--[2016-05-05 周四 20:30] =>  0:16
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-05-10 周二 19:39
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+* DONE 文件上传
+  - State "DONE"       from ""           [2016-05-07 周六 15:47]
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-05-10 周二 19:39
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE 修改日期格式
+  - State "DONE"       from ""           [2016-05-07 周六 21:06]
+  CLOCK: [2016-05-07 周六 17:02]--[2016-05-07 周六 17:03] =>  0:10
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-05-10 周二 19:39
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE 先验证字段，再批量更新数据
+   - State "DONE"       from ""           [2016-05-07 周六 18:45]
+   CLOCK: [2016-05-07 周六 18:16]--[2016-05-07 周六 18:45] =>  0:29
+   CLOCK: [2016-05-07 周六 17:19]--[2016-05-07 周六 18:05] =>  0:46
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-05-10 周二 19:39
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+
+设置成员变量为单例对象
+
+Connection is read-only. Queries leading to data modification are not allowed
+
+方法名必须是 insert* 的格式
+
+
+
+---------
+记录在 128 时出现错乱，必须这样改
+
+			if (!prevDataId.equals(record.getData_id())) {
+
+
+
+// 内容为空则跳过
+
+
+* DONE 实现分页查询数据
+   - State "DONE"       from ""           [2016-05-09 周一 23:59]
+   CLOCK: [2016-05-09 周一 22:43]--[2016-05-09 周一 23:10] =>  0:27
+   CLOCK: [2016-05-09 周一 20:20]--[2016-05-09 周一 21:01] =>  0:41
+   CLOCK: [2016-05-07 周六 21:51]--[2016-05-07 周六 22:06] =>  0:15
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-05-10 周二 19:39
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+
+分页的参数设置：
+1. 总记录数
+2. 当前页面
+3. 每页数量
+
+* DONE 调整页面铺满浏览器
+   - State "DONE"       from ""           [2016-05-10 周二 19:35]
+   CLOCK: [2016-05-07 周六 14:55]--[2016-05-07 周六 15:05] =>  0:10
+   CLOCK: [2016-05-05 周四 21:53]--[2016-05-05 周四 22:02] =>  0:09
+   CLOCK: [2016-05-05 周四 21:34]--[2016-05-05 周四 21:42] =>  0:08
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-05-10 周二 19:39
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+
+查询 bootstrap 中，
+
+
+
+
+
+
 
 
 

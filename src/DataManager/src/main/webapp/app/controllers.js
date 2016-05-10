@@ -419,29 +419,68 @@ appControllers.controller(
 
 appControllers.controller(
 	'UploadCtrl',
-	['$scope', '$http', 'FileUploader', 'MenuService', function($scope, $http, FileUploader, MenuService) {
+	['$scope', '$http', '$cookieStore', 'FileUploader', 'MenuService', function($scope, $http, $cookieStore, FileUploader, MenuService) {
 
 		MenuService.setCurrentMenu("upload");
 
 		var url = "file/upload";
 
 		$scope.uploader = new FileUploader({
-			url: url
+			url: url,
+			queueLimit: 1,   //文件个数 
+			removeAfterUpload: true  //上传后删除文件
 		});
+
+        $scope.uploader.onBeforeUploadItem = function(item) {
+			// 清空日志提示
+			$scope.uploadList = [];
+
+			var url = '';
+			url = 'file/config';
+
+			var param = {};
+
+			param.itemNameRow = $scope.param.itemNameRow;
+			
+			$http.post(url, param).success(function(res) {
+				var expireDate = new Date();
+				expireDate.setDate(expireDate.getDate() + 10000);
+
+				$cookieStore.put("itemNameRow", param.itemNameRow, {'expires': expireDate});
+			});
+        };
+
 
 		$scope.uploader.onSuccessItem = function(fileItem, response, status, headers) {
 			$scope.uploadList = response.data;
 
 			if (response.success) {
+				$scope.logUrl = "upload/" + response.message;
+
 				alert('上传成功!');
 			} else {
 				alert('上传失败!');
 			}
 		};
 
+
+		$scope.downloadLog = function(logUrl) {
+			window.open(logUrl);
+		}
+
+		$scope.uploadList = [];
+		$scope.logUrl = null;
+
 		$scope.param = {
 			itemNameRow: 2
 		};
+
+
+		var itemNameRow = $cookieStore.get("itemNameRow");
+		if (itemNameRow) {
+			$scope.param.itemNameRow = itemNameRow;
+		}
+
 	}]
 );
 
