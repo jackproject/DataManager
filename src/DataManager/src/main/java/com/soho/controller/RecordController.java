@@ -52,14 +52,15 @@ public class RecordController {
 		System.out.println("listRecordData:" + listRecordData);
 		
 		String response = "";
+
 		
-		if (listRecordData == null) {
+		Integer currentPage = pageParam.getCurrentPage();
+		
+		if (listRecordData == null || currentPage.equals(1)) {
 			System.out.println("listRecordData is null");
 			
 			listRecordData = createClientList(recordDataService.findAll());
 		}
-		
-		Integer currentPage = pageParam.getCurrentPage();
 		
 		Integer start = (pageParam.getCurrentPage() - 1) * pageParam.getPageAmount();
 		Integer end = start + pageParam.getPageAmount();
