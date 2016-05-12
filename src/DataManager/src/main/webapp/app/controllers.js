@@ -227,14 +227,25 @@ appControllers.controller(
 
 		$scope.page = {};
 
-		$scope.page.pageAmount = 100;
+		$scope.page.pageAmount = 20;
 		$scope.page.currentPage = 1;
 		$scope.page.totalCount = 100;
+		$scope.page.pageCount = 1;
 
 		$scope.refreshPage = function() {
 			$scope.page.pageList = [];
-			var pageCount =  Math.ceil($scope.page.totalCount/$scope.page.pageAmount);
-			for (var i = 0; i < pageCount; i++) {
+			var pageCount = $scope.page.pageCount = Math.ceil($scope.page.totalCount/$scope.page.pageAmount);
+
+			var k = parseInt(($scope.page.currentPage-1) / 10);
+
+			var start = 10*k;
+			var end = 10*(k+1);
+
+			if (end > pageCount) {
+				end = pageCount;
+			}
+
+			for (var i = start; i < end; i++) {
 				$scope.page.pageList.push(i+1);
 			}
 		}
@@ -248,8 +259,8 @@ appControllers.controller(
 			}
 			console.log("2 page: " + page);
 
-			if (page > $scope.page.pageList.length) {
-				page = $scope.page.pageList.length - 1;
+			if (page > $scope.page.pageCount) {
+				page = $scope.page.pageCount - 1;
 			}
 
 			console.log("3 page: " + page);
@@ -328,6 +339,18 @@ appControllers.controller(
 			return name;
 		}
 
+		$scope.findItemByItemId = function(itemId) {
+			var result = null;
+			for (var i = 0; i < $scope.itemList.length; i++) {
+				var item = $scope.itemList[i];
+				if (item.item_id == itemId) {
+					result = item;
+					break;
+				}
+			}
+
+			return result;
+		}
 
 		$scope.openPick = function(pick) {
 			$scope.pick = pick;
@@ -363,8 +386,35 @@ appControllers.controller(
 		// ---------
 
 
-		$scope.currentPickItem = {
-		};
+		$scope.currentPickItem = {};
+
+		$scope.itemChange = function(itemId) {
+			var item = $scope.findItemByItemId(itemId);
+			if (item == null) {
+				return ;
+			}
+
+			$scope.creatWarning = "";
+
+			if (item.type == "字符串") {
+				$scope.creatWarning = "格式: 字符串，";
+				$scope.creatWarning += "长度不能超过";
+				$scope.creatWarning += item.maxlength;
+			} else if (item.type == "数值") {
+				$scope.creatWarning = "格式: 数字";
+			} else if (item.type == "系统项") {
+			} else if (item.type == "日期") {
+				$scope.creatWarning = "格式: 日期，形如：2016-01-01";
+			}
+		}
+
+		$scope.creatPickItem = function() {
+			// $scope.currentPickItem = {};
+
+			$scope.creatWarning = '';
+
+			$('#createPickItemModal').modal('show');
+		}
 
 		$scope.savePickItem = function(pickItem) {
 

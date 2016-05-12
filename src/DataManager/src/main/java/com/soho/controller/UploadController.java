@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -372,13 +373,42 @@ public class UploadController {
 
 	private void saveListResult(String path, List listResult) {
 		
+		try {
+			FileOutputStream fos = new FileOutputStream(path);
+			OutputStreamWriter osw = new OutputStreamWriter(fos, "gbk");
+	        
+			StringBuilder fileContent = new StringBuilder();
+		        
+			for (int i = 0; i < listResult.size(); i++) {
+				Map map = (Map) listResult.get(i);
+
+				fileContent.append("位置: ");
+				fileContent.append((String)map.get("location"));
+				fileContent.append("\r\n");
+
+				fileContent.append("错误提示: ");
+				fileContent.append((String)map.get("message"));
+				fileContent.append("\r\n");
+				
+				fileContent.append("\r\n");
+		
+			}
+			osw.write(fileContent.toString());
+			osw.flush();	
+			
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}	
+
+/*
 		FileWriter writer = null;
 		try {
 			writer = new FileWriter(path);
 			
 			for (int i = 0; i < listResult.size(); i++) {
 				Map map = (Map) listResult.get(i);
-
+		
 				writer.write("位置: ");
 				writer.write((String)map.get("location"));
 				writer.write("\r\n");
@@ -389,7 +419,7 @@ public class UploadController {
 				
 				writer.write("\r\n");
 			}
-
+	
 			writer.flush();
 	        writer.close();
 	        
@@ -397,7 +427,7 @@ public class UploadController {
 			
 			e.printStackTrace();
 		}	
-
+*/
 	}
 
 	private void appendListResult(List listResult, String location,

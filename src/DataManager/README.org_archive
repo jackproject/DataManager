@@ -1218,6 +1218,75 @@ Connection is read-only. Queries leading to data modification are not allowed
 
 查询 bootstrap 中，
 
+* DONE learn
+   - State "DONE"       from ""           [2016-05-10 周二 20:27]
+   CLOCK: [2016-05-10 周二 19:45]--[2016-05-10 周二 20:27] =>  0:42
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-05-11 周三 19:26
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+
+angular-file-upload 限定文件类型
+angular-file-upload 参数
+
+
+http://www.haorooms.com/post/input_file_leixing
+
+*.xls           application/vnd.ms-excel   
+
+
+* DONE 用户自定义字段位置
+   - State "DONE"       from ""           [2016-05-10 周二 20:39]
+   CLOCK: [2016-05-10 周二 19:28]--[2016-05-10 周二 19:28] =>  0:00
+   CLOCK: [2016-05-07 周六 16:02]--[2016-05-07 周六 16:46] =>  0:44
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-05-11 周三 19:26
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+
+由于文件请求中，没有其他参数，暂时没想到办法
+
+使用 cookie
+
+* DONE 保存文件日志
+   SCHEDULED: <2016-05-09 周一>
+   - State "DONE"       from ""           [2016-05-10 周二 21:41]
+   CLOCK: [2016-05-10 周二 21:18]--[2016-05-10 周二 21:41] =>  0:23
+   CLOCK: [2016-05-10 周二 20:40]--[2016-05-10 周二 21:01] =>  0:21
+   CLOCK: [2016-05-09 周一 20:13]--[2016-05-09 周一 20:19] =>  0:06
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-05-11 周三 19:26
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+
+客户端来保存 json 到 文件
+
+* DONE 限定只能选择xls文档
+   - State "DONE"       from ""           [2016-05-10 周二 20:39]
+   CLOCK: [2016-05-10 周二 19:21]--[2016-05-10 周二 19:24] =>  0:03
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-05-11 周三 19:26
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+
+搜索
+
+
+
+
+
 
 
 
