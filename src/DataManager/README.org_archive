@@ -1283,6 +1283,112 @@ http://www.haorooms.com/post/input_file_leixing
 
 搜索
 
+* DONE 评估 查询 的或 功能
+   - State "DONE"       from ""           [2016-05-12 周四 22:33]
+   CLOCK: [2016-05-12 周四 21:52]--[2016-05-12 周四 22:33] =>  0:41
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-05-13 周五 19:06
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+，
+
+或
+
+
+预算、结算
+
+那么逗号不能作为输入
+
+* DONE 新需求
+   - State "DONE"       from ""           [2016-05-12 周四 20:19]
+   CLOCK: [2016-05-12 周四 19:54]--[2016-05-12 周四 20:19] =>  0:25
+   CLOCK: [2016-05-12 周四 19:04]--[2016-05-12 周四 19:35] =>  0:31
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-05-13 周五 19:06
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+
+1. 修改首页记录样式及分页条数
+2. 统一 "删除按钮" 的按钮样式
+3. 创建筛选条件时， 增加字段的提示
+4. 解决打开上传日志乱码问题
+
+
+---------
+有余力的，剩余的
+
+1. 匹配多个字段， 或者的关系
+
+2. 界面边框
+
+3. 字符的
+   对于
+
+4. 显示
+
+5. “选择文件" 是否带图片 （延迟）
+
+6. 上传文件时，提示“正在处理中”对话框，等上传完成之后 取消对话框（延迟）
+	        
+
+
+
+* DONE 表格缩进
+   - State "DONE"       from ""           [2016-05-11 周三 20:32]
+   CLOCK: [2016-05-11 周三 20:17]--[2016-05-11 周三 20:27] =>  0:10
+   CLOCK: [2016-05-11 周三 19:38]--[2016-05-11 周三 19:46] =>  0:08
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-05-13 周五 19:06
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+
+
+
+表格列头因为不知道具体字段该字段内容的长度，暂时有两种处理方案
+1. 统一设定每列的最小宽度 200px
+2. 根据表头内容长度进行相应的设置，字段头越长，内容越宽。
+   这样也存在问题，比如“备注”不长，但内容会比较多，内容的显示也不是很好看。
+
+两种方式都可以实现，不知哪种你们容易接受些。
+
+http://119.29.102.203:22080/DataManager/#/records 已更新成 第2种方式
+
+
+
+
+* DONE 日志编码
+   - State "DONE"       from ""           [2016-05-13 周五 19:06]
+   CLOCK: [2016-05-11 周三 20:33]--[2016-05-11 周三 20:49] =>  0:16
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-05-13 周五 19:06
+  :ARCHIVE_FILE: d:/百度云同步盘/emacs/project/code/DataManager/src/DataManager/README.org
+  :ARCHIVE_OLPATH: nextstep
+  :ARCHIVE_CATEGORY: README
+  :ARCHIVE_TODO: DONE
+  :END:
+
+java.io.UnsupportedEncodingException:  UTF-8 
+
+
+改成 GBK 编码
+
+
+			FileOutputStream fos = new FileOutputStream(path);
+			OutputStreamWriter osw = new OutputStreamWriter(fos, "gbk");
+
+
+
+
+
 
 
 

@@ -47,9 +47,9 @@ public class RecordController {
 	@RequestMapping(value = "/recordbypage", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String viewByPage(@RequestBody PageParam pageParam) {
-
-		System.out.println("pageParam:" + pageParam);
-		System.out.println("listRecordData:" + listRecordData);
+//
+//		System.out.println("pageParam:" + pageParam);
+//		System.out.println("listRecordData:" + listRecordData);
 		
 		String response = "";
 
@@ -80,7 +80,47 @@ public class RecordController {
 
 		return response;
 	}
+
     
+	@RequestMapping(value = "/pickrecordbypage/{pickId}", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String viewByPickIdAndPage(@PathVariable String pickId, @RequestBody PageParam pageParam) {
+
+		String response = "";
+
+		
+		Integer currentPage = pageParam.getCurrentPage();
+		
+		if (listRecordData == null || currentPage.equals(1)) {
+			System.out.println("listRecordData is null");
+			
+			listRecordData = createClientList(recordDataService.findAll());
+		}
+		
+		Integer nPickId = Integer.parseInt(pickId);
+		
+		List<PickItem> listPickItem = pickItemService.findByPickId(nPickId);
+		
+		List list = recordDataService.findAllByPick(listRecordData, listPickItem);
+		
+		Integer start = (pageParam.getCurrentPage() - 1) * pageParam.getPageAmount();
+		Integer end = start + pageParam.getPageAmount();
+		
+		if (end > list.size()) {
+			end = list.size();
+		}		
+
+		List listPage = list.subList(start, end);
+		
+		Map map = new HashMap();
+		
+		map.put("totalCount", list.size());
+		map.put("data", listPage);
+		
+		response = buildResponse(map);
+
+		return response;
+	}
     
 	@RequestMapping(value = "/record", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	@ResponseBody

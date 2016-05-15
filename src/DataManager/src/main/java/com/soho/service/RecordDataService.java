@@ -210,7 +210,24 @@ public class RecordDataService {
 			break;
 			
 		default:
-			ret = (strContent.equals(strValue));
+			{
+
+				String separator = ",";
+				
+				strValue.replace("，", separator);
+				
+				String[] arr = strValue.split(separator);
+				
+
+				ret = false;
+				for (int i = 0; i < arr.length; i++) {
+					if (strContent.equals(arr[i])) {
+						ret = true;
+						break;
+					}					
+				}
+				
+			}
 			break;
 		}
 		

@@ -248,30 +248,36 @@ appControllers.controller(
 			for (var i = start; i < end; i++) {
 				$scope.page.pageList.push(i+1);
 			}
+
+			console.log($scope.page.pageList);
 		}
 		$scope.refreshPage();
 
-		$scope.viewByPage = function(page) {
-			console.log("1 page: " + page);
+		$scope.viewAllData = function() {
+			$scope.pick = null;
 
+			$scope.viewByPage(1);
+		}
+
+		$scope.viewByPage = function(page, pick) {
 			if (page < 1) {
 				page = 1;
 			}
-			console.log("2 page: " + page);
 
 			if (page > $scope.page.pageCount) {
 				page = $scope.page.pageCount - 1;
 			}
 
-			console.log("3 page: " + page);
-
-			$scope.pick = null;
-
 			$scope.recordList = [];
 
 			var url = '';
 
-			url = 'record/recordbypage';
+			if (!pick) {
+				url = 'record/recordbypage';
+			} else {
+				url = 'record/pickrecordbypage/' + pick.pick_id;
+			}
+			console.log("url: " + url);
 
 			var pageParam = {};
 
@@ -355,7 +361,10 @@ appControllers.controller(
 		$scope.openPick = function(pick) {
 			$scope.pick = pick;
 
-			$scope.viewByPick(pick.pick_id);
+			console.log($scope.pick);
+
+			// $scope.viewByPick(pick.pick_id);
+			$scope.viewByPage(1, pick);
 		}
 
 		$scope.currentPick = {
@@ -389,6 +398,10 @@ appControllers.controller(
 		$scope.currentPickItem = {};
 
 		$scope.itemChange = function(itemId) {
+			if (!itemId) {
+				return ;
+			}
+
 			var item = $scope.findItemByItemId(itemId);
 			if (item == null) {
 				return ;
@@ -397,7 +410,7 @@ appControllers.controller(
 			$scope.creatWarning = "";
 
 			if (item.type == "字符串") {
-				$scope.creatWarning = "格式: 字符串，";
+				$scope.creatWarning = "格式: 字符串(如有多个匹配值请用【英文状态的逗号】隔开)，";
 				$scope.creatWarning += "长度不能超过";
 				$scope.creatWarning += item.maxlength;
 			} else if (item.type == "数值") {
@@ -412,6 +425,8 @@ appControllers.controller(
 			// $scope.currentPickItem = {};
 
 			$scope.creatWarning = '';
+
+			$scope.itemChange($scope.currentPickItem.item_id);
 
 			$('#createPickItemModal').modal('show');
 		}
