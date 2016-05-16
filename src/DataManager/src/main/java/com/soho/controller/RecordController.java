@@ -106,10 +106,19 @@ public class RecordController {
 		Integer start = (pageParam.getCurrentPage() - 1) * pageParam.getPageAmount();
 		Integer end = start + pageParam.getPageAmount();
 		
+		
+		if (start < 0) {
+			start = 0;
+		}
+
+		if (start > end) {
+			end = start;
+		}
+		
 		if (end > list.size()) {
 			end = list.size();
-		}		
-
+		}
+		
 		List listPage = list.subList(start, end);
 		
 		Map map = new HashMap();

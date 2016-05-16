@@ -214,6 +214,8 @@ appControllers.controller(
 		$scope.viewAll = function() {
 			$scope.pick = null;
 
+			angular.copy($scope.itemDefaultList, $scope.itemList);
+
 			var url = '';
 
 			// url = 'json/record.json';
@@ -231,6 +233,7 @@ appControllers.controller(
 		$scope.page.currentPage = 1;
 		$scope.page.totalCount = 100;
 		$scope.page.pageCount = 1;
+		$scope.page.pageGoTo = 1;
 
 		$scope.refreshPage = function() {
 			$scope.page.pageList = [];
@@ -248,8 +251,6 @@ appControllers.controller(
 			for (var i = start; i < end; i++) {
 				$scope.page.pageList.push(i+1);
 			}
-
-			console.log($scope.page.pageList);
 		}
 		$scope.refreshPage();
 
@@ -260,12 +261,12 @@ appControllers.controller(
 		}
 
 		$scope.viewByPage = function(page, pick) {
-			if (page < 1) {
-				page = 1;
+			if (pick) {
+				$scope.updateItemList();
 			}
 
-			if (page > $scope.page.pageCount) {
-				page = $scope.page.pageCount - 1;
+			if (page < 1) {
+				page = 1;
 			}
 
 			$scope.recordList = [];
@@ -278,6 +279,7 @@ appControllers.controller(
 				url = 'record/pickrecordbypage/' + pick.pick_id;
 			}
 			console.log("url: " + url);
+			console.log("page: " + page);
 
 			var pageParam = {};
 
@@ -290,6 +292,11 @@ appControllers.controller(
 				$scope.recordList = $scope.assembleRecordList(res.data.data);
 
 				$scope.page.totalCount = res.data.totalCount;
+
+				// if (page > $scope.page.pageCount) {
+				// 	page = $scope.page.pageCount - 1;
+				// }
+
 				$scope.page.currentPage = page;
 
 				$scope.refreshPage();
@@ -298,8 +305,15 @@ appControllers.controller(
 
 
 		$http.get('item/item').success(function(res) {
+
+			// 默认数组元素
+			$scope.itemDefaultList = res.data;
+
+			$scope.itemList = [];
+
+			angular.copy($scope.itemDefaultList, $scope.itemList);
 			
-			$scope.itemList = res.data;
+			// $scope.itemList = res.data;
 
 			// $scope.viewAll();
 
@@ -334,8 +348,8 @@ appControllers.controller(
 
 		$scope.findItemNameByItemId = function(itemId) {
 			var name = '';
-			for (var i = 0; i < $scope.itemList.length; i++) {
-				var item = $scope.itemList[i];
+			for (var i = 0; i < $scope.itemDefaultList.length; i++) {
+				var item = $scope.itemDefaultList[i];
 				if (item.item_id == itemId) {
 					name = item.name;
 					break;
@@ -347,8 +361,8 @@ appControllers.controller(
 
 		$scope.findItemByItemId = function(itemId) {
 			var result = null;
-			for (var i = 0; i < $scope.itemList.length; i++) {
-				var item = $scope.itemList[i];
+			for (var i = 0; i < $scope.itemDefaultList.length; i++) {
+				var item = $scope.itemDefaultList[i];
 				if (item.item_id == itemId) {
 					result = item;
 					break;
@@ -358,10 +372,64 @@ appControllers.controller(
 			return result;
 		}
 
+		$scope.findItemByItemName = function(itemName) {
+			var result = null;
+			for (var i = 0; i < $scope.itemDefaultList.length; i++) {
+				var item = $scope.itemDefaultList[i];
+				if (item.name == itemName) {
+					result = item;
+					break;
+				}
+			}
+
+			return result;
+		}
+
+		$scope.updateItemList = function() {
+
+			var pick = $scope.pick;
+
+			console.log($scope.pick);
+
+			var defaultItemName = ["日期", "报告编号", "工程名称", "委托单位"];
+
+			var itemList = [];
+			for (var i = 0; i < defaultItemName.length; i++) {
+				var item = $scope.findItemByItemName(defaultItemName[i]);
+
+				if (item) {
+					itemList.push(item);
+				}
+			}
+
+			console.log("itemList: " + itemList);
+			console.log("pick.pick_item: " + pick.pick_item);
+
+			for (var i = 0; i < pick.pick_item.length; i++) {
+				var item = $scope.findItemByItemId(pick.pick_item[i].item_id);
+
+				if (item) {
+
+					var flag = true;
+					for (var j = 0; j < itemList.length; j++) {
+						if (item.item_id == itemList[j].item_id) {
+							flag = false;
+							break;
+						}
+					}
+
+					if (flag) {
+						itemList.push(item);
+					}
+				}
+			}
+
+			$scope.itemList = itemList;
+		}
+
 		$scope.openPick = function(pick) {
 			$scope.pick = pick;
 
-			console.log($scope.pick);
 
 			// $scope.viewByPick(pick.pick_id);
 			$scope.viewByPage(1, pick);

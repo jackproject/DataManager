@@ -123,8 +123,6 @@ public class RecordDataService {
 	// 判断当前 Map 数据是否满足所有的筛选条件
 	private Boolean isMapOK(Map map, List<PickItem> listPickItem) {
 		
-		System.out.println("record id: " + map.get("data_id"));
-
 		for (int i = 0; i < listPickItem.size(); i++) {
 
 			PickItem pickItem = listPickItem.get(i);

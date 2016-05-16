@@ -120,11 +120,17 @@
 		  <div class="col-sm-12">
 			<div class="pull-left">
 			  <div class="dataTables_info" id="datatable-icons_info">
-				当前：第 {{page.pageAmount*(page.currentPage-1)}} 到 {{page.pageAmount*(page.currentPage)}} 条，总计:{{page.totalCount}} 条, {{page.pageCount}} 页 
+				当前：第 {{page.pageAmount*(page.currentPage-1)}} 到 {{page.pageAmount*(page.currentPage)}} 条，总计:{{page.totalCount}} 条, {{page.pageCount}} 页， 跳到 <input type="text" style="width:25px;" ng-model="page.pageGoTo" > 页
+				<button class="btn btn-sm btn-default" ng-click="viewByPage(page.pageGoTo, pick)">确定</button>
+
+
 			  </div>
 			</div>
 			<div class="pull-right">
 			  <div class="dataTables_paginate paging_bs_normal">
+
+				
+
 				<ul class="pagination">
 				  <li class="prev">
 					<a ng-click="viewByPage(page.currentPage-1, pick)">
@@ -133,7 +139,7 @@
 					  &nbsp;上一页
 					</a>
 				  </li>
-				  <li ng-show="page.pageList[0] != 1">
+				  <li ng-show="page.pageCount > 0 && page.pageList[0] != 1">
 					<a>
 					...
 					</a>
@@ -146,7 +152,7 @@
 					</a>
 				  </li>
 
-				  <li ng-show="page.pageList[page.pageList.length-1] != page.pageCount">
+				  <li ng-show="page.pageCount > 0 && page.pageList[page.pageList.length-1] != page.pageCount">
 					<a>
 					...
 					</a>
@@ -214,7 +220,7 @@
 		<div class="form-group">
           <label>字段：</label>
 		  <select class="form-control dropdown" ng-model="currentPickItem.item_id" ng-change="itemChange(currentPickItem.item_id)">
-            <option ng-repeat="item in itemList" value="{{item.item_id}}">{{item.name}}</option>
+            <option ng-repeat="item in itemDefaultList" value="{{item.item_id}}">{{item.name}}</option>
           </select>									
         </div>
         <div class="form-group">
