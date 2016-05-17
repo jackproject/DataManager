@@ -118,6 +118,10 @@ public class RecordController {
 		if (end > list.size()) {
 			end = list.size();
 		}
+
+		if (start > end) {
+			start = end ;
+		}
 		
 		List listPage = list.subList(start, end);
 		

@@ -131,41 +131,44 @@
 
 				
 
-				<ul class="pagination">
-				  <li class="prev">
-					<a ng-click="viewByPage(page.currentPage-1, pick)">
-					  <span class="fa fa-angle-left">
-					  </span>
-					  &nbsp;上一页
-					</a>
-				  </li>
-				  <li ng-show="page.pageCount > 0 && page.pageList[0] != 1">
-					<a>
-					...
-					</a>
+				<nav>
+				  <ul class="pagination">
+					<li class="prev">
+					  <a ng-click="viewByPage(page.currentPage-1, pick)">
+						<span class="fa fa-angle-left">
+						</span>
+						&nbsp;上一页
+					  </a>
+					</li>
+					<li ng-show="page.pageCount > 0 && page.pageList[0] != 1">
+					  <a>
+						...
+					  </a>
 
-				  </li>
+					</li>
 
-				  <li ng-repeat="p in page.pageList" ng-class="{active:p==page.currentPage}">
-					<a ng-click="viewByPage(p, pick)">
-					  {{p}}
-					</a>
-				  </li>
+					<li ng-repeat="p in page.pageList" ng-class="{active:p==page.currentPage}">
+					  <a ng-click="viewByPage(p, pick)">
+						{{p}}
+					  </a>
+					</li>
 
-				  <li ng-show="page.pageCount > 0 && page.pageList[page.pageList.length-1] != page.pageCount">
-					<a>
-					...
-					</a>
-				  </li>
+					<li ng-show="page.pageCount > 0 && page.pageList[page.pageList.length-1] != page.pageCount">
+					  <a>
+						...
+					  </a>
+					</li>
 
-				  <li class="next">
-					<a ng-click="viewByPage(page.currentPage+1, pick)">
-					  下一页&nbsp;
-					  <span class="fa fa-angle-right">
-					  </span>
-					</a>
-				  </li>
-				</ul>
+					<li class="next">
+					  <a ng-click="viewByPage(page.currentPage+1, pick)">
+						下一页&nbsp;
+						<span class="fa fa-angle-right">
+						</span>
+					  </a>
+					</li>
+				  </ul>
+				</nav>
+
 			  </div>
 			</div>
 			<div class="clearfix">
