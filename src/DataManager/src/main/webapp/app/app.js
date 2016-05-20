@@ -26,8 +26,6 @@ app.constant('AUTH_EVENTS', {
 app.run(function ($rootScope, $state, AUTH_EVENTS, AuthService) {
 	$rootScope.$on('$stateChangeStart', function (event, next) {
 
-		console.log('next.name:' + next.name);
-
 		if (next.name == 'login' || next.name == 'sign_up' || next.name == 'forgot_password') {
 			// 这时是可以访问页面的
 			return ;

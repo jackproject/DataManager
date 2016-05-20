@@ -56,8 +56,6 @@ appControllers.controller(
 
 			var pick = $scope.pick;
 
-			console.log($scope.pick);
-
 			var defaultItemName = ["日期", "报告编号", "工程名称", "委托单位"];
 
 			var itemList = [];
@@ -183,11 +181,16 @@ appControllers.controller(
 		$scope.viewAllData = function() {
 			$scope.pick = null;
 
+			// 还原之前的字段列表
+			angular.copy($scope.itemDefaultList, $scope.itemList);
+
 			$scope.viewByPage(1);
 		}
 
 		// 点击具体页面的查看信息
 		$scope.viewByPage = function(page, pick) {
+			$scope.recordList = [];
+
 			if (pick) {
 				$scope.updateItemList();
 			}
@@ -199,8 +202,6 @@ appControllers.controller(
 			if (page < 1) {
 				page = 1;
 			}
-
-			$scope.recordList = [];
 
 			var url = '';
 

@@ -150,6 +150,13 @@ public class RecordDataService {
 		}
 		
 		Integer choice = pickItem.getChoice();
+		
+		
+		if (choice == null) {
+			// 没有选择比较条件，那么默认是满足此验证的
+			return true;
+		}
+		
 		String strValue = pickItem.getPick_value();
 
 		Item item = itemService.findItemByItemId(itemId);
@@ -158,8 +165,17 @@ public class RecordDataService {
 		
 		switch (item.getType()) {
 		case 1: {
-			float v1 = Float.parseFloat(strContent);
-			float v2 = Float.parseFloat(strValue);
+
+			float v1 = 0;
+			float v2 = 0;
+			try {
+				v1 = Float.parseFloat(strContent);
+				v2 = Float.parseFloat(strValue);
+				
+			} catch (NumberFormatException e) {
+				// 转换格式出错的数据，直接跳过
+				return false;
+			}
 
 			switch (choice) {
 			case 0:
@@ -189,6 +205,8 @@ public class RecordDataService {
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				
+				return false;
 			}
 
 			switch (choice) {
@@ -210,6 +228,11 @@ public class RecordDataService {
 		default:
 			{
 
+				if (strValue == null) {
+					ret = true;
+					break;
+				}
+				
 				String separator = ",";
 				
 				strValue.replace("，", separator);
